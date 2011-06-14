@@ -1,0 +1,35 @@
+Game Engine
+===========
+This engine will be a library that is usable by anyone, so please document the 
+functions you create in the h-files so that we can use doxygen, or a similar program later.
+
+
+How to add new sourcefiles
+--------------------------
+Since I decided we should use autoconf and automake to make our lives easier.
+I've gone ahead and incorporated all the scripts necessary to use them. 
+
+To add a new file to the buildscript, open src/Makefile.am
+in there, you will find a variable named libgameengine_la_SOURCES, 
+this is a list of all sourcefiles that should be available in the library.
+
+There is also en enginetest_SOURCES, this is to create an executable testsuite 
+for the library, please do not touch this unless you have a good reason. 
+To add a test file to the testsuite, please add the h-file to the test_sources variable.
+
+When you are finished save and close Makefile.am and proceed to run bootstrap, 
+this will generate the new Makefile which you then can use in the compilation.
+
+
+How to compile
+--------------
+$ configure --enable-debug
+$ make
+# make install
+
+Dependencies
+------------
+libsdl1.2
+libsdl-ttf2.0
+libsdl-image1.2
+

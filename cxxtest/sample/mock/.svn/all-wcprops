@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/cxxtest/!svn/ver/129/trunk/sample/mock
+END
+MockStdlib.h
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/cxxtest/!svn/ver/47/trunk/sample/mock/MockStdlib.h
+END
+Dice.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/cxxtest/!svn/ver/47/trunk/sample/mock/Dice.cpp
+END
+real_stdlib.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/cxxtest/!svn/ver/47/trunk/sample/mock/real_stdlib.cpp
+END
+roll.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/cxxtest/!svn/ver/47/trunk/sample/mock/roll.cpp
+END
+Dice.h
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/cxxtest/!svn/ver/47/trunk/sample/mock/Dice.h
+END
+TestDice.h
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/cxxtest/!svn/ver/47/trunk/sample/mock/TestDice.h
+END
+mock_stdlib.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/cxxtest/!svn/ver/47/trunk/sample/mock/mock_stdlib.cpp
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/cxxtest/!svn/ver/129/trunk/sample/mock/Makefile
+END

@@ -1,0 +1,83 @@
+K 25
+svn:wc:ra_dav:version-url
+V 40
+/svn/cxxtest/!svn/ver/48/trunk/test/fake
+END
+qstatusbar.h
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/cxxtest/!svn/ver/48/trunk/test/fake/qstatusbar.h
+END
+windows.h
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/cxxtest/!svn/ver/48/trunk/test/fake/windows.h
+END
+qprogressbar.h
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/cxxtest/!svn/ver/48/trunk/test/fake/qprogressbar.h
+END
+qlayout.h
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/cxxtest/!svn/ver/48/trunk/test/fake/qlayout.h
+END
+qmessagebox.h
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/cxxtest/!svn/ver/48/trunk/test/fake/qmessagebox.h
+END
+qpixmap.h
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/cxxtest/!svn/ver/48/trunk/test/fake/qpixmap.h
+END
+qlabel.h
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/cxxtest/!svn/ver/48/trunk/test/fake/qlabel.h
+END
+commctrl.h
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/cxxtest/!svn/ver/48/trunk/test/fake/commctrl.h
+END
+qglobal.h
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/cxxtest/!svn/ver/48/trunk/test/fake/qglobal.h
+END
+qwidget.h
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/cxxtest/!svn/ver/48/trunk/test/fake/qwidget.h
+END
+qapplication.h
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/cxxtest/!svn/ver/48/trunk/test/fake/qapplication.h
+END
+qstring.h
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/cxxtest/!svn/ver/48/trunk/test/fake/qstring.h
+END
+.cvsignore
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/cxxtest/!svn/ver/48/trunk/test/fake/.cvsignore
+END

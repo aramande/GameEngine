@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/cxxtest/!svn/ver/129/trunk/sample/winddk
+END
+SOURCES
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/cxxtest/!svn/ver/47/trunk/sample/winddk/SOURCES
+END
+RunTests.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/cxxtest/!svn/ver/47/trunk/sample/winddk/RunTests.tpl
+END
+Makefile.inc
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/cxxtest/!svn/ver/129/trunk/sample/winddk/Makefile.inc
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/cxxtest/!svn/ver/47/trunk/sample/winddk/Makefile
+END

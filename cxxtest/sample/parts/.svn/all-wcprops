@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/cxxtest/!svn/ver/129/trunk/sample/parts
+END
+Makefile.unix
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/cxxtest/!svn/ver/129/trunk/sample/parts/Makefile.unix
+END
+.cvsignore
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/cxxtest/!svn/ver/47/trunk/sample/parts/.cvsignore
+END

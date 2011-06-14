@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/cxxtest/!svn/ver/129/trunk/build_tools/SCons/test/include_CCFLAGS
+END
+TestDef.py
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/cxxtest/!svn/ver/117/trunk/build_tools/SCons/test/include_CCFLAGS/TestDef.py
+END
+SConstruct
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/cxxtest/!svn/ver/108/trunk/build_tools/SCons/test/include_CCFLAGS/SConstruct
+END
+README
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/cxxtest/!svn/ver/108/trunk/build_tools/SCons/test/include_CCFLAGS/README
+END

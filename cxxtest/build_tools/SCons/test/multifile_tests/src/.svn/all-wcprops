@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/cxxtest/!svn/ver/44/trunk/build_tools/SCons/test/multifile_tests/src
+END
+requirement.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/cxxtest/!svn/ver/44/trunk/build_tools/SCons/test/multifile_tests/src/requirement.cpp
+END
+requirement.h
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/cxxtest/!svn/ver/44/trunk/build_tools/SCons/test/multifile_tests/src/requirement.h
+END
+test_foo.t.h
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/cxxtest/!svn/ver/44/trunk/build_tools/SCons/test/multifile_tests/src/test_foo.t.h
+END
+test_bar.t.h
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/cxxtest/!svn/ver/44/trunk/build_tools/SCons/test/multifile_tests/src/test_bar.t.h
+END

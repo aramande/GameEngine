@@ -25,14 +25,14 @@ cxxtest:
 fi
 
 lib_LTLIBRARIES = libgameengine.la
-libengine_la_LIBADD = $(LIB_SDL) $(LIB_SDL_IMAGE) $(LIB_SDL_TTF)
-libengine_la_LDFLAGS = $(all_libraries) -version-info 0:0:0 -no-undefined
-libengine_la_SOURCES = \
+libgameengine_la_LIBADD = $(LIB_SDL) $(LIB_SDL_IMAGE) $(LIB_SDL_TTF)
+libgameengine_la_LDFLAGS = $(all_libraries) -version-info 0:0:0 -no-undefined
+libgameengine_la_SOURCES = \
 	button.cpp button.h \
 	component.cpp component.h \
 	gameengine.cpp gameengine.h \
 	gui.cpp gui.h \
-	sprite.cpp sprite.h \
+	sprite.cpp sprite.h 
 
 bin_PROGRAMS = enginetest
 

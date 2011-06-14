@@ -1,0 +1,104 @@
+10
+
+dir
+154
+http://cxxtest.tigris.org/svn/cxxtest/trunk/build_tools/SCons/test
+http://cxxtest.tigris.org/svn/cxxtest
+
+
+
+2009-09-08T04:06:53.707620Z
+129
+wehart
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1ca5e2b0-be53-0410-9c2d-c473b59480ba
+
+expanding_#
+dir
+
+include_CXXFLAGS
+dir
+
+globbing
+dir
+
+string_cpppath
+dir
+
+printer_propagation
+dir
+
+eprouvette.py
+file
+
+
+
+
+2011-05-08T09:05:22.566798Z
+5994af96015ba02f9c2c56ffdbb9b575
+2009-09-08T04:06:53.707620Z
+129
+wehart
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+5974
+
+need_cpppath
+dir
+
+nonstandard_cxxtest_dir
+dir
+
+default_env
+dir
+
+target_syntax
+dir
+
+globbing_edmundo
+dir
+
+include_CCFLAGS
+dir
+
+empty_source_list
+dir
+
+recursive_sources
+dir
+
+multifile_tests
+dir
+

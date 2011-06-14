@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/cxxtest/!svn/ver/108/trunk/build_tools/SCons/test/include_CCFLAGS/src
+END
+not-with-pedantic.h
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/cxxtest/!svn/ver/108/trunk/build_tools/SCons/test/include_CCFLAGS/src/not-with-pedantic.h
+END
+only_with_ansi.t.h
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/cxxtest/!svn/ver/108/trunk/build_tools/SCons/test/include_CCFLAGS/src/only_with_ansi.t.h
+END

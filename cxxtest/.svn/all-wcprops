@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 31
+/svn/cxxtest/!svn/ver/154/trunk
+END
+get_revision_from_cvs.pl
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/cxxtest/!svn/ver/129/trunk/get_revision_from_cvs.pl
+END
+TODO
+K 25
+svn:wc:ra_dav:version-url
+V 35
+/svn/cxxtest/!svn/ver/51/trunk/TODO
+END
+Versions
+K 25
+svn:wc:ra_dav:version-url
+V 39
+/svn/cxxtest/!svn/ver/52/trunk/Versions
+END
+COPYING
+K 25
+svn:wc:ra_dav:version-url
+V 38
+/svn/cxxtest/!svn/ver/49/trunk/COPYING
+END
+cxxtest.spec
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/cxxtest/!svn/ver/129/trunk/cxxtest.spec
+END
+README
+K 25
+svn:wc:ra_dav:version-url
+V 38
+/svn/cxxtest/!svn/ver/129/trunk/README
+END

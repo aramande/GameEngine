@@ -1,0 +1,113 @@
+K 25
+svn:wc:ra_dav:version-url
+V 38
+/svn/cxxtest/!svn/ver/129/trunk/sample
+END
+only.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/cxxtest/!svn/ver/47/trunk/sample/only.tpl
+END
+DeltaTest.h
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/cxxtest/!svn/ver/47/trunk/sample/DeltaTest.h
+END
+SimpleTest.h
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/cxxtest/!svn/ver/47/trunk/sample/SimpleTest.h
+END
+file_printer.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/cxxtest/!svn/ver/47/trunk/sample/file_printer.tpl
+END
+EnumTraits.h
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/cxxtest/!svn/ver/47/trunk/sample/EnumTraits.h
+END
+ExceptionTest.h
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/cxxtest/!svn/ver/47/trunk/sample/ExceptionTest.h
+END
+Makefile.msvc
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/cxxtest/!svn/ver/129/trunk/sample/Makefile.msvc
+END
+Construct
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/cxxtest/!svn/ver/129/trunk/sample/Construct
+END
+Makefile.PL
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/cxxtest/!svn/ver/47/trunk/sample/Makefile.PL
+END
+TraitsTest.h
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/cxxtest/!svn/ver/47/trunk/sample/TraitsTest.h
+END
+aborter.tpl
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/cxxtest/!svn/ver/47/trunk/sample/aborter.tpl
+END
+CreatedTest.h
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/cxxtest/!svn/ver/47/trunk/sample/CreatedTest.h
+END
+Makefile.unix
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/cxxtest/!svn/ver/129/trunk/sample/Makefile.unix
+END
+yes_no_runner.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/cxxtest/!svn/ver/47/trunk/sample/yes_no_runner.cpp
+END
+Makefile.bcc32
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/cxxtest/!svn/ver/129/trunk/sample/Makefile.bcc32
+END
+MessageTest.h
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/cxxtest/!svn/ver/47/trunk/sample/MessageTest.h
+END
+FixtureTest.h
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/cxxtest/!svn/ver/47/trunk/sample/FixtureTest.h
+END
+.cvsignore
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/cxxtest/!svn/ver/47/trunk/sample/.cvsignore
+END

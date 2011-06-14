@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/cxxtest/!svn/ver/129/trunk/build_tools/SCons/test/target_syntax
+END
+TestDef.py
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/cxxtest/!svn/ver/117/trunk/build_tools/SCons/test/target_syntax/TestDef.py
+END
+SConstruct
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/cxxtest/!svn/ver/129/trunk/build_tools/SCons/test/target_syntax/SConstruct
+END

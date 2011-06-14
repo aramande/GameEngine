@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/cxxtest/!svn/ver/129/trunk/build_tools/SCons/test/globbing
+END
+TestDef.py
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/cxxtest/!svn/ver/117/trunk/build_tools/SCons/test/globbing/TestDef.py
+END
+SConstruct
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/cxxtest/!svn/ver/106/trunk/build_tools/SCons/test/globbing/SConstruct
+END
+README
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/cxxtest/!svn/ver/108/trunk/build_tools/SCons/test/globbing/README
+END

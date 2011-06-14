@@ -1,3 +1,8 @@
 *.exe
 *~
-*sw?
+*.sw?
+*.o
+*.lo
+*.la
+.deps
+.libs

@@ -8,5 +8,10 @@ class SpriteTest : public CxxTest::TestSuite
   {
 	  TS_ASSERT_EQUALS( 1, 1 )
   }
+
+  void testFunction2( void )
+  {
+	  TS_ASSERT_EQUALS( 1, 2 )
+  }
 };
 

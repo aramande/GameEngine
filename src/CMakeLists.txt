@@ -20,7 +20,3 @@ if(CXXTEST_FOUND)
 		spritetest.h)
 	
 endif()
-
-
-#add_executable(enginetest 
-#	main.cpp)

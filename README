@@ -6,34 +6,36 @@ functions you create in the h-files so that we can use doxygen, or a similar pro
 
 How to add new sourcefiles
 --------------------------
-Since I decided we should use autoconf and automake to make our lives easier.
-I've gone ahead and incorporated all the scripts necessary to use them. 
+To add a new file to the buildscript, open src/CMakeLists.txt
+in there, you will find add_library, this is a list of all sourcefiles that 
+should be available in the library.
 
-To add a new file to the buildscript, open src/Makefile.am
-in there, you will find a variable named libgameengine_la_SOURCES, 
-this is a list of all sourcefiles that should be available in the library.
+To add a test file to the testsuite, simply add the h-file to the test_headers variable.
 
-There is also en enginetest_SOURCES, this is to create an executable testsuite 
-for the library, please do not touch this unless you have a good reason. 
-To add a test file to the testsuite, please add the h-file to the test_sources variable.
-
-When you are finished save and close Makefile.am and proceed to run bootstrap, 
-this will generate the new Makefile which you then can use in the compilation.
+Compile everything and don't forget to execute the enginetest to run all tests.
 
 
 How to compile
 --------------
+$ cmake .
 $ make
 # make install
+
+Change cmake generator
+----------------------
+The choices of generator depends on platform. To find out what generators are available to you
+   $ cmake --help
+Then simply choose your generator and compile with it.
+   $ cmake -G "Visual Studio 10" .
 
 Dependencies
 ------------
 libsdl1.2
 libsdl-ttf2.0
 libsdl-image1.2
-cxxtest (if enable-test)
+cxxtest
 
-How to install cxxtest on windows
+How to install cxxtest (windows)
 ---------------------------------
 Step 1: Installing Perl or Python
 
@@ -41,12 +43,40 @@ After installation, make sure that Python or Perl is in your path.
 
 Step 2: Installing CxxTest
 
-Download CxxTest from its home page. This example will unzip the file to C:\. After unzipping, add your directory to the PATH and to the INCLUDE environment variables. Here is how to do it in Vista/7:
+Download CxxTest from http://cxxtest.tigris.org/servlets/ProjectDocumentList. This example 
+will unzip the file to C:\. After unzipping, add your directory to the PATH and to the INCLUDE 
+environment variables. Here is how to do it in Vista/7:
 
-    Click Start menu, click “Control Panel” from the right column to start the control panel
-    From the control panel’s search box, type ‘env’ and you will see the choice for “Edit environment variables for you account”, click it.
-    If the environment PATH does not exist, create it and assign the value C:\CxxTest (or the location of your CxxTest directory). If the PATH evironment already exist, append ;C:\CxxTest to it (note the semicolon which acts as a separator).
+    Click Start menu, click 'Control Panel' from the right column to start the control panel
+    From the control panel's search box, type 'env' and you will see the choice for 
+    'Edit environment variables for you account', click it.
+    
+    If the environment PATH does not exist, create it and assign the value C:\CxxTest 
+    (or the location of your CxxTest directory). If the PATH evironment already exist, 
+    append ;C:\CxxTest to it (note the semicolon which acts as a separator).
+    
     Similarly, add C:\CxxTest to the INCLUDE variable
     Click OK to submit your changes
+
 (Source, with modifications: http://wuhrr.wordpress.com/2008/01/15/how-to-set-up-cxxtest/)
 
+How to install cxxtest (*nix)
+-----------------------------
+Get the source  http://cxxtest.tigris.org/servlets/ProjectDocumentList.
+Extract it to e.g. /tmp via
+
+    tar xzf cxxtest-3.10.1.tar.gz
+
+Move the whole cxxtest directory with all files to /usr/local/
+
+    mv cxxtest /usr/local
+
+Symlink the executable cxxtestgen.py to /usr/local/bin/
+
+    cd /usr/local/bin && ln -s ../cxxtest/cxxtestgen.py
+
+Symlink the header directory (cxxtest) to /usr/local/includes/
+
+    cd /usr/local/include && ln -s ../cxxtest/cxxtest
+
+(Source: http://berkeley.informatik.uni-leipzig.de/trac/ow-public/wiki/IntegrateCxxTestInCMakeProject)

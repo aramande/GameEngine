@@ -5,10 +5,11 @@ add_library(gameengine
 	component.cpp
 	gameengine.cpp
 	gui.cpp
-	sprite.cpp)
+	sprite.cpp
+	window.cpp)
 
 set(test_headers
-	spritetest.cpp)
+	spritetest.h)
 
 find_package(SDL)
 find_package(SDL_image)
@@ -35,7 +36,6 @@ find_package(CxxTest)
 if(CXXTEST_FOUND)
 	include_directories(${CXXTEST_INCLUDE_DIR})
 	enable_testing()
-	CXXTEST_ADD_TEST(enginetest tests.cpp 
-	 	spritetest.h)
+	CXXTEST_ADD_TEST(enginetest tests.cpp ${test_headers})
 	target_link_libraries(enginetest gameengine)
 endif()

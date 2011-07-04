@@ -2,7 +2,7 @@
 #include "badarg.h"
 #include "fileexception.h"
 
-#include <SDL/SDL_image.h>
+#include "sdl.h"
 
 using namespace std;
 

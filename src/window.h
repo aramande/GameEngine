@@ -8,7 +8,7 @@
 #ifndef WINDOW_H
 #define WINDOW_H
 
-#include <SDL/SDL.h>
+#include "sdl.h"
 
 namespace engine{
 	class Window{

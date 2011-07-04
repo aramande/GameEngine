@@ -4,12 +4,12 @@ add_library(gameengine
 	button.cpp button.h
 	component.cpp component.h
 	gameengine.cpp gameengine.h
-	gui.cpp gui.h
+	gui.cpp gui.h sdl.h
 	sprite.cpp sprite.h
 	window.cpp window.h)
 
 set(test_headers
-	spritetest.h)
+	${CMAKE_CURRENT_SOURCE_DIR}/spritetest.h)
 
 find_package(SDL)
 find_package(SDL_image)

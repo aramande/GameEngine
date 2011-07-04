@@ -1,3 +1,6 @@
+#ifndef BUTTON_H
+#define BUTTON_H
+
 #include <vector>
 #include <string>
 #include "component.h"
@@ -18,3 +21,5 @@ namespace engine {
 		
 	};
 }
+
+#endif

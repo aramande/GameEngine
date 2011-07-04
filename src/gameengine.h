@@ -1,3 +1,6 @@
+#ifndef GAMEENGINE_H
+#define GAMEENGINE_H
+
 #include <map>
 #include <vector>
 #include "sprite.h"
@@ -27,3 +30,5 @@ namespace engine {
 		void run() const;
 	};
 }
+
+#endif

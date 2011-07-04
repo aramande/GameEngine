@@ -2,8 +2,7 @@
 #define SPRITE_H
 
 #include <string>
-#include <SDL/SDL_image.h>
-#include <SDL/SDL.h>
+#include "sdl.h"
 
 namespace engine{
 	class Sprite {

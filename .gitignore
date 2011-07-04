@@ -21,6 +21,10 @@ Makefile
 
 # visual studio
 *.sln
+*.vcxproj*
+*sdf
+*.suo
+*.rule
 Debug
 Release
 Testing

@@ -1,12 +1,12 @@
 cmake_minimum_required (VERSION 2.6)
 
 add_library(gameengine 
-	button.cpp
-	component.cpp
-	gameengine.cpp
-	gui.cpp
-	sprite.cpp
-	window.cpp)
+	button.cpp button.h
+	component.cpp component.h
+	gameengine.cpp gameengine.h
+	gui.cpp gui.h
+	sprite.cpp sprite.h
+	window.cpp window.h)
 
 set(test_headers
 	spritetest.h)

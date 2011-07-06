@@ -1,0 +1,15 @@
+The definition of finished is when the feature in question has been tested thoroughly with unittests and appears to be working as intended.
+
+Events:
+a1	Handling of keyboard input
+a2	Handling of mouse input
+a3	Activating buttons being pressed
+
+Grafics: 
+b1	Connect Gui to Window
+b2	Implement the drawing of gui objects (requires c2 for testing)
+b3	Implement the drawing of sprites onto the window (requires c2 for testing)
+
+CMake:
+c1	Create the rules for the data folder
+c2	Configure a game application

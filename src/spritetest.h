@@ -59,7 +59,7 @@ class SpriteTest : public CxxTest::TestSuite
 	  TS_ASSERT_EQUALS(test->getWidth(), 130);
 	  TS_ASSERT_EQUALS(test->getHeight(), 110);
   }
-  void testResizeNegative(){
+  void testResize_Negative(){
 	  Sprite* test = new Sprite("data/img/testimage.png");
 	  TS_ASSERT_THROWS(test->resize(-20, 50), bad_arg);
   }

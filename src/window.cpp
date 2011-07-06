@@ -6,18 +6,22 @@
  */
 
 #include "window.h"
+#include "sdlerror.h"
 #include <string>
+
 namespace engine{
 	Window::Window(int width, int height, int depth){
 		SDL_Init( SDL_INIT_EVERYTHING ); 
-		screen = SDL_SetVideoMode(width, height, depth, SDL_SWSURFACE | SDL_RESIZABLE); 
-		if (screen == NULL) {
-			throw ((std::string)"Video initialization failed: " + SDL_GetError());
-		}
+		
 		this->width = width; 
 		this->height = height; 
 		this->depth = depth;
 		this->flags = SDL_HWSURFACE|SDL_RESIZABLE;
+		
+		screen = SDL_SetVideoMode(width, height, depth, flags); 
+		if (screen == NULL) {
+			throw sdl_error((std::string)"Video initialization failed: " + SDL_GetError());
+		}
 	}
 
 	Window::~Window(){

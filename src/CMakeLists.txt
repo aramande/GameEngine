@@ -1,15 +1,20 @@
 cmake_minimum_required (VERSION 2.6)
 
 add_library(gameengine 
+	badarg.h
 	button.cpp button.h
 	component.cpp component.h
+	fileexception.h
 	gameengine.cpp gameengine.h
-	gui.cpp gui.h sdl.h
+	gui.cpp gui.h
+	sdl.h 
+	sdlerror.h
 	sprite.cpp sprite.h
 	window.cpp window.h)
 
 set(test_headers
-	${CMAKE_CURRENT_SOURCE_DIR}/spritetest.h)
+	${CMAKE_CURRENT_SOURCE_DIR}/spritetest.h
+	${CMAKE_CURRENT_SOURCE_DIR}/guitest.h)
 
 find_package(SDL)
 find_package(SDL_image)

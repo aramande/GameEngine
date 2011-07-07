@@ -16,6 +16,11 @@ set(test_headers
 	${CMAKE_CURRENT_SOURCE_DIR}/spritetest.h
 	${CMAKE_CURRENT_SOURCE_DIR}/guitest.h)
 
+add_executable(gametest
+	main.cpp)
+
+
+
 find_package(SDL)
 find_package(SDL_image)
 find_package(SDL_ttf)
@@ -44,3 +49,6 @@ if(CXXTEST_FOUND)
 	CXXTEST_ADD_TEST(enginetest tests.cpp ${test_headers})
 	target_link_libraries(enginetest gameengine)
 endif()
+
+include_directories(${PROJECT_SOURCE_DIR}/src)
+target_link_libraries(gametest gameengine)

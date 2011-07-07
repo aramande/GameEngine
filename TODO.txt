@@ -12,4 +12,4 @@ b3	Implement the drawing of sprites onto the window (requires c2 for testing)
 
 CMake:
 c1	Create the rules for the data folder
-c2	Configure a game application
+c2 done	Configure a game application

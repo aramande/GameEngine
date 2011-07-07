@@ -1,9 +1,12 @@
 #include <cxxtest/ErrorPrinter.h>
 #include <iostream>
+#include <window.h>
+#include <gameengine.h>
 
+using namespace engine;
 int main(int argc, char **argv){
-	std::cout << "Doing stuff\n";
-	CxxTest::ErrorPrinter().run();
-	while(true);
+	Window* screen = new Window(640, 480, 32);
+	GameEngine* game = GameEngine::init(screen);
+	// game.run();
 	return 0;
 }

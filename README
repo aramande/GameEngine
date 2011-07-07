@@ -12,7 +12,10 @@ should be available in the library.
 
 To add a test file to the testsuite, simply add the h-file to the test_headers variable.
 
-Compile everything and don't forget to execute the enginetest to run all tests.
+To add a file to the game, add it to the add_executable list, and it will be 
+compiled into the gametest executable.
+
+Compile everything and don't forget to execute the enginetest to run all unittests.
 
 
 How to compile

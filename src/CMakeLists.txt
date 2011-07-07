@@ -3,18 +3,22 @@ cmake_minimum_required (VERSION 2.6)
 add_library(gameengine 
 	badarg.h
 	button.cpp button.h
+	cconfig.h cconfig.h.in
 	component.cpp component.h
 	fileexception.h
 	gameengine.cpp gameengine.h
 	gui.cpp gui.h
+	image.cpp image.h
+	resource.cpp resource.h
 	sdl.h 
 	sdlerror.h
 	sprite.cpp sprite.h
 	window.cpp window.h)
 
 set(test_headers
-	${CMAKE_CURRENT_SOURCE_DIR}/spritetest.h
-	${CMAKE_CURRENT_SOURCE_DIR}/guitest.h)
+	${CMAKE_CURRENT_SOURCE_DIR}/guitest.h
+	${CMAKE_CURRENT_SOURCE_DIR}/resourcetest.h
+	${CMAKE_CURRENT_SOURCE_DIR}/spritetest.h)
 
 add_executable(gametest
 	main.cpp)

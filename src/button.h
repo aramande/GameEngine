@@ -3,11 +3,12 @@
 
 #include <vector>
 #include <string>
+#include "image.h"
 #include "component.h"
 
 namespace engine {
 	typedef int Event; // temporary
-	typedef int Image;
+	//typedef int Image;
 
 	typedef void (*FPoint)(Event); 
 	class Button : public Component {

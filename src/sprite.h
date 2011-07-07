@@ -3,10 +3,11 @@
 
 #include <string>
 #include "sdl.h"
+#include "image.h"
 
 namespace engine{
 	class Sprite {
-		SDL_Surface *image; 
+		Image* image;
 		int x, y;
 		int w, h;
 
@@ -15,8 +16,8 @@ namespace engine{
 		typedef void(*Func)(const Sprite*);
 
 	 public:
-		Sprite(std::string filename);
-		virtual ~Sprite();
+		Sprite(Image* image);
+		virtual ~Sprite(){}
 
 		/**
 		 * Runs every frame, change eventual movement of the sprite here.

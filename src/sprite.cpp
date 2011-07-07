@@ -7,23 +7,12 @@
 using namespace std;
 
 namespace engine{
-	Sprite::Sprite(string filename){
-		SDL_Surface* loadedImage = IMG_Load(filename.c_str()); 
-		if(loadedImage != NULL){ 
-			image = SDL_DisplayFormat(loadedImage); 
-			SDL_FreeSurface(loadedImage); 
-		}
-		else{
-			throw file_exception("Could not load sprite image: "+filename);
-		}
+	Sprite::Sprite(Image* image){
+		this->image = image;
 		x = 0;
 		y = 0;
-		w = image->clip_rect.w;
-		h = image->clip_rect.h;
-	}
-
-	Sprite::~Sprite(){
-		SDL_FreeSurface(image);
+		w = image->getWidth();
+		h = image->getHeight();
 	}
 
 	int Sprite::getX(){

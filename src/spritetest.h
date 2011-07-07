@@ -2,6 +2,7 @@
 #include <cxxtest/TestSuite.h>
 #include "sprite.h"
 #include "badarg.h"
+#include "resource.h"
 #include "fileexception.h"
 
 using namespace engine;
@@ -20,19 +21,15 @@ class SpriteTest : public CxxTest::TestSuite
   }
 
   void testConstructor(){
-	  Sprite* test = new Sprite("data/img/testimage.png");
+	  Sprite* test = new Sprite(Resource::loadImage("testimage.png"));
 	  TS_ASSERT_EQUALS(test->getX(), 0);
 	  TS_ASSERT_EQUALS(test->getY(), 0);
 	  TS_ASSERT_EQUALS(test->getWidth(), 100);
 	  TS_ASSERT_EQUALS(test->getHeight(), 120);
   }
 
-  void testNonExistantFile(){
-	  TS_ASSERT_THROWS(Sprite("nonexistantimage.png"), file_exception);
-  }
-
   void testTranslate(){
-	  Sprite* test = new Sprite("data/img/testimage.png");
+	  Sprite* test = new Sprite(Resource::loadImage("testimage.png"));
 	  test->translate(13, 21);
 	  TS_ASSERT_EQUALS(test->getX(), 13);
 	  TS_ASSERT_EQUALS(test->getY(), 21);
@@ -43,7 +40,7 @@ class SpriteTest : public CxxTest::TestSuite
   }
 
   void testMoveTo(){
-	  Sprite* test = new Sprite("data/img/testimage.png");
+	  Sprite* test = new Sprite(Resource::loadImage("testimage.png"));
 	  test->moveTo(13, 21);
 	  TS_ASSERT_EQUALS(test->getX(), 13);
 	  TS_ASSERT_EQUALS(test->getY(), 21);
@@ -54,13 +51,13 @@ class SpriteTest : public CxxTest::TestSuite
   }
 
   void testResize(){
-	  Sprite* test = new Sprite("data/img/testimage.png");
+	  Sprite* test = new Sprite(Resource::loadImage("testimage.png"));
 	  test->resize(130, 110);
 	  TS_ASSERT_EQUALS(test->getWidth(), 130);
 	  TS_ASSERT_EQUALS(test->getHeight(), 110);
   }
   void testResize_Negative(){
-	  Sprite* test = new Sprite("data/img/testimage.png");
+	  Sprite* test = new Sprite(Resource::loadImage("testimage.png"));
 	  TS_ASSERT_THROWS(test->resize(-20, 50), bad_arg);
   }
 };

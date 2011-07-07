@@ -2,7 +2,7 @@
 #include "badarg.h"
 
 namespace engine{
-	GameEngine *GameEngine::instance = NULL;
+	GameEngine* GameEngine::instance = NULL;
 
 	GameEngine::GameEngine(Window* main){
 		if(main == NULL)

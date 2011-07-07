@@ -21,9 +21,9 @@ add_executable(gametest
 
 
 
-find_package(SDL)
-find_package(SDL_image)
-find_package(SDL_ttf)
+find_package(SDL REQUIRED)
+find_package(SDL_image REQUIRED)
+find_package(SDL_ttf REQUIRED)
 
 if(SDL_FOUND)
 	include_directories(${SDL_INCLUDE_DIR})

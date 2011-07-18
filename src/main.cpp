@@ -7,6 +7,6 @@ using namespace engine;
 int main(int argc, char **argv){
 	Window* screen = new Window(640, 480, 32);
 	GameEngine* game = GameEngine::init(screen);
-	// game.run();
+	game->run();
 	return 0;
 }

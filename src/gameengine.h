@@ -4,6 +4,7 @@
 #include <map>
 #include <vector>
 #include "sprite.h"
+#include "timer.h"
 #include "window.h"
 #include "gui.h"
 
@@ -12,6 +13,9 @@ namespace engine {
 		std::vector<std::vector<Sprite*> >* storage;
 		Gui* hud; 
 		Window* screen;
+		Timer* fpsClock;
+		int fpsLimit;
+		static bool quit;
 		static GameEngine* instance;
 		
 		/** 
@@ -25,11 +29,14 @@ namespace engine {
 		
 		void addSprite(Sprite* s);
 		void delSprite(Sprite* s);
+
+		void setFPS(int fps);
 		
 		/**
 		 * Calls all update functions and draws sprites and gui on the screen.
 		 */
-		void run() const;
+		void run();
+		static void doQuit();
 	};
 }
 

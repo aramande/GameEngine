@@ -5,18 +5,26 @@ add_library(gameengine
 	button.cpp button.h
 	cconfig.h cconfig.h.in
 	component.cpp component.h
+	event.h
+	eventhandler.cpp eventhandler.h
 	fileexception.h
 	gameengine.cpp gameengine.h
 	gui.cpp gui.h
 	image.cpp image.h
+	keyevent.cpp keyevent.h
+	mouseevent.cpp mouseevent.h
 	resource.cpp resource.h
 	sdl.h 
 	sdlerror.h
 	sprite.cpp sprite.h
+	timer.cpp timer.h
 	window.cpp window.h)
 
 set(test_headers
+	${CMAKE_CURRENT_SOURCE_DIR}/eventhandlertest.h
 	${CMAKE_CURRENT_SOURCE_DIR}/guitest.h
+	${CMAKE_CURRENT_SOURCE_DIR}/keyeventtest.h
+	${CMAKE_CURRENT_SOURCE_DIR}/mouseevent.h
 	${CMAKE_CURRENT_SOURCE_DIR}/resourcetest.h
 	${CMAKE_CURRENT_SOURCE_DIR}/spritetest.h)
 

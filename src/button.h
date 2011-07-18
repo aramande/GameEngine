@@ -4,10 +4,11 @@
 #include <vector>
 #include <string>
 #include "image.h"
+#include "event.h"
 #include "component.h"
 
 namespace engine {
-	typedef int Event; // temporary
+	//typedef int Event; // temporary
 	//typedef int Image;
 
 	typedef void (*FPoint)(Event); 

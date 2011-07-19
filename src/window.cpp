@@ -10,6 +10,7 @@
 #include <string>
 
 namespace engine{
+	Window* Window::win = NULL;
 	Window::Window(int width, int height, int depth){
 		SDL_Init( SDL_INIT_EVERYTHING ); 
 		
@@ -24,16 +25,29 @@ namespace engine{
 		}
 	}
 
+	Window* Window::init(int width, int height, int depth){
+		if(win == NULL) win = new Window(width, height, depth);
+		return win;
+	}
+
 	Window::~Window(){
 		SDL_Quit();
 	}
 
+	void Window::resize(int w, int h){
+		width = w;
+		height = h;
+		screen = SDL_SetVideoMode(width, height, depth, flags); 
+	}
+
 	void Window::fullscreen(bool wantFullscreen){
 		if(wantFullscreen){
-			screen = SDL_SetVideoMode(width, height, depth, flags | SDL_FULLSCREEN); 
+			screen = SDL_SetVideoMode(width, height, depth, flags | SDL_FULLSCREEN);
+			flags = flags | SDL_FULLSCREEN;
 		}
 		else{
-			screen = SDL_SetVideoMode(width, height, depth, flags & ~SDL_FULLSCREEN); 
+			screen = SDL_SetVideoMode(width, height, depth, flags & ~SDL_FULLSCREEN);
+			flags = flags & ~SDL_FULLSCREEN;
 		}
 	}
 }

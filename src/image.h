@@ -6,13 +6,14 @@
 
 namespace engine{
 	class Image{
-		SDL_Surface *image; 
+		SDL_Surface* image; 
 		int w, h;
 		Image(std::string filename);
 	public:
 		virtual ~Image();
 		int getWidth();
 		int getHeight();
+		SDL_Surface* getSurface();
 		friend class Resource;
 	};
 }

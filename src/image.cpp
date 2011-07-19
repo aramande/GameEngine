@@ -28,4 +28,8 @@ namespace engine{
 	int Image::getHeight(){
 		return h;
 	}
+
+	SDL_Surface* Image::getSurface(){
+		return image;
+	}
 }

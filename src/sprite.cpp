@@ -1,5 +1,6 @@
 #include "sprite.h"
 #include "badarg.h"
+#include "window.h"
 #include "fileexception.h"
 
 #include "sdl.h"
@@ -35,8 +36,16 @@ namespace engine{
 
 	}
 
-	void Sprite::draw() const{
+	void Sprite::repaint() const{
+		draw();
+	}
 
+	void Sprite::draw() const{
+		//x, y, image->getSurface(), Window::init()->screen);
+		SDL_Rect offset;
+		offset.x = x;
+		offset.y = y;
+		SDL_BlitSurface(image->getSurface(), NULL, Window::init()->screen, &offset);
 	}
 
 	void Sprite::translate(int x, int y){

@@ -24,6 +24,7 @@ namespace engine{
 		 */
 		virtual void tick();
 
+		void repaint() const;
 		/**
 		 * Draw the sprite onto the screen.
 		 */

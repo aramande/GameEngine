@@ -1,29 +1,12 @@
 #include <iostream>
-#include "gameengine.h"
-#include "keyevent.h"
-#include "mouseevent.h"
 #include "eventhandler.h"
+#include "gameengine.h"
+#include "mouseevent.h"
+#include "keyevent.h"
 #include "badarg.h"
+#include "logger.h"
 #include "event.h"
 #include "sdl.h"
-
-void shutdown(engine::Event* event){
-	/*engine::KeyEvent* test = dynamic_cast<engine::KeyEvent*>(event);
-	if(test != NULL){
-		std::cout << test->getKey() << std::endl;
-	}
-	else{
-		engine::MouseEvent* test2 = dynamic_cast<engine::MouseEvent*>(event);
-		if(test2 != NULL){
-			std::cout << test2->getX() << " " << test2->getY() << " Done" << std::endl;
-		}
-		else{
-			std::cout << "Nothing registered" << std::endl;
-		}
-	}*/
-	SDL_Quit();
-	engine::GameEngine::doQuit();
-}
 
 namespace engine{
 	bool GameEngine::quit = false;
@@ -33,7 +16,15 @@ namespace engine{
 		if(main == NULL)
 			throw bad_arg("Main window cannot be null");
 		screen = main;
+		storage = new std::vector<Sprite*>();
+		fpsLimit = 10;
 		fpsClock = new Timer();
+	}
+
+	GameEngine::~GameEngine(){
+		storage->clear();
+		delete storage;
+		delete fpsClock;
 	}
 
 	GameEngine* GameEngine::init(Window* main){
@@ -42,15 +33,27 @@ namespace engine{
 		return instance;
 	}
 
+	void GameEngine::setFPS(int fps){
+		if(fps < 1)
+			throw bad_arg("Negative FPS");
+		fpsLimit = fps;
+	}
+
+	void GameEngine::addSprite(Sprite* sprite){
+		if(sprite == NULL)
+			throw bad_arg("Don't add null to the sprite list");
+		Logger::init()->print("Adding sprite");
+		storage->push_back(sprite);
+	}
+
 	void GameEngine::run(){
 		Timer* timeSinceLastFrame = new Timer();
-		fpsClock->start();
 		SDL_Event curEvent;
 		quit = false;
-		EventHandler::addAction(SDLK_ESCAPE, &shutdown);
-		EventHandler::addAction(SDL_BUTTON_LEFT, &shutdown);
+		int frame = 0;
+		timeSinceLastFrame->start();
 		while(!quit) {
-			timeSinceLastFrame->start();
+			fpsClock->start();
 			while(SDL_PollEvent(&curEvent)) {
 				if (curEvent.type == SDL_QUIT)
 					quit = true;
@@ -60,13 +63,24 @@ namespace engine{
 						curEvent.key.keysym.mod, true, timeSinceLastFrame->get_ticks()));
 					break;
 				case SDL_MOUSEBUTTONDOWN:
-					EventHandler::performAction(curEvent.button.button, new MouseEvent(curEvent.button.x, curEvent.button.y, curEvent.button.button
-						, true, false, timeSinceLastFrame->get_ticks()));
+					EventHandler::performAction(curEvent.button.button, new MouseEvent(curEvent.button.x, curEvent.button.y, 
+						curEvent.button.button, true, false, timeSinceLastFrame->get_ticks()));
 					break;
 				}
 			}
-			if (fpsClock->get_ticks() < 1000 / fpsLimit)
-				SDL_Delay((1000/fpsLimit) - fpsClock->get_ticks());
+			SDL_FillRect(Window::init()->screen, &Window::init()->screen->clip_rect, SDL_MapRGB(Window::init()->screen->format, 0,0,0));
+			for (std::vector<Sprite*>::iterator it = storage->begin(); it != storage->end(); it++){
+				(*it)->tick();
+				(*it)->draw();
+			}
+			SDL_Flip(Window::init()->screen);
+			++frame;
+			timeSinceLastFrame->start();
+			if (fpsClock->get_ticks() < (1000 / fpsLimit)){
+				Logger::init()->print(Logger::toStr(fpsClock->get_ticks()) + " has an avg " + Logger::toStr(frame/(fpsClock->get_ticks()/1000.0)));
+				frame = 0;
+				SDL_Delay((1000 / fpsLimit) - fpsClock->get_ticks());
+			}
 		}
 	}
 

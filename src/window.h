@@ -12,16 +12,26 @@
 
 namespace engine{
 	class Window{
-		SDL_Surface* screen;
 		int width;
 		int height;
 		int depth;
 		int flags;
-	public:
+		static Window* win;
+		Window(Window&){}
+		Window* operator=(Window&){}
+	protected:
 		Window(int w, int h, int d);
+	public:
+		static Window* init(int w = 640, int h = 480, int d = 32);
 		~Window();
+		int getWidth() const;
+		int getHeidht() const;
+		int getDepth() const;
+		int getFlags() const;
+		void setFlags(int flags) const;
 		void resize(int w, int h);
 		void fullscreen(bool wantFullscreen);
+		SDL_Surface* screen;
 	};
 }
 #endif

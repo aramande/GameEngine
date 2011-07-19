@@ -1,8 +1,7 @@
 #ifndef TIMER_H
 #define TIMER_H
 namespace engine{
-	class Timer
-	{
+	class Timer{
 		private:
 		//The clock time when the timer started
 		int startTicks;

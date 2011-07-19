@@ -3,14 +3,26 @@
 
 #include <map>
 #include <vector>
+#include "badarg.h"
+#include "button.h"
+#include "component.h"
+#include "event.h"
+#include "eventhandler.h"
+#include "fileexception.h"
+#include "gui.h"
+#include "image.h"
+#include "keyevent.h"
+#include "mouseevent.h"
+#include "resource.h"
+#include "sdl.h"
+#include "sdlerror.h"
 #include "sprite.h"
 #include "timer.h"
 #include "window.h"
-#include "gui.h"
 
 namespace engine {
 	class GameEngine {
-		std::vector<std::vector<Sprite*> >* storage;
+		std::vector<Sprite*>* storage;
 		Gui* hud; 
 		Window* screen;
 		Timer* fpsClock;
@@ -26,6 +38,7 @@ namespace engine {
 		GameEngine(Window* screen); // init the game engine here
 	public:
 		static GameEngine* init(Window* screen);
+		~GameEngine();
 		
 		void addSprite(Sprite* s);
 		void delSprite(Sprite* s);

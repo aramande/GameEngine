@@ -1,33 +1,30 @@
 #ifndef TIMER_H
 #define TIMER_H
 namespace engine{
+	/**
+	 * This class was taken from the LazyFoo SDL tutorial(http://lazyfoo.net/SDL_tutorials/), 
+	 * we did not ask permission to use this, 
+	 * however it is merely a help class which we didn't want to come up with on our own.
+	 */
 	class Timer{
 		private:
-		//The clock time when the timer started
 		int startTicks;
-
-		//The ticks stored when the timer was paused
 		int pausedTicks;
 
-		//The timer status
 		bool paused;
 		bool started;
 
 		public:
-		//Initializes variables
 		Timer();
 
-		//The various clock actions
 		void start();
 		void reset();
 		void stop();
 		void pause();
 		void unpause();
 
-		//Gets the timer's time
 		int get_ticks();
 
-		//Checks the status of the timer
 		bool is_started();
 		bool is_paused();
 	};

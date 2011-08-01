@@ -3,7 +3,9 @@
 #include "sdl.h"
 
 namespace engine{
-
+	/**
+	 * Taken from the Cwing package and slightly modified
+	 */
 	struct Rectangle : public SDL_Rect{
 		Rectangle();
 		Rectangle(int xx, int yy, int ww, int hh);

@@ -4,7 +4,7 @@ namespace engine{
 		this->image = img;
 		this->rect = new Rectangle(x, y, image->getWidth(), image->getHeight());	
 		this->action = action;
-		setText("asd", Resource::loadFont("tahomabd.ttf", 14));
+		setText("asd", Resource::loadFont("FreeUniversal-Bold.ttf", 14));
 	}
 
 	void Button::perform(Event* event){

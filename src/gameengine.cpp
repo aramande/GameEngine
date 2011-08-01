@@ -51,6 +51,7 @@ namespace engine{
 		for (unsigned int i = 0; i < storage->size(); i++) {
 			if (storage->at(i) == s) {
 				delete storage->at(i);
+				Logger::init()->print("Removing sprite");
 				storage->erase(storage->begin() + i);
 			}
 		}
@@ -59,13 +60,14 @@ namespace engine{
 	void GameEngine::addComponent(Component* c) {
 		if(c == NULL)
 			throw bad_arg("Don't add null to the component list");
-		Logger::init()->print("Adding component.");
+		Logger::init()->print("Adding component");
 		container->push_back(c);
 	}
 
 	void GameEngine::delComponent(Component* c) {
 		for (unsigned int i = 0; i < container->size(); i++) {
 			if(container->at(i) == c) {
+				Logger::init()->print("Removing componen.");
 				delete container->at(i);
 				container->erase(container->begin() + i);
 			}

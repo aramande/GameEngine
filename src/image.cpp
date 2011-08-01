@@ -1,6 +1,7 @@
 #include <string>
 #include "image.h"
 #include "fileexception.h"
+#include "cconfig.h"
 
 using namespace std;
 namespace engine{

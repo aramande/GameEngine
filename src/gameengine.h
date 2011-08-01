@@ -13,6 +13,7 @@
 #include "image.h"
 #include "keyevent.h"
 #include "mouseevent.h"
+#include "rectangle.h"
 #include "resource.h"
 #include "sdl.h"
 #include "sdlerror.h"
@@ -23,6 +24,7 @@
 namespace engine {
 	class GameEngine {
 		std::vector<Sprite*>* storage;
+		std::vector<Component*>* container;
 		Gui* hud; 
 		Window* screen;
 		Timer* fpsClock;
@@ -42,6 +44,8 @@ namespace engine {
 		
 		void addSprite(Sprite* s);
 		void delSprite(Sprite* s);
+		void addComponent(Component* c);
+		void delComponent(Component* c);
 
 		void setFPS(int fps);
 		

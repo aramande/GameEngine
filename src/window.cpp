@@ -13,7 +13,8 @@ namespace engine{
 	Window* Window::win = NULL;
 	Window::Window(int width, int height, int depth){
 		SDL_Init( SDL_INIT_EVERYTHING ); 
-		
+		TTF_Init();
+
 		this->width = width; 
 		this->height = height; 
 		this->depth = depth;
@@ -28,6 +29,10 @@ namespace engine{
 	Window* Window::init(int width, int height, int depth){
 		if(win == NULL) win = new Window(width, height, depth);
 		return win;
+	}
+
+	void Window::kill(){
+		if(win != NULL) delete win;
 	}
 
 	Window::~Window(){

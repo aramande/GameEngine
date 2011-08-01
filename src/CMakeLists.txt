@@ -14,6 +14,7 @@ add_library(gameengine
 	keyevent.cpp keyevent.h
 	logger.cpp logger.h
 	mouseevent.cpp mouseevent.h
+	rectangle.cpp rectangle.h
 	resource.cpp resource.h
 	sdl.h 
 	sdlerror.h

@@ -17,7 +17,8 @@ namespace engine{
 			throw bad_arg("Main window cannot be null");
 		screen = main;
 		storage = new std::vector<Sprite*>();
-		fpsLimit = 10;
+		container = new std::vector<Component*>();
+		fpsLimit = 60;
 		fpsClock = new Timer();
 	}
 
@@ -46,6 +47,31 @@ namespace engine{
 		storage->push_back(sprite);
 	}
 
+	void GameEngine::delSprite(Sprite* s) {
+		for (unsigned int i = 0; i < storage->size(); i++) {
+			if (storage->at(i) == s) {
+				delete storage->at(i);
+				storage->erase(storage->begin() + i);
+			}
+		}
+	}
+
+	void GameEngine::addComponent(Component* c) {
+		if(c == NULL)
+			throw bad_arg("Don't add null to the component list");
+		Logger::init()->print("Adding component.");
+		container->push_back(c);
+	}
+
+	void GameEngine::delComponent(Component* c) {
+		for (unsigned int i = 0; i < container->size(); i++) {
+			if(container->at(i) == c) {
+				delete container->at(i);
+				container->erase(container->begin() + i);
+			}
+		}
+	}
+
 	void GameEngine::run(){
 		Timer* timeSinceLastFrame = new Timer();
 		SDL_Event curEvent;
@@ -59,18 +85,26 @@ namespace engine{
 					quit = true;
 				switch (curEvent.type){
 				case SDL_KEYDOWN:
-					EventHandler::performAction(curEvent.key.keysym.sym, new KeyEvent(curEvent.key.keysym.sym, 
+					EventHandler::perform(curEvent.key.keysym.sym, new KeyEvent(curEvent.key.keysym.sym, 
 						curEvent.key.keysym.mod, true, timeSinceLastFrame->get_ticks()));
 					break;
 				case SDL_MOUSEBUTTONDOWN:
-					EventHandler::performAction(curEvent.button.button, new MouseEvent(curEvent.button.x, curEvent.button.y, 
-						curEvent.button.button, true, false, timeSinceLastFrame->get_ticks()));
+					MouseEvent* mouseEvent = new MouseEvent(curEvent.button.x, curEvent.button.y, 
+						curEvent.button.button, true, false, timeSinceLastFrame->get_ticks());
+					EventHandler::perform(curEvent.button.button, mouseEvent);
+					for (std::vector<Component*>::iterator it = container->begin(); it != container->end(); it++){
+						(*it)->perform(mouseEvent);
+					}
 					break;
 				}
 			}
+			if(quit) break;
 			SDL_FillRect(Window::init()->screen, &Window::init()->screen->clip_rect, SDL_MapRGB(Window::init()->screen->format, 0,0,0));
 			for (std::vector<Sprite*>::iterator it = storage->begin(); it != storage->end(); it++){
 				(*it)->tick();
+				(*it)->draw();
+			}
+			for (std::vector<Component*>::iterator it = container->begin(); it != container->end(); it++){
 				(*it)->draw();
 			}
 			SDL_Flip(Window::init()->screen);
@@ -86,5 +120,6 @@ namespace engine{
 
 	void GameEngine::doQuit(){
 		quit = true;
+		Window::kill();
 	}
 }

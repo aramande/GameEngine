@@ -2,6 +2,7 @@
 #define COMPONENT_H
 
 #include <string>
+#include "event.h"
 
 namespace engine {
 	class Component {
@@ -16,6 +17,7 @@ namespace engine {
 		 */
 		void setName(std::string name);
 	protected:
+		typedef void (*Func)(Event*); 
 		Component(int x, int y, int w, int h);
 
 	public:
@@ -27,6 +29,8 @@ namespace engine {
 		 * Update the component, component logic goes here.
 		 */
 		virtual void update();
+		
+		virtual void perform(Event* event){}
 
 		/**
 		 * Draw the component onto the screen.

@@ -13,24 +13,24 @@ namespace engine{
 	}
 
 	EventHandler::Func EventHandler::getAction(SDLKey key){
-		if(keyActions.count(key) == 0){
+		if(keyActions.find(key) == keyActions.end()){
 			return *dummy;
 		}
 		return keyActions[key];
 	}
 
 	EventHandler::Func EventHandler::getAction(int key){
-		if(mouseActions.count(key) == 0){
+		if(mouseActions.find(key) == mouseActions.end()){
 			return *dummy;
 		}
 		return mouseActions[key];
 	}
 	
-	void EventHandler::performAction(SDLKey key, Event* event){
+	void EventHandler::perform(SDLKey key, Event* event){
 		(*getAction(key))(event);
 	}
 		
-	void EventHandler::performAction(int key, Event* event){
+	void EventHandler::perform(int key, Event* event){
 		(*getAction(key))(event);
 	}
 }

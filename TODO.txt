@@ -3,18 +3,18 @@ The definition of finished is when the feature in question has been tested thoro
 Events:
 a1 done	Handling of keyboard input
 a2 done	Handling of mouse input
-a3	Activating buttons being pressed
+a3 done	Activating buttons being pressed
 a4 done	Create Event class with everything that might be useful to know when an event has occured
 
 Grafics: 
 b1	Connect Gui to Window
-b2	Implement the drawing of gui objects (requires c2 for testing)
+b2 done	Implement the drawing of gui objects (requires c2 for testing)
 b3 done	Implement the drawing of sprites onto the window (requires c2 for testing)
 b4 done	Create a better interface to load images, see sprite.cpp for example code.
-b5 	Changable background
+//b5 	Changable background
 
 Game Logic
-d1	Prepare for collision detection.
+d1 done	Prepare for collision detection.
 
 CMake:
 c1 done	Create the rules for the data folder

@@ -23,6 +23,7 @@ namespace engine{
 		Window(int w, int h, int d);
 	public:
 		static Window* init(int w = 640, int h = 480, int d = 32);
+		static void kill();
 		~Window();
 		int getWidth() const;
 		int getHeidht() const;

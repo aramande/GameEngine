@@ -4,20 +4,21 @@
 #include <string>
 #include "sdl.h"
 #include "image.h"
+#include "rectangle.h"
+#include "resource.h"
 
 namespace engine{
 	class Sprite {
 		Image* image;
-		int x, y;
-		int w, h;
+		Rectangle* rect;
 
 		Sprite(const Sprite& other){}
 		const Sprite &operator=(const Sprite& other){}
 		typedef void(*Func)(const Sprite*);
 
 	 public:
-		Sprite(Image* image);
-		virtual ~Sprite(){}
+		Sprite(Image* image, int x=0, int y=0);
+		virtual ~Sprite();
 
 		/**
 		 * Runs every frame, change eventual movement of the sprite here.
@@ -43,6 +44,8 @@ namespace engine{
 		int getWidth();
 
 		int getHeight();
+
+		Rectangle* getRectangle() const;
 
 		/**
 		 * Moves the sprite across the screen relative to the sprite current

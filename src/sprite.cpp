@@ -8,28 +8,32 @@
 using namespace std;
 
 namespace engine{
-	Sprite::Sprite(Image* image){
+	Sprite::Sprite(Image* image, int x, int y){
 		this->image = image;
-		x = 0;
-		y = 0;
-		w = image->getWidth();
-		h = image->getHeight();
+		rect = new Rectangle(x, y, image->getWidth(), image->getHeight());
 	}
-
+	Sprite::~Sprite() {
+		Resource::unloadImage(image);
+		image = NULL;
+	}
 	int Sprite::getX(){
-		return x;
+		return rect->x;
 	}
 
 	int Sprite::getY(){
-		return y;
+		return rect->y;
 	}
 
 	int Sprite::getWidth(){
-		return w;
+		return rect->w;
 	}
 
 	int Sprite::getHeight(){
-		return h;
+		return rect->h;
+	}
+
+	Rectangle* Sprite::getRectangle() const{
+		return rect;
 	}
 
 	void Sprite::tick(){
@@ -41,34 +45,30 @@ namespace engine{
 	}
 
 	void Sprite::draw() const{
-		//x, y, image->getSurface(), Window::init()->screen);
-		SDL_Rect offset;
-		offset.x = x;
-		offset.y = y;
-		SDL_BlitSurface(image->getSurface(), NULL, Window::init()->screen, &offset);
+		SDL_BlitSurface(image->getSurface(), NULL, Window::init()->screen, rect->getSDL_Rect());
 	}
 
 	void Sprite::translate(int x, int y){
-		this->x += x;
-		this->y += y;
+		rect->x += x;
+		rect->y += y;
 	}
 
 	void Sprite::moveTo(int x, int y){
-		this->x = x;
-		this->y = y;
+		rect->x = x;
+		rect->y = y;
 	}
 
 	void Sprite::resize(int w, int h){
 		if(w < 0 || h < 0) 
 			throw bad_arg("Can't have a negative area");
-		this->w = w;
-		this->h = h;
+		rect->w = w;
+		rect->h = h;
 	}
 
-	bool Sprite::collidesWith(const Sprite*) const{
-		return false;
+	bool Sprite::collidesWith(const Sprite* other) const{
+		return rect->overlaps(*(other->getRectangle()));
 	}
-
+	
 	void Sprite::onCollision(Func action){
 
 	}

@@ -15,8 +15,8 @@ namespace engine{
 		static void addAction(int key, Func action);
 		static Func getAction(SDLKey key);
 		static Func getAction(int key);
-		static void performAction(SDLKey key, Event* event);
-		static void performAction(int key, Event* event);
+		static void perform(SDLKey key, Event* event);
+		static void perform(int key, Event* event);
 	};
 }
 

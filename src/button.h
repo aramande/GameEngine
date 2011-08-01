@@ -5,20 +5,23 @@
 #include <string>
 #include "image.h"
 #include "event.h"
+#include "rectangle.h"
 #include "component.h"
+#include "fileexception.h"
+#include "resource.h"
+#include "window.h"
 
 namespace engine {
-	//typedef int Event; // temporary
-	//typedef int Image;
-
-	typedef void (*FPoint)(Event); 
 	class Button : public Component {
 		std::string text;
-		std::vector<FPoint> codes;
+		Func action;
+		Rectangle* rect;
+		Rectangle* textRect;
+		Image* image;
+		SDL_Surface* textImg;
 	protected:
 	public:
-		Button(int x, int y, int w, int h);
-		Button(int x, int y, Image buttonImg);
+		Button(int x, int y, Image* buttonImg, Func action);
 
 		/**
 		 * Set what should happen when the button is pressed down.
@@ -27,16 +30,12 @@ namespace engine {
 		 *
 		 * @param code A function that takes a single Event argument.
 		 */
-		void buttonDown(FPoint code);
-
-		/**
-		 * Set what should happen when the button is pressed down.
-		 * Will callback `code` whenever the button receives a released mouse event.
-		 *
-		 * @param code A function that takes a single Event argument.
-		 */
-		void buttonUp(FPoint code);
-		
+		void perform(Event* event);
+		void setAction(Func f);
+		void setText(std::string t, TTF_Font* font);
+		std::string getText() const;
+		Rectangle* Button::getRectangle() const;
+		void draw() const;
 	};
 }
 

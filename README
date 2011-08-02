@@ -38,6 +38,15 @@ libsdl-ttf2.0
 libsdl-image1.2
 cxxtest
 
+How to install SDL (Windows)
+----------------------------
+Step 1: Store the libraries in a convenient location like C:\lib\
+Step 2: Add "C:\lib\SDL-1.2.14;C:\lib\SDL_ttf-2.0.10;C:\lib\SDL_image-1.2.10" 
+	to the system/user variable CMAKE_PREFIX_PATH
+Step 3: Run cmake with the configuration of your choice and compile the code
+Step 4: Locate where the executables are located(depends on your IDE) and 
+	copy all the dll files from the libraries to here
+
 How to install cxxtest (windows)
 ---------------------------------
 Step 1: Installing Perl or Python

@@ -5,9 +5,10 @@ a1 done	Handling of keyboard input
 a2 done	Handling of mouse input
 a3 done	Activating buttons being pressed
 a4 done	Create Event class with everything that might be useful to know when an event has occured
+a5 	Remove dead sprites
 
 Grafics: 
-b1	Connect Gui to Window
+b1 done	Connect Gui to Window
 b2 done	Implement the drawing of gui objects (requires c2 for testing)
 b3 done	Implement the drawing of sprites onto the window (requires c2 for testing)
 b4 done	Create a better interface to load images, see sprite.cpp for example code.

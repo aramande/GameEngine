@@ -101,14 +101,29 @@ namespace engine{
 				}
 			}
 			if(quit) break;
-			SDL_FillRect(Window::init()->screen, &Window::init()->screen->clip_rect, SDL_MapRGB(Window::init()->screen->format, 0,0,0));
-			for (std::vector<Sprite*>::iterator it = storage->begin(); it != storage->end(); it++){
-				(*it)->tick();
-				(*it)->draw();
+			
+			SDL_FillRect(Window::init()->screen, &Window::init()->screen->clip_rect, 
+				SDL_MapRGB(Window::init()->screen->format, 0,0,0));
+			
+			for (std::vector<Sprite*>::iterator sprite = storage->begin(); sprite != storage->end(); sprite++){
+				(*sprite)->tick();
+				for (std::vector<Sprite*>::iterator otherSprite = storage->begin(); 
+					otherSprite != storage->end(); otherSprite++) {
+						if ((*sprite)->collidesWith(*otherSprite)) {
+							//Does nothing relevant yet.
+							std::string msg = "Collision detected at ";
+							msg += Logger::toStr((*sprite)->getX()) + " " + Logger::toStr((*sprite)->getY()));
+							Logger::init()->print(msg);
+						}
+				}
+				(*sprite)->draw();
 			}
-			for (std::vector<Component*>::iterator it = container->begin(); it != container->end(); it++){
-				(*it)->draw();
+			
+			for (std::vector<Component*>::iterator component = container->begin(); 
+				component != container->end(); component++){
+				(*component)->draw();
 			}
+			
 			SDL_Flip(Window::init()->screen);
 			++frame;
 			timeSinceLastFrame->start();

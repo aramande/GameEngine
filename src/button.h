@@ -23,6 +23,7 @@ namespace engine {
 	protected:
 	public:
 		Button(int x, int y, Image* buttonImg, Func action);
+		~Button();
 
 		/**
 		 * Set what should happen when the button is pressed down.
@@ -35,7 +36,7 @@ namespace engine {
 		void setAction(Func f);
 		void setText(std::string t, TTF_Font* font);
 		std::string getText() const;
-		Rectangle* Button::getRectangle() const;
+		const Rectangle* Button::getRectangle() const;
 		void draw() const;
 	};
 }

@@ -7,6 +7,13 @@ namespace engine{
 		setText("asd", Resource::loadFont("FreeUniversal-Bold.ttf", 14));
 	}
 
+	Button::~Button(){
+		delete textRect;
+		delete rect;
+		delete image;
+		SDL_FreeSurface(textImg);
+	}
+
 	void Button::perform(Event* event){
 		MouseEvent* mev = dynamic_cast<MouseEvent*>(event);
 		if (mev == NULL)
@@ -29,23 +36,23 @@ namespace engine{
 		else{
 			throw file_exception("Could not render font");
 		}
-		textRect = &(getRectangle()->centeredRect(textImg->w, textImg->h));
+		textRect = rect->centeredRect(textImg->w, textImg->h);
 	}
 	std::string Button::getText() const{
 		return text;
 	}
-	Rectangle* Button::getRectangle() const{
+	const Rectangle* Button::getRectangle() const{
 		return rect;
 	}
 
 	void Button::draw() const{
-		SDL_Rect* tmp = getRectangle();
-		SDL_Rect tmp2 = {0,0,tmp->w,tmp->h};
+		SDL_Rect target = rect->getSDL_Rect();
+		SDL_Rect source = {0,0,target.w,target.h};
 		if (true)
-			SDL_BlitSurface(image->getSurface(), &tmp2, mainScreen, tmp);
+			SDL_BlitSurface(image->getSurface(), &source, mainScreen, &target);
 		else
-			SDL_BlitSurface(NULL, &tmp2, mainScreen, tmp);
-		tmp = textRect;
-		SDL_BlitSurface(textImg, NULL, mainScreen, tmp);
+			SDL_BlitSurface(NULL, &source, mainScreen, &target);
+		target = textRect->getSDL_Rect();
+		SDL_BlitSurface(textImg, NULL, mainScreen, &target);
 	}
 }

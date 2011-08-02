@@ -16,8 +16,8 @@ namespace engine{
 		return xx >= x && xx <= x + w && yy >= y && yy <= y + h;
 	}
 
-	Rectangle Rectangle::centeredRect(int width, int height) const{
-		return Rectangle(x + w/2 - width/2, y + h/2 - height/2, width, height);
+	Rectangle* Rectangle::centeredRect(int width, int height) const{
+		return new Rectangle(x + w/2 - width/2, y + h/2 - height/2, width, height);
 	}
 
 	bool Rectangle::overlaps(const Rectangle& other) const{
@@ -38,7 +38,8 @@ namespace engine{
 
 		return true;
 	}
-	SDL_Rect* Rectangle::getSDL_Rect() {
-		return new SDL_Rect(*this);
+	SDL_Rect Rectangle::getSDL_Rect() {
+		SDL_Rect result = {x, y, w, h};
+		return result;
 	}
 } // cwing

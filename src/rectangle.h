@@ -10,9 +10,9 @@ namespace engine{
 		Rectangle();
 		Rectangle(int xx, int yy, int ww, int hh);
 		bool contains(int xx, int yy) const;
-		Rectangle centeredRect(int width, int height) const;
+		Rectangle* centeredRect(int width, int height) const;
 		bool overlaps(const Rectangle& other) const;
-		SDL_Rect* getSDL_Rect();
+		SDL_Rect getSDL_Rect();
 	};
 } // engine
 

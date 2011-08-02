@@ -37,10 +37,10 @@ namespace engine{
 		SDL_Rect* tmp = getRectangle();
 		SDL_Rect tmp2 = {0,0,tmp->w,tmp->h};
 		if (true)
-			SDL_BlitSurface(image->getSurface(), &tmp2, Window::init()->screen, tmp);
+			SDL_BlitSurface(image->getSurface(), &tmp2, mainScreen, tmp);
 		else
-			SDL_BlitSurface(NULL, &tmp2, Window::init()->screen, tmp);
+			SDL_BlitSurface(NULL, &tmp2, mainScreen, tmp);
 		tmp = textRect;
-		SDL_BlitSurface(textImg, NULL, Window::init()->screen, tmp);
+		SDL_BlitSurface(textImg, NULL, mainScreen, tmp);
 	}
 }

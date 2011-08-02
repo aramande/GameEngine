@@ -15,7 +15,7 @@ namespace engine{
 	GameEngine::GameEngine(Window* main){
 		if(main == NULL)
 			throw bad_arg("Main window cannot be null");
-		screen = main;
+		window = main;
 		storage = new std::vector<Sprite*>();
 		container = new std::vector<Component*>();
 		fpsLimit = 60;
@@ -101,7 +101,7 @@ namespace engine{
 				}
 			}
 			if(quit) break;
-			SDL_FillRect(Window::init()->screen, &Window::init()->screen->clip_rect, SDL_MapRGB(Window::init()->screen->format, 0,0,0));
+			SDL_FillRect(mainScreen, &mainScreen->clip_rect, SDL_MapRGB(mainScreen->format, 0,0,0));
 			for (std::vector<Sprite*>::iterator it = storage->begin(); it != storage->end(); it++){
 				(*it)->tick();
 				(*it)->draw();
@@ -109,7 +109,7 @@ namespace engine{
 			for (std::vector<Component*>::iterator it = container->begin(); it != container->end(); it++){
 				(*it)->draw();
 			}
-			SDL_Flip(Window::init()->screen);
+			SDL_Flip(mainScreen);
 			++frame;
 			timeSinceLastFrame->start();
 			if (fpsClock->get_ticks() < (1000 / fpsLimit)){

@@ -9,8 +9,9 @@
 #define WINDOW_H
 
 #include "sdl.h"
-
+	
 namespace engine{
+	extern SDL_Surface* mainScreen;
 	class Window{
 		int width;
 		int height;
@@ -32,7 +33,6 @@ namespace engine{
 		void setFlags(int flags) const;
 		void resize(int w, int h);
 		void fullscreen(bool wantFullscreen);
-		SDL_Surface* screen;
 	};
 }
 #endif

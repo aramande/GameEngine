@@ -11,6 +11,7 @@
 
 namespace engine{
 	Window* Window::win = NULL;
+	SDL_Surface* mainScreen = NULL;
 	Window::Window(int width, int height, int depth){
 		SDL_Init( SDL_INIT_EVERYTHING ); 
 		TTF_Init();
@@ -20,8 +21,8 @@ namespace engine{
 		this->depth = depth;
 		this->flags = SDL_HWSURFACE|SDL_RESIZABLE;
 		
-		screen = SDL_SetVideoMode(width, height, depth, flags); 
-		if (screen == NULL) {
+		mainScreen = SDL_SetVideoMode(width, height, depth, flags); 
+		if (mainScreen == NULL) {
 			throw sdl_error((std::string)"Video initialization failed: " + SDL_GetError());
 		}
 	}
@@ -42,16 +43,16 @@ namespace engine{
 	void Window::resize(int w, int h){
 		width = w;
 		height = h;
-		screen = SDL_SetVideoMode(width, height, depth, flags); 
+		mainScreen = SDL_SetVideoMode(width, height, depth, flags); 
 	}
 
 	void Window::fullscreen(bool wantFullscreen){
 		if(wantFullscreen){
-			screen = SDL_SetVideoMode(width, height, depth, flags | SDL_FULLSCREEN);
+			mainScreen = SDL_SetVideoMode(width, height, depth, flags | SDL_FULLSCREEN);
 			flags = flags | SDL_FULLSCREEN;
 		}
 		else{
-			screen = SDL_SetVideoMode(width, height, depth, flags & ~SDL_FULLSCREEN);
+			mainScreen = SDL_SetVideoMode(width, height, depth, flags & ~SDL_FULLSCREEN);
 			flags = flags & ~SDL_FULLSCREEN;
 		}
 	}

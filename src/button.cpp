@@ -8,7 +8,12 @@ namespace engine{
 	}
 
 	void Button::perform(Event* event){
-		(*action)(event);
+		MouseEvent* mev = dynamic_cast<MouseEvent*>(event);
+		if (mev == NULL)
+			return;
+			
+		if (rect->contains(mev->getX(), mev->getY()))
+			(*action)(event);
 	}
 	void Button::setAction(Func f){
 		action = f;

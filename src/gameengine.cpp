@@ -87,13 +87,15 @@ namespace engine{
 					quit = true;
 				switch (curEvent.type){
 				case SDL_KEYDOWN:
-					EventHandler::perform(curEvent.key.keysym.sym, new KeyEvent(curEvent.key.keysym.sym, 
-						curEvent.key.keysym.mod, true, timeSinceLastFrame->get_ticks()));
+					SDL_keysym keySymbol = curEvent.key.keysym;
+					EventHandler::perform(keySymbol.sym, new KeyEvent(keySymbol.sym, 
+						keySymbol.mod, true, timeSinceLastFrame->get_ticks()));
 					break;
 				case SDL_MOUSEBUTTONDOWN:
-					MouseEvent* mouseEvent = new MouseEvent(curEvent.button.x, curEvent.button.y, 
-						curEvent.button.button, true, false, timeSinceLastFrame->get_ticks());
-					EventHandler::perform(curEvent.button.button, mouseEvent);
+					SDL_MouseButtonEvent click = curEvent.button;
+					MouseEvent* mouseEvent = new MouseEvent(click.x, click.y, 
+						click.button, true, false, timeSinceLastFrame->get_ticks());
+					EventHandler::perform(click.button, mouseEvent);
 					for (std::vector<Component*>::iterator it = container->begin(); it != container->end(); it++){
 						(*it)->perform(mouseEvent);
 					}
@@ -112,10 +114,10 @@ namespace engine{
 			SDL_Flip(mainScreen);
 			++frame;
 			timeSinceLastFrame->start();
-			if (fpsClock->get_ticks() < (1000 / fpsLimit)){
-				Logger::init()->print(Logger::toStr(fpsClock->get_ticks()) + " has an avg " + Logger::toStr(frame/(fpsClock->get_ticks()/1000.0)));
+			int ticks = fpsClock->get_ticks();
+			if (ticks < (1000 / fpsLimit)){
 				frame = 0;
-				SDL_Delay((1000 / fpsLimit) - fpsClock->get_ticks());
+				SDL_Delay((1000 / fpsLimit) - ticks);
 			}
 		}
 	}

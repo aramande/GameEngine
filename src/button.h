@@ -10,6 +10,7 @@
 #include "fileexception.h"
 #include "resource.h"
 #include "window.h"
+#include "mouseevent.h"
 
 namespace engine {
 	class Button : public Component {

@@ -18,7 +18,7 @@ namespace engine{
 		window = main;
 		storage = new std::vector<Sprite*>();
 		container = new std::vector<Component*>();
-		fpsLimit = 60;
+		fpsLimit = 30;
 		fpsClock = new Timer();
 	}
 
@@ -79,6 +79,7 @@ namespace engine{
 		SDL_Event curEvent;
 		quit = false;
 		int frame = 0;
+		int globalFrame = 0; //temp
 		timeSinceLastFrame->start();
 		while(!quit) {
 			fpsClock->start();
@@ -109,16 +110,34 @@ namespace engine{
 			SDL_FillRect(mainScreen, &mainScreen->clip_rect, 
 				SDL_MapRGB(mainScreen->format, 0,0,0));
 			
-			for (std::vector<Sprite*>::iterator sprite = storage->begin(); sprite != storage->end(); sprite++){
+			for (std::vector<Sprite*>::iterator sprite = storage->begin(); 
+				sprite != storage->end();){
+				if ((*sprite)->isDead())
+					continue;
 				(*sprite)->tick();
 				for (std::vector<Sprite*>::iterator otherSprite = storage->begin(); 
-					otherSprite != storage->end(); otherSprite++) {
-						if ((*sprite)->collidesWith(*otherSprite)) {
-							//Does nothing relevant yet.
-							std::string msg = "Collision detected at ";
-							msg += Logger::toStr((*sprite)->getX()) + " " + Logger::toStr((*sprite)->getY());
-							Logger::init()->print(msg);
+					otherSprite != storage->end();) {
+					if ((*sprite)->collidesWith(*otherSprite)) {
+						(*sprite)->collide((*otherSprite));
+						(*otherSprite)->collide((*sprite));
+
+						/* if ((*sprite)->isDead()) {
+							delSprite(*(sprite++));
 						}
+						else
+							sprite++;
+						if ((*otherSprite)->isDead()) {
+							delSprite(*(otherSprite++));
+						}
+						else
+							otherSprite++;
+						*/
+
+						std::string msg = "Collision detected at ";
+						msg += Logger::toStr((*sprite)->getX()) + " " + Logger::toStr((*sprite)->getY());
+						msg += " (at frame " + Logger::toStr(globalFrame) + ")";
+						Logger::init()->print(msg);
+					}
 				}
 				(*sprite)->draw();
 			}
@@ -131,6 +150,7 @@ namespace engine{
 			SDL_Flip(mainScreen);
 
 			++frame;
+			++globalFrame; //temp
 			timeSinceLastFrame->start();
 			int ticks = fpsClock->get_ticks();
 			if (ticks < (1000 / fpsLimit)){

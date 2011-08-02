@@ -6,16 +6,19 @@
 #include "image.h"
 #include "rectangle.h"
 #include "resource.h"
+#include "logger.h"
 
 namespace engine{
 	class Sprite {
-		typedef void(*Func)(const Sprite*);
+		typedef void(*Func)(Sprite*, const Sprite*);
 		Image* image;
 		Rectangle* rect;
 		Func action;
+		bool dead;
 
 		Sprite(const Sprite& other){}
 		const Sprite &operator=(const Sprite& other){}
+		static void dummy(Sprite* self, const Sprite* other){}
 
 	 public:
 		Sprite(Image* image, int x=0, int y=0);
@@ -45,6 +48,10 @@ namespace engine{
 		int getWidth();
 
 		int getHeight();
+
+		bool isDead();
+
+		void kill();
 
 		Rectangle* getRectangle() const;
 

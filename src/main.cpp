@@ -5,6 +5,7 @@
 using namespace engine;
 using namespace std;
 void shutdown(engine::Event* event);
+void collisionDeath(engine::Sprite* self, const engine::Sprite* other);
 
 class Player : public Sprite{
 public:
@@ -35,12 +36,20 @@ int main(int argc, char **argv){
 	EventHandler::addAction(SDLK_ESCAPE, &shutdown);
 	//EventHandler::addAction(SDL_BUTTON_LEFT, &shutdown);
 	game->addComponent(new Button(50, 100, Resource::loadImage("button.png"), &shutdown));
-	game->addSprite(new Player());
-	game->addSprite(new Enemy());
+	Sprite* player = new Player();
+	player->onCollision(&collisionDeath);
+	Sprite* enemy = new Enemy();
+	enemy->onCollision(&collisionDeath);
+
+	game->addSprite(player);
+	game->addSprite(enemy);
 	game->run();
 	return 0;
 }
 
 void shutdown(engine::Event* event){
 	engine::GameEngine::doQuit();
+}
+void collisionDeath(engine::Sprite* self, const engine::Sprite* other){
+	self->kill();
 }

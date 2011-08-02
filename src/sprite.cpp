@@ -11,6 +11,8 @@ namespace engine{
 	Sprite::Sprite(Image* image, int x, int y){
 		this->image = image;
 		rect = new Rectangle(x, y, image->getWidth(), image->getHeight());
+		action = &dummy;
+		dead = false;
 	}
 	Sprite::~Sprite() {
 		Resource::unloadImage(image);
@@ -30,6 +32,15 @@ namespace engine{
 
 	int Sprite::getHeight(){
 		return rect->h;
+	}
+
+	bool Sprite::isDead() {
+		return dead;
+	}
+
+	void Sprite::kill() {
+		dead = true;
+		Logger::init()->print("A sprite has died.");
 	}
 
 	Rectangle* Sprite::getRectangle() const{
@@ -66,6 +77,8 @@ namespace engine{
 	}
 
 	bool Sprite::collidesWith(const Sprite* other) const{
+		if (other == this)
+			return false;
 		return rect->overlaps(*(other->getRectangle()));
 	}
 	
@@ -74,6 +87,7 @@ namespace engine{
 	}
 
 	void Sprite::collide(Sprite* other) {
-		(*action)(other);
+		if (other != this)
+			(*action)(this, other);
 	}
 }

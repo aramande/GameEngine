@@ -18,6 +18,17 @@ public:
 	}
 };
 
+class Enemy : public Sprite{
+public:
+	Enemy() : Sprite(Resource::loadImage("testimage.png"), 300, 200){
+
+	}
+
+	void tick(){
+		translate(-1, -1);
+	}
+};
+
 int main(int argc, char **argv){
 	Window* screen = Window::init(640, 480, 32);
 	GameEngine* game = GameEngine::init(screen);
@@ -25,6 +36,7 @@ int main(int argc, char **argv){
 	//EventHandler::addAction(SDL_BUTTON_LEFT, &shutdown);
 	game->addComponent(new Button(50, 100, Resource::loadImage("button.png"), &shutdown));
 	game->addSprite(new Player());
+	game->addSprite(new Enemy());
 	game->run();
 	return 0;
 }

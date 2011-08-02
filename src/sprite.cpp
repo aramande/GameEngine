@@ -70,6 +70,10 @@ namespace engine{
 	}
 	
 	void Sprite::onCollision(Func action){
+		this->action = action;
+	}
 
+	void Sprite::collide(Sprite* other) {
+		(*action)(other);
 	}
 }

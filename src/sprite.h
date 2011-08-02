@@ -9,12 +9,13 @@
 
 namespace engine{
 	class Sprite {
+		typedef void(*Func)(const Sprite*);
 		Image* image;
 		Rectangle* rect;
+		Func action;
 
 		Sprite(const Sprite& other){}
 		const Sprite &operator=(const Sprite& other){}
-		typedef void(*Func)(const Sprite*);
 
 	 public:
 		Sprite(Image* image, int x=0, int y=0);
@@ -77,6 +78,8 @@ namespace engine{
 		 * The sprite pointer will contain the object this sprite collided with.
 		 */
 		virtual void onCollision(Func action);
+
+		void collide(Sprite* other);
 	};
 }
 

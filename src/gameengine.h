@@ -26,7 +26,7 @@ namespace engine {
 		std::vector<Sprite*>* storage;
 		std::vector<Component*>* container;
 		Gui* hud; 
-		Window* screen;
+		Window* window;
 		Timer* fpsClock;
 		int fpsLimit;
 		static bool quit;
@@ -37,9 +37,9 @@ namespace engine {
 		 * Incase of collision, onCollision is called on both sprites.
 		 */
 		void collide();
-		GameEngine(Window* screen); // init the game engine here
+		GameEngine(Window* mainScreen); // init the game engine here
 	public:
-		static GameEngine* init(Window* screen);
+		static GameEngine* init(Window* mainScreen);
 		~GameEngine();
 		
 		void addSprite(Sprite* s);
@@ -50,7 +50,7 @@ namespace engine {
 		void setFPS(int fps);
 		
 		/**
-		 * Calls all update functions and draws sprites and gui on the screen.
+		 * Calls all update functions and draws sprites and gui on the mainScreen.
 		 */
 		void run();
 		static void doQuit();

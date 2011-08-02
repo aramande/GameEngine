@@ -4,7 +4,7 @@ namespace engine{
 		this->image = img;
 		this->rect = new Rectangle(x, y, image->getWidth(), image->getHeight());	
 		this->action = action;
-		setText("asd", Resource::loadFont("tahomabd.ttf", 14));
+		setText("asd", Resource::loadFont("FreeUniversal-Bold.ttf", 14));
 	}
 
 	void Button::perform(Event* event){
@@ -42,10 +42,10 @@ namespace engine{
 		SDL_Rect* tmp = getRectangle();
 		SDL_Rect tmp2 = {0,0,tmp->w,tmp->h};
 		if (true)
-			SDL_BlitSurface(image->getSurface(), &tmp2, Window::init()->screen, tmp);
+			SDL_BlitSurface(image->getSurface(), &tmp2, mainScreen, tmp);
 		else
-			SDL_BlitSurface(NULL, &tmp2, Window::init()->screen, tmp);
+			SDL_BlitSurface(NULL, &tmp2, mainScreen, tmp);
 		tmp = textRect;
-		SDL_BlitSurface(textImg, NULL, Window::init()->screen, tmp);
+		SDL_BlitSurface(textImg, NULL, mainScreen, tmp);
 	}
 }

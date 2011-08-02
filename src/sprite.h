@@ -27,12 +27,12 @@ namespace engine{
 
 		void repaint() const;
 		/**
-		 * Draw the sprite onto the screen.
+		 * Draw the sprite onto the mainScreen.
 		 */
 		virtual void draw() const;
 
 		/**
-		 * Returns an approximate value for describing the location of the sprite on the screen.
+		 * Returns an approximate value for describing the location of the sprite on the mainScreen.
 		 * Used for efficiently calculating the collision detection
 		 */
 		int getHash() const;
@@ -48,13 +48,13 @@ namespace engine{
 		Rectangle* getRectangle() const;
 
 		/**
-		 * Moves the sprite across the screen relative to the sprite current
+		 * Moves the sprite across the mainScreen relative to the sprite current
 		 * position.
 		 */
 		void translate(int x, int y);
 
 		/**
-		 * Moves the sprite to an exact position on the screen. If we make
+		 * Moves the sprite to an exact position on the mainScreen. If we make
 		 * anything like a viewport, this is a dangerous function to have.
 		 */
 		void moveTo(int x, int y);

@@ -33,7 +33,7 @@ namespace engine {
 		virtual void perform(Event* event){}
 
 		/**
-		 * Draw the component onto the screen.
+		 * Draw the component onto the mainScreen.
 		 */
 		virtual void draw() const;
 		

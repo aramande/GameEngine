@@ -15,7 +15,7 @@ namespace engine{
 	GameEngine::GameEngine(Window* main){
 		if(main == NULL)
 			throw bad_arg("Main window cannot be null");
-		screen = main;
+		window = main;
 		storage = new std::vector<Sprite*>();
 		container = new std::vector<Component*>();
 		fpsLimit = 60;
@@ -51,6 +51,7 @@ namespace engine{
 		for (unsigned int i = 0; i < storage->size(); i++) {
 			if (storage->at(i) == s) {
 				delete storage->at(i);
+				Logger::init()->print("Removing sprite");
 				storage->erase(storage->begin() + i);
 			}
 		}
@@ -59,13 +60,14 @@ namespace engine{
 	void GameEngine::addComponent(Component* c) {
 		if(c == NULL)
 			throw bad_arg("Don't add null to the component list");
-		Logger::init()->print("Adding component.");
+		Logger::init()->print("Adding component");
 		container->push_back(c);
 	}
 
 	void GameEngine::delComponent(Component* c) {
 		for (unsigned int i = 0; i < container->size(); i++) {
 			if(container->at(i) == c) {
+				Logger::init()->print("Removing componen.");
 				delete container->at(i);
 				container->erase(container->begin() + i);
 			}
@@ -83,27 +85,29 @@ namespace engine{
 			while(SDL_PollEvent(&curEvent)) {
 				if (curEvent.type == SDL_QUIT)
 					quit = true;
+				SDL_keysym keySymbol;
+				SDL_MouseButtonEvent click;
 				switch (curEvent.type){
-				case SDL_KEYDOWN:
-					SDL_keysym keySymbol = curEvent.key.keysym;
-					EventHandler::perform(keySymbol.sym, new KeyEvent(keySymbol.sym, 
-						keySymbol.mod, true, timeSinceLastFrame->get_ticks()));
-					break;
-				case SDL_MOUSEBUTTONDOWN:
-					SDL_MouseButtonEvent click = curEvent.button;
-					MouseEvent* mouseEvent = new MouseEvent(click.x, click.y, 
-						click.button, true, false, timeSinceLastFrame->get_ticks());
-					EventHandler::perform(click.button, mouseEvent);
-					for (std::vector<Component*>::iterator it = container->begin(); it != container->end(); it++){
-						(*it)->perform(mouseEvent);
-					}
-					break;
+					case SDL_KEYDOWN:
+						keySymbol = curEvent.key.keysym;
+						EventHandler::perform(keySymbol.sym, new KeyEvent(keySymbol.sym, 
+							keySymbol.mod, true, timeSinceLastFrame->get_ticks()));
+						break;
+					case SDL_MOUSEBUTTONDOWN:
+						click = curEvent.button;
+						MouseEvent* mouseEvent = new MouseEvent(click.x, click.y, 
+							click.button, true, false, timeSinceLastFrame->get_ticks());
+						EventHandler::perform(click.button, mouseEvent);
+						for (std::vector<Component*>::iterator it = container->begin(); it != container->end(); it++){
+							(*it)->perform(mouseEvent);
+						}
+						break;
 				}
 			}
 			if(quit) break;
 			
-			SDL_FillRect(Window::init()->screen, &Window::init()->screen->clip_rect, 
-				SDL_MapRGB(Window::init()->screen->format, 0,0,0));
+			SDL_FillRect(mainScreen, &mainScreen->clip_rect, 
+				SDL_MapRGB(mainScreen->format, 0,0,0));
 			
 			for (std::vector<Sprite*>::iterator sprite = storage->begin(); sprite != storage->end(); sprite++){
 				(*sprite)->tick();
@@ -112,7 +116,7 @@ namespace engine{
 						if ((*sprite)->collidesWith(*otherSprite)) {
 							//Does nothing relevant yet.
 							std::string msg = "Collision detected at ";
-							msg += Logger::toStr((*sprite)->getX()) + " " + Logger::toStr((*sprite)->getY()));
+							msg += Logger::toStr((*sprite)->getX()) + " " + Logger::toStr((*sprite)->getY());
 							Logger::init()->print(msg);
 						}
 				}
@@ -123,8 +127,9 @@ namespace engine{
 				component != container->end(); component++){
 				(*component)->draw();
 			}
-			
-			SDL_Flip(Window::init()->screen);
+
+			SDL_Flip(mainScreen);
+
 			++frame;
 			timeSinceLastFrame->start();
 			int ticks = fpsClock->get_ticks();

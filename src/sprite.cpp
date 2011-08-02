@@ -45,7 +45,7 @@ namespace engine{
 	}
 
 	void Sprite::draw() const{
-		SDL_BlitSurface(image->getSurface(), NULL, Window::init()->screen, rect->getSDL_Rect());
+		SDL_BlitSurface(image->getSurface(), NULL, mainScreen, rect->getSDL_Rect());
 	}
 
 	void Sprite::translate(int x, int y){

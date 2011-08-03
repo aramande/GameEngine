@@ -30,7 +30,7 @@ namespace engine{
 
 	void Resource::unloadImage(std::string filename){
 		if(loadedImages.find(filename) != loadedImages.end()){
-			if(imageCount[filename]==0){
+			if(--imageCount[filename]==0){
 				imageNames.erase(loadedImages[filename]);
 				delete loadedImages[filename];
 				loadedImages.erase(filename);
@@ -39,13 +39,7 @@ namespace engine{
 	}
 	
 	void Resource::unloadImage(Image* img) {
-		if(imageNames.find(img) != imageNames.end()){
-			if(imageCount[imageNames[img]] == 0) {
-				delete loadedImages[imageNames[img]];
-				loadedImages.erase(imageNames[img]);
-				imageNames.erase(img);
-			}
-		}		
+		unloadImage(imageNames[img]);		
 	}
 
 	
@@ -71,7 +65,7 @@ namespace engine{
 
 	void Resource::unloadFont(std::string filename, int size){
 		if(loadedFonts.find(filename) != loadedFonts.end()){
-			if(fontCount[filename]==0){
+			if(--fontCount[filename]==0){
 				free(loadedFonts[filename]);
 				loadedFonts.erase(filename);
 			}

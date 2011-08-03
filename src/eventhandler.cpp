@@ -2,26 +2,30 @@
 #include "keyevent.h"
 #include "mouseevent.h"
 namespace engine{
-	std::map<SDLKey, EventHandler::Func> EventHandler::keyActions = std::map<SDLKey, Func>();
-	std::map<int, EventHandler::Func> EventHandler::mouseActions = std::map<int, Func>();
-	void EventHandler::addAction(SDLKey key, Func action){
-		keyActions.insert(std::pair<SDLKey, Func>(key, action));
+	std::map<SDLKey, EventListener*> EventHandler::keyActions = std::map<SDLKey, EventListener*>();
+	std::map<int, EventListener*> EventHandler::mouseActions = std::map<int, EventListener*>();
+	void EventHandler::addAction(SDLKey key, EventListener* action){
+		keyActions[key] = action;
 	}
 	
-	void EventHandler::addAction(int key, Func action){
-		mouseActions.insert(std::pair<int, Func>(key, action));
+	void EventHandler::addAction(int key, EventListener* action){
+		mouseActions[key] = action;
 	}
 
-	EventHandler::Func EventHandler::getAction(SDLKey key){
+	EventListener* EventHandler::getAction(SDLKey key){
 		if(keyActions.find(key) == keyActions.end()){
-			return *dummy;
+			FunctionListener* dummyListener = new FunctionListener();
+			dummyListener->setFunction(&dummy);
+			return dummyListener;
 		}
 		return keyActions[key];
 	}
 
-	EventHandler::Func EventHandler::getAction(int key){
+	EventListener* EventHandler::getAction(int key){
 		if(mouseActions.find(key) == mouseActions.end()){
-			return *dummy;
+			FunctionListener* dummyListener = new FunctionListener();
+			dummyListener->setFunction(&dummy);
+			return dummyListener;
 		}
 		return mouseActions[key];
 	}

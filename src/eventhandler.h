@@ -4,17 +4,18 @@
 #include <map>
 #include "sdl.h"
 #include "event.h"
+#include "eventlistener.h"
 namespace engine{
 	class EventHandler {
-		typedef void(*Func)(Event*);
-		static std::map<SDLKey, Func> keyActions;
-		static std::map<int, Func> mouseActions;
+		static std::map<SDLKey, EventListener*> keyActions;
+		static std::map<int, EventListener*> mouseActions;
+		
 		static void dummy(Event* event){}
 	 public:
-		static void addAction(SDLKey key, Func action);
-		static void addAction(int key, Func action);
-		static Func getAction(SDLKey key);
-		static Func getAction(int key);
+		static void addAction(SDLKey key, EventListener* action);
+		static void addAction(int key, EventListener* action);
+		static EventListener* getAction(SDLKey key);
+		static EventListener* getAction(int key);
 		static void perform(SDLKey key, Event* event);
 		static void perform(int key, Event* event);
 	};

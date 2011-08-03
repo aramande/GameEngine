@@ -18,12 +18,12 @@ namespace engine{
 
 		Sprite(const Sprite& other){}
 		const Sprite &operator=(const Sprite& other){}
-		static void dummy(Sprite* self, const Sprite* other){}
 
 	 public:
 		Sprite(Image* image, int x=0, int y=0);
 		virtual ~Sprite();
-
+		
+		static void dummy(Sprite* self, const Sprite* other){}
 		/**
 		 * Runs every frame, change eventual movement of the sprite here.
 		 */

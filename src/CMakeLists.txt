@@ -7,6 +7,7 @@ add_library(gameengine
 	component.cpp component.h
 	event.h
 	eventhandler.cpp eventhandler.h
+	eventlistener.cpp eventlistener.h
 	fileexception.h
 	gameengine.cpp gameengine.h
 	gui.cpp gui.h

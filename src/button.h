@@ -22,7 +22,7 @@ namespace engine {
 		SDL_Surface* textImg;
 	protected:
 	public:
-		Button(int x, int y, Image* buttonImg, Func action);
+		Button(int x, int y, Image* buttonImg, Func action, std::string text);
 		~Button();
 
 		/**

@@ -36,7 +36,8 @@ public:
 	}
 
 	void shoot(Event* event){
-		game->addSprite(new Projectile(Resource::loadImage("projectile.png"), this, true, 0, -2));
+		if(!isDead())
+			game->addSprite(new Projectile(Resource::loadImage("projectile.png"), this, false, 0, 2));
 	}
 
 	void tick(){
@@ -72,7 +73,7 @@ int main(int argc, char **argv){
 	EventHandler::addAction(SDLK_d, moveListener);
 	
 	ClassListener<Player>* shootListener = new ClassListener<Player>();
-	moveListener->setFunction(player, &Player::shoot);
+	shootListener->setFunction(player, &Player::shoot);
 	EventHandler::addAction(SDLK_SPACE, shootListener);
 	
 	player->onCollision(&collisionDeath);

@@ -4,8 +4,10 @@
 #include "gameengine.h"
 
 class Projectile : public engine::Sprite {
-	Projectile(Image* image, Sprite, int xvel, int yvel);
-	int velocity;
+	Projectile(engine::Image* image, int x, int y, int xvel, int yvel);
+	Projectile(engine::Image* image, engine::Sprite* origin, bool top, int xvel, int yvel);
+	int xVelocity;
+	int yVelocity;
 protected:
 public:
 	void tick();
@@ -13,8 +15,8 @@ public:
 	int getXVelocity();
 	int getYVelocity();
 
-	void setXVelocity();
-	void setYVelocity();
+	void setXVelocity(int xvel);
+	void setYVelocity(int yvel);
 
 	void setVelocity(int xvel, int yvel);
 

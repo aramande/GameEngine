@@ -30,7 +30,7 @@ set(test_headers
 	${CMAKE_CURRENT_SOURCE_DIR}/resourcetest.h
 	${CMAKE_CURRENT_SOURCE_DIR}/spritetest.h)
 
-add_executable(gametest
+add_executable(game
 	main.cpp)
 
 
@@ -65,4 +65,4 @@ if(CXXTEST_FOUND)
 endif()
 
 include_directories(${PROJECT_SOURCE_DIR}/src)
-target_link_libraries(gametest gameengine)
+target_link_libraries(game gameengine)

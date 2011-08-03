@@ -1,6 +1,7 @@
 #include <cxxtest/ErrorPrinter.h>
 #include <iostream>
 #include <gameengine.h>
+#include "projectile.h"
 
 using namespace engine;
 using namespace std;
@@ -40,9 +41,12 @@ int main(int argc, char **argv){
 	player->onCollision(&collisionDeath);
 	Sprite* enemy = new Enemy();
 	enemy->onCollision(&collisionDeath);
+	Projectile* p = new Projectile(Resource::loadImage("projectile.png"),
+		player, false, 1, 8);
 
 	game->addSprite(player);
 	game->addSprite(enemy);
+	game->addSprite(p);
 	game->run();
 	return 0;
 }

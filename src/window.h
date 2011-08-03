@@ -27,7 +27,7 @@ namespace engine{
 		static void kill();
 		~Window();
 		int getWidth() const;
-		int getHeidht() const;
+		int getHeight() const;
 		int getDepth() const;
 		int getFlags() const;
 		void setFlags(int flags) const;

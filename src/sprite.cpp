@@ -79,10 +79,20 @@ namespace engine{
 	bool Sprite::collidesWith(const Sprite* other) const{
 		if (other == this)
 			return false;
+		if (other == NULL){
+			return !rect->overlaps(Rectangle(0, 0, Window::init()->getWidth(), Window::init()->getHeight()));
+		}
 		return rect->overlaps(*(other->getRectangle()));
 	}
 	
+	/**
+	 * Expects a void function that takes a Sprite* as argument.
+	 * This function will be called every frame where there's a collision detected for this sprite.
+	 * If the sprite collides with the wall, the Sprite* will be NULL.
+	 */
 	void Sprite::onCollision(Func action){
+		if(action == NULL) 
+			return;
 		this->action = action;
 	}
 

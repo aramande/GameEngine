@@ -119,6 +119,9 @@ namespace engine{
 				(*sprite)->tick();
 				for (std::vector<Sprite*>::iterator otherSprite = storage->begin(); 
 					otherSprite != storage->end();otherSprite++) {
+					if ((*sprite)->collidesWith(NULL)){
+						(*sprite)->collide(NULL);
+					}
 					if ((*sprite)->collidesWith(*otherSprite)) {
 						(*sprite)->collide((*otherSprite));
 						(*otherSprite)->collide((*sprite));

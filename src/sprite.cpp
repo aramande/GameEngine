@@ -2,7 +2,6 @@
 #include "badarg.h"
 #include "window.h"
 #include "fileexception.h"
-
 #include "sdl.h"
 
 using namespace std;

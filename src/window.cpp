@@ -32,6 +32,22 @@ namespace engine{
 		return win;
 	}
 
+	int Window::getDepth() const{
+		return depth;
+	}
+
+	int Window::getFlags() const{
+		return flags;
+	}
+
+	int Window::getHeight() const{
+		return height;
+	}
+
+	int Window::getWidth() const{
+		return width;
+	}
+
 	void Window::kill(){
 		if(win != NULL) delete win;
 	}

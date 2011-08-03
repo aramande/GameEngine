@@ -80,6 +80,8 @@ namespace engine{
 		quit = false;
 		int frame = 0;
 		int globalFrame = 0; //temp
+		std::stack<Sprite*> deathrow = std::stack<Sprite*>();
+		
 		timeSinceLastFrame->start();
 		while(!quit) {
 			fpsClock->start();
@@ -111,27 +113,22 @@ namespace engine{
 				SDL_MapRGB(mainScreen->format, 0,0,0));
 			
 			for (std::vector<Sprite*>::iterator sprite = storage->begin(); 
-				sprite != storage->end();){
+				sprite != storage->end();sprite++){
 				if ((*sprite)->isDead())
 					continue;
 				(*sprite)->tick();
 				for (std::vector<Sprite*>::iterator otherSprite = storage->begin(); 
-					otherSprite != storage->end();) {
+					otherSprite != storage->end();otherSprite++) {
 					if ((*sprite)->collidesWith(*otherSprite)) {
 						(*sprite)->collide((*otherSprite));
 						(*otherSprite)->collide((*sprite));
 
-						/* if ((*sprite)->isDead()) {
-							delSprite(*(sprite++));
+						if ((*sprite)->isDead()) {
+							deathrow.push(*(sprite));
 						}
-						else
-							sprite++;
 						if ((*otherSprite)->isDead()) {
-							delSprite(*(otherSprite++));
+							deathrow.push(*(otherSprite));
 						}
-						else
-							otherSprite++;
-						*/
 
 						std::string msg = "Collision detected at ";
 						msg += Logger::toStr((*sprite)->getX()) + " " + Logger::toStr((*sprite)->getY());
@@ -140,6 +137,13 @@ namespace engine{
 					}
 				}
 				(*sprite)->draw();
+			}
+			
+			Sprite* deadSprite;
+			while(!deathrow.empty()){
+				deadSprite = deathrow.top();
+				delSprite(deadSprite);
+				deathrow.pop();
 			}
 			
 			for (std::vector<Component*>::iterator component = container->begin(); 

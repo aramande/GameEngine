@@ -9,7 +9,7 @@ void collisionDeath(engine::Sprite* self, const engine::Sprite* other);
 
 class Player : public Sprite{
 public:
-	Player() : Sprite(Resource::loadImage("testimage.png")){
+	Player() : Sprite(Resource::loadImage("player.png")){
 
 	}
 

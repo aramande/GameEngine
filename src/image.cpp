@@ -8,7 +8,7 @@ namespace engine{
 	Image::Image(string filename){
 		SDL_Surface* loadedImage = IMG_Load(filename.c_str()); 
 		if(loadedImage != NULL){ 
-			image = SDL_DisplayFormat(loadedImage); 
+			image = SDL_DisplayFormatAlpha(loadedImage); 
 			SDL_FreeSurface(loadedImage); 
 		}
 		else{

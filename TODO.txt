@@ -5,7 +5,7 @@ a1 done	Handling of keyboard input
 a2 done	Handling of mouse input
 a3 done	Activating buttons being pressed
 a4 done	Create Event class with everything that might be useful to know when an event has occured
-a5 	Remove dead sprites
+a5 done	Remove dead sprites
 
 Grafics: 
 b1 done	Connect Gui to Window

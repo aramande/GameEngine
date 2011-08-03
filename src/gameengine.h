@@ -2,6 +2,7 @@
 #define GAMEENGINE_H
 
 #include <map>
+#include <stack>
 #include <vector>
 #include "badarg.h"
 #include "button.h"

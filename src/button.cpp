@@ -20,7 +20,7 @@ namespace engine{
 			return;
 			
 		if (rect->contains(mev->getX(), mev->getY()))
-			(*action)(event);
+			(*action)(mev);
 	}
 	void Button::setAction(Func f){
 		action = f;

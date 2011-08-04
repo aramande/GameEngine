@@ -7,6 +7,7 @@ using namespace engine;
 using namespace std;
 void shutdown(engine::Event* event);
 void collisionDeath(engine::Sprite* self, const engine::Sprite* other);
+void playerEnemyCollision(engine::Sprite* self, const engine::Sprite* other);
 GameEngine* game;
 
 class Player : public Sprite{
@@ -87,7 +88,7 @@ int main(int argc, char **argv){
 	ClassListener<Player>* shootListener = new ClassListener<Player>(player, &Player::shoot);
 	EventHandler::addAction(SDLK_SPACE, shootListener);
 	
-	player->onCollision(&collisionDeath);
+	player->onCollision(&playerEnemyCollision);
 	Sprite* enemy = new Enemy();
 	enemy->onCollision(&collisionDeath);
 
@@ -104,4 +105,11 @@ void shutdown(engine::Event* event){
 
 void collisionDeath(engine::Sprite* self, const engine::Sprite* other){
 	self->kill();
+}
+
+void playerEnemyCollision(engine::Sprite* self, const engine::Sprite* other) {
+	if (dynamic_cast<const Enemy*>(other) != NULL) {
+		self->kill();
+		Logger::init()->print("Our hero has died.");
+	}
 }

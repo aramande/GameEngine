@@ -70,7 +70,8 @@ namespace engine{
 	}
 
 	void Sprite::tick(){
-		translate(xVelocity, yVelocity);
+		if (!dead)
+			translate(xVelocity, yVelocity);
 	}
 
 	void Sprite::repaint() const{

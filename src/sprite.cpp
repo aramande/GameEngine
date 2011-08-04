@@ -7,11 +7,13 @@
 using namespace std;
 
 namespace engine{
-	Sprite::Sprite(Image* image, int x, int y){
+	Sprite::Sprite(Image* image, int x, int y, int xvel, int yvel){
 		this->image = image;
 		rect = new Rectangle(x, y, image->getWidth(), image->getHeight());
 		action = &dummy;
 		dead = false;
+		xVelocity = xvel;
+		yVelocity = yvel;
 	}
 	Sprite::~Sprite() {
 		Resource::unloadImage(image);
@@ -33,6 +35,27 @@ namespace engine{
 		return rect->h;
 	}
 
+	int Sprite::getXVelocity() {
+		return xVelocity;
+	}
+		
+	int Sprite::getYVelocity() {
+		return yVelocity;
+	}
+
+	void Sprite::setVelocity(int x, int y) {
+		xVelocity = x;
+		yVelocity = y;
+	}
+
+	void Sprite::setXVelocity(int x) {
+		xVelocity = x;
+	}
+
+	void Sprite::setYVelocity(int y) {
+		yVelocity = y;
+	}
+
 	bool Sprite::isDead() {
 		return dead;
 	}
@@ -47,7 +70,7 @@ namespace engine{
 	}
 
 	void Sprite::tick(){
-
+		translate(xVelocity, yVelocity);
 	}
 
 	void Sprite::repaint() const{

@@ -15,12 +15,14 @@ namespace engine{
 		Rectangle* rect;
 		Func action;
 		bool dead;
+		int xVelocity;
+		int yVelocity;
 
 		Sprite(const Sprite& other){}
 		const Sprite &operator=(const Sprite& other){}
 
 	 public:
-		Sprite(Image* image, int x=0, int y=0);
+		Sprite(Image* image, int x=0, int y=0, int xvel = 0, int yvel = 0);
 		virtual ~Sprite();
 		
 		static void dummy(Sprite* self, const Sprite* other){}
@@ -48,6 +50,16 @@ namespace engine{
 		int getWidth();
 
 		int getHeight();
+
+		int getXVelocity();
+		
+		int getYVelocity();
+
+		void setVelocity(int x, int y);
+
+		void setXVelocity(int x);
+
+		void setYVelocity(int y);
 
 		bool isDead();
 

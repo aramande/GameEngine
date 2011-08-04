@@ -12,12 +12,12 @@ namespace engine{
 		
 		static void dummy(Event* event){}
 	 public:
-		static void addAction(SDLKey key, EventListener* action);
-		static void addAction(int key, EventListener* action);
-		static EventListener* getAction(SDLKey key);
-		static EventListener* getAction(int key);
-		static void perform(SDLKey key, Event* event);
-		static void perform(int key, Event* event);
+		static void addAction(const SDLKey key, EventListener* action);
+		static void addAction(const int key, EventListener* action);
+		static EventListener* getAction(const SDLKey key);
+		static EventListener* getAction(const int key);
+		static void perform(const SDLKey key, Event* event);
+		static void perform(const int key, Event* event);
 	};
 }
 

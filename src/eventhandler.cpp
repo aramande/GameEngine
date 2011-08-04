@@ -12,7 +12,7 @@ namespace engine{
 		mouseActions[key] = action;
 	}
 
-	EventListener* EventHandler::getAction(SDLKey key){
+	EventListener* EventHandler::getAction(const SDLKey key){
 		if(keyActions.find(key) == keyActions.end()){
 			FunctionListener* dummyListener = new FunctionListener(&dummy);
 			return dummyListener;
@@ -20,7 +20,7 @@ namespace engine{
 		return keyActions[key];
 	}
 
-	EventListener* EventHandler::getAction(int key){
+	EventListener* EventHandler::getAction(const int key){
 		if(mouseActions.find(key) == mouseActions.end()){
 			FunctionListener* dummyListener = new FunctionListener(&dummy);
 			return dummyListener;
@@ -28,11 +28,11 @@ namespace engine{
 		return mouseActions[key];
 	}
 	
-	void EventHandler::perform(SDLKey key, Event* event){
+	void EventHandler::perform(const SDLKey key, Event* event){
 		(*getAction(key))(event);
 	}
 		
-	void EventHandler::perform(int key, Event* event){
+	void EventHandler::perform(const int key, Event* event){
 		(*getAction(key))(event);
 	}
 }

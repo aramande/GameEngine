@@ -14,9 +14,7 @@ namespace engine{
 		file_exception() throw(){
 			this->message = "Error, file not loaded";
 		}
-		file_exception(std::string message) throw(){
-			this->message = message;
-		}
+		file_exception(std::string message) throw() : message(message){}
 		~file_exception() throw(){}
 
 		const char* what() const throw(){

@@ -3,8 +3,7 @@ namespace engine{
 	Button::Button(int x, int y, Image* img, std::string text, EventListener* action) : Component(x, y, img->getWidth(), img->getHeight()){
 		if(img == NULL) throw bad_arg("Image cannot be null");
 		if(action == NULL){
-			ClassListener<Button>* classAction = new ClassListener<Button>();
-			classAction->setFunction(this, &Button::dummy);
+			ClassListener<Button>* classAction = new ClassListener<Button>(this, &Button::dummy);
 		}
 		else
 			this->action = action;

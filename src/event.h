@@ -8,7 +8,7 @@ namespace engine{
 	public:
 		Event(int timeSinceLastFrame) : time(timeSinceLastFrame){}
 		virtual ~Event(){}
-		int getTimeSinceLastFrame(){
+		int getTimeSinceLastFrame() const{
 			return time;
 		}
 	};

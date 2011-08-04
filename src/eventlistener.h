@@ -2,10 +2,12 @@
 #define EVENTLISTENER_H
 #include "event.h"
 #include "sprite.h"
+#include "badarg.h"
 #include "component.h"
 namespace engine{
 	class EventListener{
 	public:
+		virtual ~EventListener(){}
 		virtual void operator()(Event*) = 0;
 	};
 
@@ -15,12 +17,25 @@ namespace engine{
 		C* object;
 		CFunc action;
 	public:
+		ClassListener(C* const object, const CFunc code){
+			setFunction(object, code);
+		}
+		~ClassListener(){
+			// Both object and action are dangerous pointers so we're not deleting them
+			object = NULL;
+			action = NULL;
+		}
+
 		void operator()(Event* event){
 			(object->*action)(event);
 		}
-		void setFunction(C* component,  CFunc code){
-			object = component;
-			action = code;
+		void setFunction(C* const object, const CFunc code){
+			if(object == NULL)
+				throw bad_arg("Class object cannot be null");
+			if(code == NULL)
+				throw bad_arg("Function pointer cannot be null");
+			this->object = object;
+			this->action = code;
 		}
 	};
 
@@ -28,7 +43,8 @@ namespace engine{
 		typedef void(*Func)(Event*);
 		Func action;
 	public:
-		void setFunction(Func code);
+		FunctionListener(const Func code);
+		void setFunction(const Func code);
 		void operator()(Event*);
 	};
 }

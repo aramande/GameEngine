@@ -59,22 +59,19 @@ int main(int argc, char **argv){
 	Window* screen = Window::init(640, 480, 32);
 	game = GameEngine::init(screen);
 	
-	FunctionListener* shutdownListener = new FunctionListener();
-	shutdownListener->setFunction(&shutdown);
+	FunctionListener* shutdownListener = new FunctionListener(&shutdown);
 	game->addComponent(new Button(50, 100, Resource::loadImage("button.png"), "Quit", shutdownListener));
 	Player* player = new Player();
 
 	EventHandler::addAction(SDLK_ESCAPE, shutdownListener);
 	
-	ClassListener<Player>* moveListener = new ClassListener<Player>();
-	moveListener->setFunction(player, &Player::movement);
+	ClassListener<Player>* moveListener = new ClassListener<Player>(player, &Player::movement);
 	EventHandler::addAction(SDLK_w, moveListener);
 	EventHandler::addAction(SDLK_a, moveListener);
 	EventHandler::addAction(SDLK_s, moveListener);
 	EventHandler::addAction(SDLK_d, moveListener);
 	
-	ClassListener<Player>* shootListener = new ClassListener<Player>();
-	shootListener->setFunction(player, &Player::shoot);
+	ClassListener<Player>* shootListener = new ClassListener<Player>(player, &Player::shoot);
 	EventHandler::addAction(SDLK_SPACE, shootListener);
 	
 	player->onCollision(&collisionDeath);

@@ -8,6 +8,7 @@ using namespace std;
 void shutdown(engine::Event* event);
 void collisionDeath(engine::Sprite* self, const engine::Sprite* other);
 void playerEnemyCollision(engine::Sprite* self, const engine::Sprite* other);
+void projectileEnemyCollision(engine::Sprite* self, const engine::Sprite* other);
 GameEngine* game;
 
 class Player : public Sprite{
@@ -60,12 +61,8 @@ public:
 
 class Enemy : public Sprite{
 public:
-	Enemy() : Sprite(Resource::loadImage("testimage.png"), 300, 200){
+	Enemy() : Sprite(Resource::loadImage("enemy.png"), 300, 200, -1, -1){
 
-	}
-
-	void tick(){
-		translate(-1, -1);
 	}
 };
 
@@ -112,4 +109,13 @@ void playerEnemyCollision(engine::Sprite* self, const engine::Sprite* other) {
 		self->kill();
 		Logger::init()->print("Our hero has died.");
 	}
+}
+
+void projectileEnemyCollision(engine::Sprite* self, const engine::Sprite* other) {
+	if (dynamic_cast<const Enemy*>(other) != NULL) {
+		self->kill();
+		Logger::init()->print("A projectile has collided with an enemy.");
+	}
+	else if (other == NULL)
+		self->kill();
 }

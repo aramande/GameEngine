@@ -21,7 +21,7 @@ namespace engine {
 		Component(int x, int y, int w, int h);
 
 	public:
-		~Component();
+		virtual ~Component();
 
 		std::string getName();
 

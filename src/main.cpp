@@ -58,13 +58,14 @@ public:
 int main(int argc, char **argv){
 	Window* screen = Window::init(640, 480, 32);
 	game = GameEngine::init(screen);
-	game->addComponent(new Button(50, 100, Resource::loadImage("button.png"), &shutdown, "Quit"));
-	Player* player = new Player();
 	
 	FunctionListener* shutdownListener = new FunctionListener();
 	shutdownListener->setFunction(&shutdown);
-	EventHandler::addAction(SDLK_ESCAPE, shutdownListener);
+	game->addComponent(new Button(50, 100, Resource::loadImage("button.png"), "Quit", shutdownListener));
+	Player* player = new Player();
 
+	EventHandler::addAction(SDLK_ESCAPE, shutdownListener);
+	
 	ClassListener<Player>* moveListener = new ClassListener<Player>();
 	moveListener->setFunction(player, &Player::movement);
 	EventHandler::addAction(SDLK_w, moveListener);
@@ -86,6 +87,7 @@ int main(int argc, char **argv){
 	game->addSprite(enemy);
 	game->addSprite(p);
 	game->run();
+
 	return 0;
 }
 

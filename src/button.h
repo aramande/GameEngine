@@ -5,24 +5,26 @@
 #include <string>
 #include "image.h"
 #include "event.h"
+#include "badarg.h"
+#include "window.h"
+#include "resource.h"
 #include "rectangle.h"
 #include "component.h"
-#include "fileexception.h"
-#include "resource.h"
-#include "window.h"
 #include "mouseevent.h"
+#include "eventlistener.h"
+#include "fileexception.h"
 
 namespace engine {
 	class Button : public Component {
 		std::string text;
-		Func action;
+		EventListener* action;
 		Rectangle* rect;
 		Rectangle* textRect;
 		Image* image;
 		SDL_Surface* textImg;
 	protected:
 	public:
-		Button(int x, int y, Image* buttonImg, Func action, std::string text);
+		Button(int x, int y, Image* buttonImg, std::string text, EventListener* action = NULL);
 		~Button();
 
 		/**
@@ -33,11 +35,13 @@ namespace engine {
 		 * @param code A function that takes a single Event argument.
 		 */
 		void perform(Event* event);
-		void setAction(Func f);
+		void setAction(EventListener* f);
 		void setText(std::string t, TTF_Font* font);
 		std::string getText() const;
 		const Rectangle* Button::getRectangle() const;
 		void draw() const;
+
+		void dummy(Event* event){}
 	};
 }
 

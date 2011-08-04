@@ -2,6 +2,7 @@
 #include "image.h"
 #include "fileexception.h"
 #include "cconfig.h"
+#include "resource.h"
 
 using namespace std;
 namespace engine{
@@ -14,6 +15,7 @@ namespace engine{
 		else{
 			throw file_exception("Could not load image: "+filename);
 		}
+		this->filename = filename;
 		w = image->clip_rect.w;
 		h = image->clip_rect.h;
 	}
@@ -22,15 +24,23 @@ namespace engine{
 		SDL_FreeSurface(image);
 	}
 	
-	int Image::getWidth(){
+	int Image::getWidth() const{
 		return w;
 	}
 	
-	int Image::getHeight(){
+	int Image::getHeight() const{
 		return h;
 	}
 
-	SDL_Surface* Image::getSurface(){
+	Image* Image::copy() const{
+		return Resource::loadImage(filename);
+	}
+
+	std::string Image::getFilename() const{
+		return filename;
+	}
+
+	SDL_Surface* Image::getSurface() const{
 		return image;
 	}
 }

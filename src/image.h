@@ -7,12 +7,13 @@
 namespace engine{
 	class Image{
 		SDL_Surface* image; 
+		bool alpha;
 		int w, h;
 		std::string filename;
 		Image(const Image& other){}
 		Image operator=(const Image& other){}
 	protected:
-		Image(std::string filename);
+		Image(std::string filename, bool alpha);
 	public:
 		virtual ~Image();
 		int getWidth() const;

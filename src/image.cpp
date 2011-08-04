@@ -6,10 +6,13 @@
 
 using namespace std;
 namespace engine{
-	Image::Image(string filename){
+	Image::Image(string filename, bool alpha){
 		SDL_Surface* loadedImage = IMG_Load(filename.c_str()); 
 		if(loadedImage != NULL){ 
-			image = SDL_DisplayFormatAlpha(loadedImage); 
+			if(alpha)
+				image = SDL_DisplayFormatAlpha(loadedImage); 
+			else
+				image = SDL_DisplayFormat(loadedImage); 
 			SDL_FreeSurface(loadedImage); 
 		}
 		else{
@@ -33,7 +36,7 @@ namespace engine{
 	}
 
 	Image* Image::copy() const{
-		return Resource::loadImage(filename);
+		return Resource::loadImage(filename, alpha);
 	}
 
 	std::string Image::getFilename() const{

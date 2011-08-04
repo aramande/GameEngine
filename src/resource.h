@@ -19,8 +19,10 @@ namespace engine{
 		 * Loads an image from the harddrive into memory. 
 		 * If the image was already loaded, you will receive 
 		 * a pointer to the already loaded image.
+		 *
+		 * @param alpha if true, the alpha channel of the image is parsed, only matters the first time the image is loaded.
 		 */
-		static Image* loadImage(std::string filename);
+		static Image* loadImage(std::string filename, bool alpha = true);
 
 		/**
 		 * It's recommended to use this if the image will 
@@ -28,14 +30,14 @@ namespace engine{
 		 * as it saves a small bit of memory.
 		 */
 		static void unloadImage(std::string filename);
-		static void unloadImage(Image* img);
+		static void unloadImage(const Image* img);
 		/**
 		 * Loads a font from the harddrive into memory. 
 		 * If the font was already loaded, you will receive 
 		 * a pointer to the already loaded image.
 		 */
 
-		static TTF_Font* loadFont(std::string filename, int size=18);
+		static TTF_Font* loadFont(std::string filename, int size = 18);
 
 		/**
 		 * It's recommended to use this if the image will 

@@ -11,7 +11,7 @@ namespace engine{
 	std::map<std::string, TTF_Font*> Resource::loadedFonts = std::map<std::string, TTF_Font*>();
 	std::map<std::string, int> Resource::fontCount = std::map<std::string, int>();
 	
-	Image* Resource::loadImage(std::string filename){
+	Image* Resource::loadImage(std::string filename, bool alpha){
 		Image* result = NULL;
 
 		// If image already exists
@@ -20,7 +20,7 @@ namespace engine{
 			imageCount[filename]++;
 		}
 		else{
-			result = new Image((std::string)DATA_DIR + "/img/" + filename);
+			result = new Image((std::string)DATA_DIR + "/img/" + filename, alpha);
 			loadedImages[filename] = result;
 			imageNames[result] = filename;
 			imageCount[filename] = 0;
@@ -38,8 +38,8 @@ namespace engine{
 		}
 	}
 	
-	void Resource::unloadImage(Image* img) {
-		unloadImage(imageNames[img]);		
+	void Resource::unloadImage(const Image* img) {
+		unloadImage(img->getFilename());		
 	}
 
 	

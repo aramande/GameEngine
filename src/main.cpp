@@ -20,16 +20,28 @@ public:
 		if(!isDead() && keyEvent != NULL){
 			switch(keyEvent->getKey()){
 				case SDLK_w:
-					translate(0,-5);
+					if (keyEvent->isPressed())
+						setYVelocity(yVelocity-5);
+					else
+						setYVelocity(yVelocity+5);
 					break;
 				case SDLK_a:
-					translate(-5,0);
+					if (keyEvent->isPressed())
+						setXVelocity(xVelocity-5);
+					else
+						setXVelocity(xVelocity+5);
 					break;
 				case SDLK_s:
-					translate(0,5);
+					if (keyEvent->isPressed())
+						setYVelocity(yVelocity+5);
+					else
+						setYVelocity(yVelocity-5);
 					break;
 				case SDLK_d:
-					translate(5,0);
+					if (keyEvent->isPressed())
+						setXVelocity(xVelocity+5);
+					else					
+						setXVelocity(xVelocity-5);
 					break;
 			}
 		}
@@ -41,6 +53,7 @@ public:
 	}
 
 	void tick(){
+		Sprite::tick();
 	}
 };
 

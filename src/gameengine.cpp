@@ -96,6 +96,11 @@ namespace engine{
 						EventHandler::perform(keySymbol.sym, new KeyEvent(keySymbol.sym, 
 							keySymbol.mod, true, timeSinceLastFrame->get_ticks()));
 						break;
+					case SDL_KEYUP:
+						keySymbol = curEvent.key.keysym;
+						EventHandler::perform(keySymbol.sym, new KeyEvent(keySymbol.sym, 
+							keySymbol.mod, false, timeSinceLastFrame->get_ticks()));
+						break;
 					case SDL_MOUSEBUTTONDOWN:
 						click = curEvent.button;
 						MouseEvent* mouseEvent = new MouseEvent(click.x, click.y, 

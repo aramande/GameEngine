@@ -15,13 +15,14 @@ namespace engine{
 		Rectangle* rect;
 		Func action;
 		bool dead;
-		int xVelocity;
-		int yVelocity;
 
 		Sprite(const Sprite& other){}
 		const Sprite &operator=(const Sprite& other){}
 
-	 public:
+	protected:
+		int xVelocity;
+		int yVelocity;
+	public:
 		Sprite(Image* image, int x=0, int y=0, int xvel = 0, int yvel = 0);
 		virtual ~Sprite();
 		

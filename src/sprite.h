@@ -44,17 +44,17 @@ namespace engine{
 		 */
 		int getHash() const;
 
-		int getX();
+		int getX() const;
 		
-		int getY();
+		int getY() const;
 		
-		int getWidth();
+		int getWidth() const;
 
-		int getHeight();
+		int getHeight() const;
 
-		int getXVelocity();
+		int getXVelocity() const;
 		
-		int getYVelocity();
+		int getYVelocity() const;
 
 		void setVelocity(int x, int y);
 
@@ -62,7 +62,7 @@ namespace engine{
 
 		void setYVelocity(int y);
 
-		bool isDead();
+		bool isDead() const;
 
 		void kill();
 

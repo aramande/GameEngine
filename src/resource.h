@@ -9,7 +9,6 @@
 namespace engine{
 	class Resource{
 		static std::map<std::string, Image*> loadedImages;
-		static std::map<Image*, std::string> imageNames;
 		static std::map<std::string, int> imageCount;
 		static std::map<std::string, TTF_Font*> loadedFonts;
 		static std::map<std::string, int> fontCount;

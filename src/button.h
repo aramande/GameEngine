@@ -22,6 +22,8 @@ namespace engine {
 		Rectangle* textRect;
 		Image* image;
 		SDL_Surface* textImg;
+
+		void dummy(const Event* event){}
 	protected:
 	public:
 		Button(int x, int y, Image* buttonImg, std::string text, EventListener* action = NULL);
@@ -40,8 +42,6 @@ namespace engine {
 		std::string getText() const;
 		const Rectangle* Button::getRectangle() const;
 		void draw() const;
-
-		void dummy(Event* event){}
 	};
 }
 

@@ -4,7 +4,7 @@ namespace engine{
 	FunctionListener::FunctionListener(const Func code){
 		setFunction(code);
 	}
-	void FunctionListener::operator()(Event* event){
+	void FunctionListener::operator()(const Event* event){
 		(*action)(event);
 	}
 

@@ -8,12 +8,12 @@ namespace engine{
 	class EventListener{
 	public:
 		virtual ~EventListener(){}
-		virtual void operator()(Event*) = 0;
+		virtual void operator()(const Event*) = 0;
 	};
 
 	template<class C>
 	class ClassListener : public EventListener {
-		typedef void(C::*CFunc)(Event*);
+		typedef void(C::*CFunc)(const Event*);
 		C* object;
 		CFunc action;
 	public:
@@ -26,7 +26,7 @@ namespace engine{
 			action = NULL;
 		}
 
-		void operator()(Event* event){
+		void operator()(const Event* event){
 			(object->*action)(event);
 		}
 		void setFunction(C* const object, const CFunc code){
@@ -40,12 +40,12 @@ namespace engine{
 	};
 
 	class FunctionListener : public EventListener {
-		typedef void(*Func)(Event*);
+		typedef void(*Func)(const Event*);
 		Func action;
 	public:
 		FunctionListener(const Func code);
 		void setFunction(const Func code);
-		void operator()(Event*);
+		void operator()(const Event*);
 	};
 }
 #endif

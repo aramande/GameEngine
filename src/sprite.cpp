@@ -19,27 +19,27 @@ namespace engine{
 		Resource::unloadImage(image);
 		image = NULL;
 	}
-	int Sprite::getX(){
+	int Sprite::getX() const{
 		return rect->x;
 	}
 
-	int Sprite::getY(){
+	int Sprite::getY() const{
 		return rect->y;
 	}
 
-	int Sprite::getWidth(){
+	int Sprite::getWidth() const{
 		return rect->w;
 	}
 
-	int Sprite::getHeight(){
+	int Sprite::getHeight() const{
 		return rect->h;
 	}
 
-	int Sprite::getXVelocity() {
+	int Sprite::getXVelocity() const{
 		return xVelocity;
 	}
 		
-	int Sprite::getYVelocity() {
+	int Sprite::getYVelocity() const{
 		return yVelocity;
 	}
 
@@ -56,7 +56,7 @@ namespace engine{
 		yVelocity = y;
 	}
 
-	bool Sprite::isDead() {
+	bool Sprite::isDead() const{
 		return dead;
 	}
 

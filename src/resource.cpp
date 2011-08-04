@@ -6,7 +6,6 @@
 
 namespace engine{
 	std::map<std::string, Image*> Resource::loadedImages = std::map<std::string, Image*>();
-	std::map<Image*, std::string> Resource::imageNames = std::map<Image*, std::string>();
 	std::map<std::string, int> Resource::imageCount = std::map<std::string, int>();
 	std::map<std::string, TTF_Font*> Resource::loadedFonts = std::map<std::string, TTF_Font*>();
 	std::map<std::string, int> Resource::fontCount = std::map<std::string, int>();
@@ -22,7 +21,6 @@ namespace engine{
 		else{
 			result = new Image((std::string)DATA_DIR + "/img/" + filename, alpha);
 			loadedImages[filename] = result;
-			imageNames[result] = filename;
 			imageCount[filename] = 0;
 		}
 		return result;
@@ -31,7 +29,6 @@ namespace engine{
 	void Resource::unloadImage(std::string filename){
 		if(loadedImages.find(filename) != loadedImages.end()){
 			if(--imageCount[filename]==0){
-				imageNames.erase(loadedImages[filename]);
 				delete loadedImages[filename];
 				loadedImages.erase(filename);
 			}

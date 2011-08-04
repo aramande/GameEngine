@@ -10,10 +10,15 @@ namespace engine{
 		bool alpha;
 		int w, h;
 		std::string filename;
+
+		/**
+		 * Taken from f17:9
+		 */
+		Uint32 getPixel(SDL_Surface* surf, int x, int y) const;
 		Image(const Image& other){}
 		Image operator=(const Image& other){}
 	protected:
-		Image(std::string filename, bool alpha);
+		Image(std::string filename, bool alpha, bool pixel);
 	public:
 		virtual ~Image();
 		int getWidth() const;

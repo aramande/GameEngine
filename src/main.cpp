@@ -61,7 +61,7 @@ public:
 
 class Enemy : public Sprite{
 public:
-	Enemy() : Sprite(Resource::loadImage("enemy.png"), 300, 200, -1, -1){
+	Enemy() : Sprite(Resource::loadImage("experiment.bmp", true, true), 300, 200, -1, -1){
 
 	}
 };

@@ -19,9 +19,10 @@ namespace engine{
 		 * If the image was already loaded, you will receive 
 		 * a pointer to the already loaded image.
 		 *
-		 * @param alpha if true, the alpha channel of the image is parsed, only matters the first time the image is loaded.
+		 * @param alpha if true(default), the alpha channel of the image is parsed, only matters the first time the image is loaded
+		 * @param pixel set this to true to parse the top left pixel color as transparency, doing this with a transparent top left pixel may break everything, use with caution
 		 */
-		static Image* loadImage(std::string filename, bool alpha = true);
+		static Image* loadImage(std::string filename, bool alpha = true, bool pixel = false);
 
 		/**
 		 * It's recommended to use this if the image will 
@@ -30,6 +31,7 @@ namespace engine{
 		 */
 		static void unloadImage(std::string filename);
 		static void unloadImage(const Image* img);
+
 		/**
 		 * Loads a font from the harddrive into memory. 
 		 * If the font was already loaded, you will receive 

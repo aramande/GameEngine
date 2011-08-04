@@ -37,7 +37,7 @@ public:
 
 	void shoot(Event* event){
 		if(!isDead())
-			game->addSprite(new Projectile(Resource::loadImage("projectile.png"), this, false, 0, 2));
+			game->addSprite(new Projectile(Resource::loadImage("projectile.png"), this, true, 0, -3));
 	}
 
 	void tick(){
@@ -79,12 +79,9 @@ int main(int argc, char **argv){
 	player->onCollision(&collisionDeath);
 	Sprite* enemy = new Enemy();
 	enemy->onCollision(&collisionDeath);
-	Projectile* p = new Projectile(Resource::loadImage("projectile.png"),
-		player, false, 1, 8);
 
 	game->addSprite(player);
 	game->addSprite(enemy);
-	game->addSprite(p);
 	game->run();
 	return 0;
 }

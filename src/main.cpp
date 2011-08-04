@@ -5,7 +5,7 @@
 
 using namespace engine;
 using namespace std;
-void shutdown(engine::Event* event);
+void shutdown(const engine::Event* event);
 void collisionDeath(engine::Sprite* self, const engine::Sprite* other);
 void playerEnemyCollision(engine::Sprite* self, const engine::Sprite* other);
 GameEngine* game;
@@ -16,8 +16,8 @@ public:
 
 	}
 	
-	void movement(Event* event){
-		KeyEvent* keyEvent = dynamic_cast<KeyEvent*>(event);
+	void movement(const Event* event){
+		const KeyEvent* keyEvent = dynamic_cast<const KeyEvent*>(event);
 		if(!isDead() && keyEvent != NULL){
 			switch(keyEvent->getKey()){
 				case SDLK_w:
@@ -48,7 +48,7 @@ public:
 		}
 	}
 
-	void shoot(Event* event){
+	void shoot(const Event* event){
 		if(!isDead())
 			game->addSprite(new Projectile(Resource::loadImage("projectile.png"), this, true, 0, -3));
 	}
@@ -99,7 +99,7 @@ int main(int argc, char **argv){
 	return 0;
 }
 
-void shutdown(engine::Event* event){
+void shutdown(const engine::Event* event){
 	engine::GameEngine::doQuit();
 }
 

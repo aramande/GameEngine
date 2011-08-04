@@ -10,7 +10,7 @@ namespace engine{
 		static std::map<SDLKey, EventListener*> keyActions;
 		static std::map<int, EventListener*> mouseActions;
 		
-		static void dummy(Event* event){}
+		static void dummy(const Event* event){}
 	 public:
 		static void addAction(const SDLKey key, EventListener* action);
 		static void addAction(const int key, EventListener* action);

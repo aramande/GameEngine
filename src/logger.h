@@ -7,7 +7,7 @@
 
 namespace engine{
 	class Logger{
-		std::ofstream file;
+		std::ofstream* file;
 		static Logger* log;
 		Logger(std::string filename);
 	public:

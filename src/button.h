@@ -40,7 +40,7 @@ namespace engine {
 		void setAction(EventListener* f);
 		void setText(std::string t, TTF_Font* font);
 		std::string getText() const;
-		const Rectangle* Button::getRectangle() const;
+		const Rectangle* getRectangle() const;
 		void draw() const;
 	};
 }

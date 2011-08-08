@@ -1,6 +1,6 @@
 //F13, Cwing
 
-#include "Rectangle.h"
+#include "rectangle.h"
 
 namespace engine{
 

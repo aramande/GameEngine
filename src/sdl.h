@@ -10,9 +10,9 @@
 	#include <sdl_image.h>
 	#include <sdl_ttf.h>
 #else
-	#include <sdl/sdl.h>
-	#include <sdl/sdl_image.h>
-	#include <sdl/sdl_ttf.h>
+	#include <SDL/SDL.h>
+	#include <SDL/SDL_image.h>
+	#include <SDL/SDL_ttf.h>
 #endif
 
 #endif

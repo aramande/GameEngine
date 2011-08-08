@@ -31,3 +31,6 @@ Makefile
 Debug
 Release
 Testing
+
+#linux
+cxxtest

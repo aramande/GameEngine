@@ -5,11 +5,12 @@ namespace engine{
 	Logger* Logger::log = NULL;
 
 	Logger::Logger(std::string s){
-		file = std::ofstream(s);
+		//std::ofstream file(s.c_str());
+		file = new std::ofstream(s.c_str());
 	}
 
 	Logger::~Logger(){
-		file.close();
+		file->close();
 	}
 
 	Logger* Logger::init(std::string s){
@@ -39,13 +40,19 @@ namespace engine{
 	}
 
 	void Logger::print(const char* message){
-		file << message << '\n';
-		file.flush();
+		//file << message << '\n';
+		file->write(message, sizeof(message));
+		//file->flush();
+		file->write("\n", 1);
+		file->flush();
 	}
 
 	void Logger::print(std::string& message){
-		file << message.c_str() << '\n';
-		file.flush();
+		//file << message.c_str() << '\n';
+		file->write(message.c_str(), sizeof(message.c_str()));
+		//file->flush();
+		file->write("\n", 1);
+		file->flush();
 	}
 
 	void Logger::operator<<(std::string& message){

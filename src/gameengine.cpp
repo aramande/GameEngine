@@ -16,6 +16,7 @@ namespace engine{
 		if(main == NULL)
 			throw bad_arg("Main window cannot be null");
 		window = main;
+		action = &dummy;
 		storage = new std::vector<Sprite*>();
 		container = new std::vector<Component*>();
 		fpsLimit = 30;
@@ -74,6 +75,16 @@ namespace engine{
 		}
 	}
 
+	void GameEngine::setAction(Func action){
+		if(action == NULL)
+			return;
+		this->action = action;
+	}
+
+	void GameEngine::perform(int timeSinceLastFrame){
+		(*action)(timeSinceLastFrame);
+	}
+
 	void GameEngine::run(){
 		Timer* timeSinceLastFrame = new Timer();
 		SDL_Event curEvent;
@@ -85,6 +96,7 @@ namespace engine{
 		timeSinceLastFrame->start();
 		while(!quit) {
 			fpsClock->start();
+			perform(timeSinceLastFrame->get_ticks());
 			while(SDL_PollEvent(&curEvent)) {
 				if (curEvent.type == SDL_QUIT)
 					quit = true;

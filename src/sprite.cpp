@@ -18,21 +18,32 @@ namespace engine{
 	Sprite::~Sprite() {
 		Resource::unloadImage(image);
 		image = NULL;
+		action = &dummy;
+		delete rect;
+		rect = NULL;
 	}
 	int Sprite::getX() const{
-		return rect->x;
+		if(rect != NULL)
+			return rect->x;
+		return 0;
 	}
 
 	int Sprite::getY() const{
-		return rect->y;
+ 		if(rect != NULL)
+			return rect->y;
+		return 0;
 	}
 
 	int Sprite::getWidth() const{
-		return rect->w;
+		if(rect != NULL)
+			return rect->w;
+		return 0;
 	}
 
 	int Sprite::getHeight() const{
-		return rect->h;
+		if(rect != NULL)
+			return rect->h;
+		return 0;
 	}
 
 	int Sprite::getXVelocity() const{
@@ -103,7 +114,7 @@ namespace engine{
 		if (other == this)
 			return false;
 		if (other == NULL){
-			return !rect->overlaps(Rectangle(0, 0, Window::init()->getWidth(), Window::init()->getHeight()));
+			return !rect->overlaps(Rectangle(-1, -1, Window::init()->getWidth()+2, Window::init()->getHeight()+2));
 		}
 		return rect->overlaps(*(other->getRectangle()));
 	}

@@ -10,6 +10,8 @@
 cconfig.h
 cwing
 enginetest
+game
+debug.log
 
 # cmake
 *build*

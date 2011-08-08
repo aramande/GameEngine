@@ -17,6 +17,7 @@ namespace engine{
 		textRect = NULL;
 		delete rect;
 		rect = NULL;
+		ClassListener<Button>* classAction = new ClassListener<Button>(this, &Button::dummy);
 		delete image;
 		image = NULL;
 		SDL_FreeSurface(textImg);

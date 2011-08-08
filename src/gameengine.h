@@ -25,9 +25,11 @@
 
 namespace engine {
 	class GameEngine {
+		typedef void (*Func)(int);
 		std::vector<Sprite*>* storage;
 		std::vector<Component*>* container;
-		Gui* hud; 
+		Func action;
+		//Gui* hud; 
 		Window* window;
 		Timer* fpsClock;
 		int fpsLimit;
@@ -39,6 +41,7 @@ namespace engine {
 		 * Incase of collision, onCollision is called on both sprites.
 		 */
 		void collide();
+		static void dummy(int timeSinceLastFrame){}
 		GameEngine(Window* mainScreen); // init the game engine here
 	public:
 		static GameEngine* init(Window* mainScreen);
@@ -48,6 +51,8 @@ namespace engine {
 		void delSprite(Sprite* s);
 		void addComponent(Component* c);
 		void delComponent(Component* c);
+		void setAction(Func action);
+		void perform(int timeSinceLastFrame);
 
 		void setFPS(int fps);
 		

@@ -14,6 +14,8 @@ namespace engine{
 	 public:
 		static void addAction(const SDLKey key, EventListener* action);
 		static void addAction(const int key, EventListener* action);
+		static void removeAction(SDLKey key);
+		static void removeAction(int key);
 		static EventListener* getAction(const SDLKey key);
 		static EventListener* getAction(const int key);
 		static void perform(const SDLKey key, Event* event);

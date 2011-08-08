@@ -4,12 +4,21 @@
 namespace engine{
 	std::map<SDLKey, EventListener*> EventHandler::keyActions = std::map<SDLKey, EventListener*>();
 	std::map<int, EventListener*> EventHandler::mouseActions = std::map<int, EventListener*>();
+	
 	void EventHandler::addAction(SDLKey key, EventListener* action){
 		keyActions[key] = action;
 	}
 	
 	void EventHandler::addAction(int key, EventListener* action){
 		mouseActions[key] = action;
+	}
+
+	void EventHandler::removeAction(SDLKey key){
+		keyActions.erase(key);
+	}
+	
+	void EventHandler::removeAction(int key){
+		mouseActions.erase(key);
 	}
 
 	EventListener* EventHandler::getAction(const SDLKey key){

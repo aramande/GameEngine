@@ -5,16 +5,35 @@
 
 using namespace engine;
 using namespace std;
+void spawnEnemy(int timeSinceLastFrame);
 void shutdown(const engine::Event* event);
 void collisionDeath(engine::Sprite* self, const engine::Sprite* other);
 void playerEnemyCollision(engine::Sprite* self, const engine::Sprite* other);
 void projectileEnemyCollision(engine::Sprite* self, const engine::Sprite* other);
+class Player;
+
 GameEngine* game;
+Window* screen;
+ClassListener<Player>* moveListener;
+ClassListener<Player>* shootListener;
+int level;
 
 class Player : public Sprite{
 public:
 	Player() : Sprite(Resource::loadImage("player.png")){
 
+	}
+
+	~Player(){
+		EventHandler::removeAction(SDLK_w);
+		EventHandler::removeAction(SDLK_a);
+		EventHandler::removeAction(SDLK_d);
+		EventHandler::removeAction(SDLK_s);
+		EventHandler::removeAction(SDLK_SPACE);
+		delete moveListener;
+		moveListener = NULL;
+		delete shootListener;
+		shootListener = NULL;
 	}
 	
 	void movement(const Event* event){
@@ -64,13 +83,14 @@ public:
 
 class Enemy : public Sprite{
 public:
-	Enemy() : Sprite(Resource::loadImage("experiment.bmp", true, true), 300, -20, 0, 1){
+	Enemy(std::string filename, int xPos, int ySpeed) : Sprite(Resource::loadImage(filename, true, true), xPos, -20, 0, ySpeed){
 
 	}
 };
 
 int main(int argc, char **argv){
-	Window* screen = Window::init(640, 480, 32);
+	level = 8;
+	screen = Window::init(640, 480, 32);
 	game = GameEngine::init(screen);
 	
 	FunctionListener* shutdownListener = new FunctionListener(&shutdown);
@@ -79,24 +99,31 @@ int main(int argc, char **argv){
 
 	EventHandler::addAction(SDLK_ESCAPE, shutdownListener);
 	
-	ClassListener<Player>* moveListener = new ClassListener<Player>(player, &Player::movement);
+	moveListener = new ClassListener<Player>(player, &Player::movement);
 	EventHandler::addAction(SDLK_w, moveListener);
 	EventHandler::addAction(SDLK_a, moveListener);
 	EventHandler::addAction(SDLK_s, moveListener);
 	EventHandler::addAction(SDLK_d, moveListener);
 	
-	ClassListener<Player>* shootListener = new ClassListener<Player>(player, &Player::shoot);
+	shootListener = new ClassListener<Player>(player, &Player::shoot);
 	EventHandler::addAction(SDLK_SPACE, shootListener);
-	
 	player->onCollision(&playerEnemyCollision);
-	Sprite* enemy = new Enemy();
-	enemy->onCollision(&collisionDeath);
-
+		
 	game->addSprite(player);
-	game->addSprite(enemy);
+	game->setAction(&spawnEnemy);
 	game->run();
 
 	return 0;
+}
+
+void spawnEnemy(int timeSinceLastFrame){
+	if(rand() % 50 <= level){
+		int speed = 1;
+		int xpos = (rand() % (screen->getWidth() - 40)) + 20;
+		Enemy* enemy = new Enemy("experiment.bmp", xpos, speed);
+		enemy->onCollision(&collisionDeath);
+		game->addSprite(enemy);
+	}
 }
 
 void shutdown(const engine::Event* event){
@@ -104,8 +131,10 @@ void shutdown(const engine::Event* event){
 }
 
 void collisionDeath(engine::Sprite* self, const engine::Sprite* other){
-	Logger::init()->print("An enemy collided with something.");
-	self->kill();
+	if (dynamic_cast<const Enemy*>(other) == NULL) {
+		Logger::init()->print("An enemy collided with something.");
+		self->kill();
+	}
 }
 
 void playerEnemyCollision(engine::Sprite* self, const engine::Sprite* other) {

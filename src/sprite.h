@@ -27,12 +27,14 @@ namespace engine{
 		virtual ~Sprite();
 		
 		static void dummy(Sprite* self, const Sprite* other){}
+
 		/**
 		 * Runs every frame, change eventual movement of the sprite here.
 		 */
 		virtual void tick();
 
 		void repaint() const;
+
 		/**
 		 * Draw the sprite onto the mainScreen.
 		 */

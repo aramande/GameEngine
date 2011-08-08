@@ -5,7 +5,7 @@
 
 class Projectile : public engine::Sprite {
 public:
-	Projectile(engine::Image* image, engine::Sprite* origin, bool top, int xvel, int yvel);
+	Projectile(engine::Image* image, const engine::Sprite* origin, bool top, int xvel = 0, int yvel = 0);
 };
 
 

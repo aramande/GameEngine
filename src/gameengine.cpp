@@ -67,7 +67,7 @@ namespace engine{
 	void GameEngine::delComponent(Component* c) {
 		for (unsigned int i = 0; i < container->size(); i++) {
 			if(container->at(i) == c) {
-				Logger::init()->print("Removing componen.");
+				Logger::init()->print("Removing component");
 				delete container->at(i);
 				container->erase(container->begin() + i);
 			}
@@ -129,19 +129,19 @@ namespace engine{
 					}
 					if ((*sprite)->collidesWith(*otherSprite)) {
 						(*sprite)->collide((*otherSprite));
-						(*otherSprite)->collide((*sprite));
-
+   						(*otherSprite)->collide((*sprite));
+						
+						std::string msg = "Collision detected at ";
+						msg += Logger::toStr((*sprite)->getX()) + " " + Logger::toStr((*sprite)->getY());
+						msg += " (at frame " + Logger::toStr(globalFrame) + ")";
+						Logger::init()->print(msg);
+						
 						if ((*sprite)->isDead()) {
 							deathrow.push(*(sprite));
 						}
 						if ((*otherSprite)->isDead()) {
 							deathrow.push(*(otherSprite));
 						}
-
-						std::string msg = "Collision detected at ";
-						msg += Logger::toStr((*sprite)->getX()) + " " + Logger::toStr((*sprite)->getY());
-						msg += " (at frame " + Logger::toStr(globalFrame) + ")";
-						Logger::init()->print(msg);
 					}
 				}
 				(*sprite)->draw();
@@ -173,6 +173,7 @@ namespace engine{
 	}
 
 	void GameEngine::doQuit(){
+		Logger::init()->print("Good bye");
 		quit = true;
 		Window::kill();
 	}

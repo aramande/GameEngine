@@ -50,8 +50,11 @@ public:
 	}
 
 	void shoot(const Event* event){
-		if(!isDead())
-			game->addSprite(new Projectile(Resource::loadImage("projectile.png"), this, true, 0, -3));
+		if(!isDead()){
+			Projectile* lazer = new Projectile(Resource::loadImage("projectile.png", false), this, true, 0, -3);
+			lazer->onCollision(&projectileEnemyCollision);
+			game->addSprite(lazer);
+		}
 	}
 
 	void tick(){
@@ -61,7 +64,7 @@ public:
 
 class Enemy : public Sprite{
 public:
-	Enemy() : Sprite(Resource::loadImage("experiment.bmp", true, true), 300, 200, -1, -1){
+	Enemy() : Sprite(Resource::loadImage("experiment.bmp", true, true), 300, -20, 0, 1){
 
 	}
 };
@@ -101,6 +104,7 @@ void shutdown(const engine::Event* event){
 }
 
 void collisionDeath(engine::Sprite* self, const engine::Sprite* other){
+	Logger::init()->print("An enemy collided with something.");
 	self->kill();
 }
 
@@ -116,6 +120,8 @@ void projectileEnemyCollision(engine::Sprite* self, const engine::Sprite* other)
 		self->kill();
 		Logger::init()->print("A projectile has collided with an enemy.");
 	}
-	else if (other == NULL)
+	else if (other == NULL){
 		self->kill();
+		Logger::init()->print("A projectile has collided with a wall.");
+	}
 }

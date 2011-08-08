@@ -12,7 +12,7 @@ namespace engine{
 		std::string filename;
 
 		/**
-		 * Taken from f17:9
+		 * Taken from f17:9, gets color information about a single pixel in the image
 		 */
 		Uint32 getPixel(SDL_Surface* surf, int x, int y) const;
 		Image(const Image& other){}

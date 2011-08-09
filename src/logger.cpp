@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string.h>
 #include <sstream>
 #include "logger.h"
 namespace engine{
@@ -41,21 +42,22 @@ namespace engine{
 
 	void Logger::print(const char* message){
 		//file << message << '\n';
-		file->write(message, sizeof(message));
 		//file->flush();
+		file->write(message, strlen(message));
 		file->write("\n", 1);
 		file->flush();
 	}
 
 	void Logger::print(std::string& message){
 		//file << message.c_str() << '\n';
-		file->write(message.c_str(), sizeof(message.c_str()));
+		file->write(message.c_str(), message.length());
 		//file->flush();
 		file->write("\n", 1);
 		file->flush();
 	}
 
 	void Logger::operator<<(std::string& message){
+		std::cout<<message.length()<<std::endl;
 		print(message);
 	}
 }

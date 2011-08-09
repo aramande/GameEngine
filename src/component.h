@@ -3,10 +3,11 @@
 
 #include <string>
 #include "event.h"
+#include "window.h"
+#include "rectangle.h"
 
 namespace engine {
 	class Component {
-		int x, y, w, h;
 		std::string name;
 
 		Component(const Component &other){}
@@ -19,6 +20,7 @@ namespace engine {
 	protected:
 		typedef void (*Func)(Event*); 
 		Component(int x, int y, int w, int h);
+		Rectangle* rect;
 
 	public:
 		virtual ~Component();

@@ -2,12 +2,13 @@
 
 using namespace std;
 namespace engine{
-	Component::Component(int x, int y, int w, int h) : x(x), y(y), w(w), h(h){
+	Component::Component(int x, int y, int w, int h){
+		rect = new Rectangle(x, y, w, h);
 
 	}
 	
 	Component::~Component(){
-
+		delete rect;
 	}
 
 	string Component::getName(){

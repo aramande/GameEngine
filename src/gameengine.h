@@ -12,6 +12,7 @@
 #include "fileexception.h"
 #include "gui.h"
 #include "image.h"
+#include "input.h"
 #include "keyevent.h"
 #include "mouseevent.h"
 #include "projectile.h"

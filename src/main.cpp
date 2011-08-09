@@ -95,6 +95,7 @@ int main(int argc, char **argv){
 	
 	FunctionListener* shutdownListener = new FunctionListener(&shutdown);
 	game->addComponent(new Button(50, 100, Resource::loadImage("button.png"), "Quit", shutdownListener));
+	game->addComponent(new Input(300, 200, 5));
 	Player* player = new Player();
 
 	EventHandler::addAction(SDLK_ESCAPE, shutdownListener);

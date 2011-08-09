@@ -7,11 +7,13 @@ namespace engine{
 	 private:
 		 SDLKey key;
 		 SDLMod mod;
+		 Uint16 unicode;
 		 bool pressed;
 	 public:
-		 KeyEvent(SDLKey key, SDLMod mod, bool pressed, int timeSinceLastFrame);
+		 KeyEvent(SDLKey key, SDLMod mod, Uint16 unicode, bool pressed, int timeSinceLastFrame);
 		 SDLKey getKey() const;
 		 SDLMod getModifier() const;
+		 Uint16 getUnicode() const;
 		 bool isPressed() const;
 	};
 }

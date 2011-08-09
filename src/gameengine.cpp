@@ -94,6 +94,8 @@ namespace engine{
 		std::stack<Sprite*> deathrow = std::stack<Sprite*>();
 		
 		timeSinceLastFrame->start();
+		KeyEvent* keyEvent;
+		MouseEvent* mouseEvent;
 		while(!quit) {
 			fpsClock->start();
 			perform(timeSinceLastFrame->get_ticks());
@@ -105,19 +107,25 @@ namespace engine{
 				switch (curEvent.type){
 					case SDL_KEYDOWN:
 						keySymbol = curEvent.key.keysym;
-						EventHandler::perform(keySymbol.sym, new KeyEvent(keySymbol.sym, 
-							keySymbol.mod, true, timeSinceLastFrame->get_ticks()));
+						keyEvent = new KeyEvent(keySymbol.sym, 
+							keySymbol.mod, keySymbol.unicode, true, timeSinceLastFrame->get_ticks());
+						EventHandler::perform(keyEvent);
+						EventHandler::perform(keySymbol.sym, keyEvent);
+						delete keyEvent;
 						break;
 					case SDL_KEYUP:
 						keySymbol = curEvent.key.keysym;
-						EventHandler::perform(keySymbol.sym, new KeyEvent(keySymbol.sym, 
-							keySymbol.mod, false, timeSinceLastFrame->get_ticks()));
+						keyEvent = new KeyEvent(keySymbol.sym, 
+							keySymbol.mod, keySymbol.unicode, false, timeSinceLastFrame->get_ticks());
+						EventHandler::perform(keyEvent);
+						EventHandler::perform(keySymbol.sym, keyEvent);
 						break;
 					case SDL_MOUSEBUTTONDOWN:
 						click = curEvent.button;
-						MouseEvent* mouseEvent = new MouseEvent(click.x, click.y, 
+						mouseEvent = new MouseEvent(click.x, click.y, 
 							click.button, true, false, timeSinceLastFrame->get_ticks());
 						EventHandler::perform(click.button, mouseEvent);
+						EventHandler::perform(mouseEvent);
 						for (std::vector<Component*>::iterator it = container->begin(); it != container->end(); it++){
 							(*it)->perform(mouseEvent);
 						}

@@ -95,7 +95,12 @@ int main(int argc, char **argv){
 	
 	FunctionListener* shutdownListener = new FunctionListener(&shutdown);
 	game->addComponent(new Button(50, 100, Resource::loadImage("button.png"), "Quit", shutdownListener));
-	game->addComponent(new Input(300, 200, 5));
+	Label* highscoreName = new Label(300, 180, "Type your name please!");
+	game->addComponent(highscoreName);
+	SDL_Color red = {255, 0, 0};
+	highscoreName->setColor(red);
+	highscoreName->setFont(Resource::loadFont("FreeUniversal-Bold.ttf"));
+	game->addComponent(new Input(300, 200, 10));
 	Player* player = new Player();
 
 	EventHandler::addAction(SDLK_ESCAPE, shutdownListener);

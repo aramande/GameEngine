@@ -14,6 +14,7 @@
 #include "image.h"
 #include "input.h"
 #include "keyevent.h"
+#include "label.h"
 #include "mouseevent.h"
 #include "projectile.h"
 #include "rectangle.h"

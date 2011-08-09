@@ -1,28 +1,25 @@
-#ifndef INPUT_H
-#define INPUT_H
+#ifndef LABEL_H
+#define LABEL_H
 
 #include <string>
 #include "resource.h"
 #include "component.h"
-#include "eventlistener.h"
 
 namespace engine{
-	class Input : public Component{
+	class Label : public Component{
 		int x, y;
-		unsigned int length;
 		TTF_Font* font;
 		SDL_Color color;
 		SDL_Surface* text;
 		std::string str;
-		ClassListener<Input>* parser;
 		void render();
 	public:
-		Input(int x, int y, int length = 16);
-		~Input();
+		Label(int x, int y, std::string str);
+		~Label();
 		void setFont(TTF_Font* font);
 		void setColor(const SDL_Color color);
+		void setText(std::string str);
 		std::string getText() const;
-		void parseInput(const Event* event);
 		void draw() const;
 	};
 }

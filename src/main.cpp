@@ -184,12 +184,23 @@ void spawnEnemy(int timeSinceLastFrame){
 	}
 }
 
+void updateScore(){
+	currentScore->setText("Score: " + Logger::toStr(score));
+}
+
 void shutdown(const engine::Event* event){
 	engine::GameEngine::doQuit();
 }
 
 void collisionDeath(engine::Sprite* self, const engine::Sprite* other){
 	if (dynamic_cast<const Enemy*>(other) == NULL) {
+		
+		// Retract half points for missed enemies
+		if(!self->isDead() && other == NULL && !(gameover || submitting || waiting)){
+			score -= 5*level+5;
+			updateScore();
+		}
+		
 		Logger::init()->print("An enemy collided with something.");
 		self->kill();
 	}
@@ -205,14 +216,16 @@ void playerEnemyCollision(engine::Sprite* self, const engine::Sprite* other) {
 
 void projectileEnemyCollision(engine::Sprite* self, const engine::Sprite* other) {
 	if (dynamic_cast<const Enemy*>(other) != NULL) {
+		if(!self->isDead() && !(gameover || submitting || waiting)){
+			score += 10*level+10;
+		}
 		self->kill();
-		score += 10*level+10;
-		currentScore->setText("Score: " + Logger::toStr(score));
+		// Add 10 points per level per killed enemy
+		updateScore();
 		Logger::init()->print("A projectile has collided with an enemy.");
 	}
 	else if (other == NULL){
 		self->kill();
-		score -= 5*level+5;
 		Logger::init()->print("A projectile has collided with a wall.");
 	}
 }

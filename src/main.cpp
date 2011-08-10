@@ -2,9 +2,11 @@
 #include <iostream>
 #include <gameengine.h>
 #include "projectile.h"
+#include "highscore.h"
 
 using namespace engine;
 using namespace std;
+void registerName();
 void spawnEnemy(int timeSinceLastFrame);
 void shutdown(const engine::Event* event);
 void collisionDeath(engine::Sprite* self, const engine::Sprite* other);
@@ -14,9 +16,14 @@ class Player;
 
 GameEngine* game;
 Window* screen;
+Label* currentScore;
 ClassListener<Player>* moveListener;
 ClassListener<Player>* shootListener;
-int level;
+int level = 0;
+long score = 0;
+bool gameover = false;
+bool waiting = false;
+bool submitting = false;
 
 class Player : public Sprite{
 public:
@@ -89,18 +96,14 @@ public:
 };
 
 int main(int argc, char **argv){
-	level = 8;
 	screen = Window::init(640, 480, 32);
 	game = GameEngine::init(screen);
 	
 	FunctionListener* shutdownListener = new FunctionListener(&shutdown);
-	game->addComponent(new Button(50, 100, Resource::loadImage("button.png"), "Quit", shutdownListener));
-	Label* highscoreName = new Label(300, 180, "Type your name please!");
-	game->addComponent(highscoreName);
-	SDL_Color red = {255, 0, 0};
-	highscoreName->setColor(red);
-	highscoreName->setFont(Resource::loadFont("FreeUniversal-Bold.ttf"));
-	game->addComponent(new Input(300, 200, 10));
+	//game->addComponent(new Button(50, 100, Resource::loadImage("button.png"), "Quit", shutdownListener));
+	currentScore = new Label(10, 460, "Score: " + Logger::toStr(score));
+	game->addComponent(currentScore);
+	//registerName();
 	Player* player = new Player();
 
 	EventHandler::addAction(SDLK_ESCAPE, shutdownListener);
@@ -122,13 +125,62 @@ int main(int argc, char **argv){
 	return 0;
 }
 
+Label* highscoreLabel;
+Input* nameInput;
+FunctionListener* submitListener;
+Button* submitButton;
+
+void submit(const Event* event){
+	const MouseEvent* mev = dynamic_cast<const MouseEvent*>(event);
+	if(mev != NULL && mev->isPressed()){	
+		Highscore::addScore(nameInput->getText(), score);
+		waiting = false;
+		submitting = true;
+	}
+}
+
+void registerName(){
+	highscoreLabel = new Label(300, 180, "Type your name please!");
+	game->addComponent(highscoreLabel);
+	SDL_Color red = {255, 0, 0};
+	highscoreLabel->setColor(red);
+	highscoreLabel->setFont(Resource::loadFont("FreeUniversal-Bold.ttf"));
+	
+	nameInput = new Input(300, 200, 10);
+	game->addComponent(nameInput);
+
+	submitListener = new FunctionListener(&submit);
+	submitButton = new Button(300, 220, Resource::loadImage("button.png", false), "Submit", submitListener);
+	game->addComponent(submitButton);
+}
+
 void spawnEnemy(int timeSinceLastFrame){
-	if(rand() % 50 <= level){
-		int speed = 1;
-		int xpos = (rand() % (screen->getWidth() - 40)) + 20;
-		Enemy* enemy = new Enemy("experiment.bmp", xpos, speed);
-		enemy->onCollision(&collisionDeath);
-		game->addSprite(enemy);
+	if(waiting){
+
+	}
+	else if(gameover){
+		game->removeAllSprites();
+		registerName();
+		waiting = true;
+		gameover = false;
+	}
+	else if(submitting){
+		game->delComponent(highscoreLabel);
+		game->delComponent(nameInput);
+		game->delComponent(submitButton);
+
+		Highscore scoreboard(game);
+		waiting = true;
+		submitting = false;
+	}
+	else{
+		if(rand() % 50 <= level){
+			int speed = 1;
+			int xpos = (rand() % (screen->getWidth() - 40)) + 20;
+			Enemy* enemy = new Enemy("experiment.bmp", xpos, speed);
+			enemy->onCollision(&collisionDeath);
+			game->addSprite(enemy);
+		}
 	}
 }
 
@@ -146,6 +198,7 @@ void collisionDeath(engine::Sprite* self, const engine::Sprite* other){
 void playerEnemyCollision(engine::Sprite* self, const engine::Sprite* other) {
 	if (dynamic_cast<const Enemy*>(other) != NULL) {
 		self->kill();
+		gameover = true;
 		Logger::init()->print("Our hero has died.");
 	}
 }
@@ -153,10 +206,13 @@ void playerEnemyCollision(engine::Sprite* self, const engine::Sprite* other) {
 void projectileEnemyCollision(engine::Sprite* self, const engine::Sprite* other) {
 	if (dynamic_cast<const Enemy*>(other) != NULL) {
 		self->kill();
+		score += 10*level+10;
+		currentScore->setText("Score: " + Logger::toStr(score));
 		Logger::init()->print("A projectile has collided with an enemy.");
 	}
 	else if (other == NULL){
 		self->kill();
+		score -= 5*level+5;
 		Logger::init()->print("A projectile has collided with a wall.");
 	}
 }

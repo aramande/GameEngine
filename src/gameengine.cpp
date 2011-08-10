@@ -58,6 +58,13 @@ namespace engine{
 		}
 	}
 
+	void GameEngine::removeAllSprites() {
+		for (unsigned int i = 0; i < storage->size(); i++) {
+			delete storage->at(i);
+			storage->erase(storage->begin() + i);
+		}
+	}
+
 	void GameEngine::addComponent(Component* c) {
 		if(c == NULL)
 			throw bad_arg("Don't add null to the component list");

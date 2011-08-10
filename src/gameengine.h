@@ -44,13 +44,14 @@ namespace engine {
 		 */
 		void collide();
 		static void dummy(int timeSinceLastFrame){}
-		GameEngine(Window* mainScreen); // init the game engine here
+		GameEngine(Window* mainScreen);
 	public:
 		static GameEngine* init(Window* mainScreen);
 		~GameEngine();
 		
 		void addSprite(Sprite* s);
 		void delSprite(Sprite* s);
+		void removeAllSprites();
 		void addComponent(Component* c);
 		void delComponent(Component* c);
 		void setAction(Func action);

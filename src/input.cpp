@@ -12,6 +12,10 @@ namespace engine{
 		font = Resource::loadFont("FreeUniversal-Regular.ttf", 14);
 		SDL_Color temp = {255, 255, 255};
 		color = temp;
+		if(str.length() > 0)
+			text = TTF_RenderText_Solid(font, (str+"|").c_str(),  color);
+		else
+			text = NULL;
 	}
 
 	Input::~Input(){
@@ -26,7 +30,7 @@ namespace engine{
 		if(text != NULL)
 			SDL_FreeSurface(text);
 		if(str.length() > 0)
-			text = TTF_RenderText_Solid(font, str.c_str(),  color);
+			text = TTF_RenderText_Solid(font, (str+"|").c_str(),  color);
 		else
 			text = NULL;
 	}

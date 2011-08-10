@@ -2,11 +2,7 @@
 namespace engine{
 	Button::Button(int x, int y, Image* img, std::string text, EventListener* action) : Component(x, y, img->getWidth(), img->getHeight()){
 		if(img == NULL) throw bad_arg("Image cannot be null");
-		if(action == NULL){
-			ClassListener<Button>* classAction = new ClassListener<Button>(this, &Button::dummy);
-		}
-		else
-			this->action = action;
+		this->action = action;
 		this->image = img;
 		this->rect = new Rectangle(x, y, image->getWidth(), image->getHeight());	
 		setText(text, Resource::loadFont("FreeUniversal-Bold.ttf", 14));
@@ -17,11 +13,11 @@ namespace engine{
 		textRect = NULL;
 		delete rect;
 		rect = NULL;
-		ClassListener<Button>* classAction = new ClassListener<Button>(this, &Button::dummy);
+		delete action;
+		action = NULL;
 		delete image;
 		image = NULL;
 		SDL_FreeSurface(textImg);
-		delete textImg;
 		textImg = NULL;
 	}
 
@@ -29,7 +25,9 @@ namespace engine{
 		MouseEvent* mev = dynamic_cast<MouseEvent*>(event);
 		if (mev == NULL)
 			return;
-			
+		if (action == NULL)
+			return;
+
 		if (rect->contains(mev->getX(), mev->getY()))
 			(*action)(mev);
 	}

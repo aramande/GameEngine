@@ -34,6 +34,7 @@ set(test_headers
 	${CMAKE_CURRENT_SOURCE_DIR}/spritetest.h)
 
 add_executable(game
+	highscore.cpp highscore.h
 	main.cpp
 	projectile.cpp projectile.h)
 

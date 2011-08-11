@@ -23,7 +23,7 @@ Highscore::Highscore(GameEngine* game){
 			if(name != ""){
 				if(i == 10)
 					throw file_exception("Too many entries in the highscore, please don't edit the scores.txt, cheater.");
-				Label* temp = new Label(200, i*20+120, Logger::toStr(i+1) + ": " + name + " " + score);
+				Label* temp = new Label(200, i*20+120, toStr(i+1) + ": " + name + " " + score);
 				game->addComponent(temp);
 				scoreList.push_back(temp);
 				++i;
@@ -73,7 +73,7 @@ void Highscore::addScore(string name, long score){
 		// if not last line, add a newline
 		if(oldname[k] != ""){
 			out << oldname[k] << " " << oldscore[k];
-			if(k != i - 1) 
+			if(k < 10) 
 				out << endl;
 		}
 	}

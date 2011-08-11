@@ -11,6 +11,7 @@ cconfig.h
 cwing
 enginetest
 game
+scores.txt
 debug.log
 
 # cmake

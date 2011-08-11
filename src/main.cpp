@@ -101,7 +101,7 @@ int main(int argc, char **argv){
 	
 	FunctionListener* shutdownListener = new FunctionListener(&shutdown);
 	//game->addComponent(new Button(50, 100, Resource::loadImage("button.png"), "Quit", shutdownListener));
-	currentScore = new Label(10, 460, "Score: " + Logger::toStr(score));
+	currentScore = new Label(10, 460, "Score: " + toStr(score));
 	game->addComponent(currentScore);
 	//registerName();
 	Player* player = new Player();
@@ -185,7 +185,7 @@ void spawnEnemy(int timeSinceLastFrame){
 }
 
 void updateScore(){
-	currentScore->setText("Score: " + Logger::toStr(score));
+	currentScore->setText("Score: " + toStr(score));
 }
 
 void shutdown(const engine::Event* event){
@@ -197,12 +197,21 @@ void collisionDeath(engine::Sprite* self, const engine::Sprite* other){
 		
 		// Retract half points for missed enemies
 		if(!self->isDead() && other == NULL && !(gameover || submitting || waiting)){
-			score -= 5*level+5;
+			score -= 5 * level + 5;
 			updateScore();
 		}
-		
-		Logger::init()->print("An enemy collided with something.");
-		self->kill();
+		if(other == NULL){
+			if(!self->isDead()){
+				Logger::init()->print("An enemy collided with a wall.");
+				self->kill();
+			}
+		}
+		else{
+			if(!self->isDead()){
+				Logger::init()->print("An enemy collided with something.");
+				self->kill();
+			}
+		}
 	}
 }
 
@@ -218,14 +227,18 @@ void projectileEnemyCollision(engine::Sprite* self, const engine::Sprite* other)
 	if (dynamic_cast<const Enemy*>(other) != NULL) {
 		if(!self->isDead() && !(gameover || submitting || waiting)){
 			score += 10*level+10;
+			updateScore();
 		}
-		self->kill();
-		// Add 10 points per level per killed enemy
-		updateScore();
-		Logger::init()->print("A projectile has collided with an enemy.");
+		if(!self->isDead()){
+			self->kill();
+			// Add 10 points per level per killed enemy
+			Logger::init()->print("A projectile has collided with an enemy.");
+		}
 	}
 	else if (other == NULL){
-		self->kill();
-		Logger::init()->print("A projectile has collided with a wall.");
+		if(!self->isDead()){
+			self->kill();
+			Logger::init()->print("A projectile has collided with a wall.");
+		}
 	}
 }

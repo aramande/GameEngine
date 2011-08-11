@@ -42,7 +42,7 @@ namespace engine{
 	
 	TTF_Font* Resource::loadFont(std::string filename, int size){
 		TTF_Font* result;
-		std::string id = filename+Logger::toStr(size);
+		std::string id = filename+toStr(size);
 		// If font already loaded
 		if(loadedFonts.find(id) != loadedFonts.end()){
 			result = loadedFonts[id];

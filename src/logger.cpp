@@ -26,7 +26,14 @@ namespace engine{
 		return log;
 	}
 
-	std::string Logger::toStr(int value){
+/*	std::string Logger::toStr(int value){
+		std::stringstream temp(std::stringstream::out);
+		temp << value;
+		temp.flush();
+		return temp.str();
+	}
+
+	std::string Logger::toStr(long value){
 		std::stringstream temp(std::stringstream::out);
 		temp << value;
 		temp.flush();
@@ -39,7 +46,7 @@ namespace engine{
 		temp.flush();
 		return temp.str();
 	}
-
+*/
 	void Logger::print(const char* message){
 		//file << message << '\n';
 		//file->flush();

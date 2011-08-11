@@ -154,13 +154,13 @@ namespace engine{
 					if ((*sprite)->collidesWith(NULL)){
 						(*sprite)->collide(NULL);
 					}
-					if ((*sprite)->collidesWith(*otherSprite)) {
+					if ((*sprite)->collidesWith(*otherSprite) && !(*sprite)->isDead() && !(*otherSprite)->isDead()) {
 						(*sprite)->collide((*otherSprite));
    						(*otherSprite)->collide((*sprite));
 						
 						std::string msg = "Collision detected at ";
-						msg += Logger::toStr((*sprite)->getX()) + " " + Logger::toStr((*sprite)->getY());
-						msg += " (at frame " + Logger::toStr(globalFrame) + ")";
+						msg += toStr((*sprite)->getX()) + " " + toStr((*sprite)->getY());
+						msg += " (at frame " + toStr(globalFrame) + ")";
 						Logger::init()->print(msg);
 						
 						if ((*sprite)->isDead()) {

@@ -18,12 +18,9 @@ namespace engine{
 		static Logger* init(std::string filename);
 		static Logger* init();
 
-		/**
-		 * Convert other values to string
-		 */
-		static std::string toStr(int value);
-		static std::string toStr(double value);
-		
+		//static std::string toStr(long value);
+		//static std::string toStr(double value);
+
 		/**
 		 * Print a message to the stream
 		 */
@@ -31,5 +28,17 @@ namespace engine{
 		void print(std::string& message);
 		void operator<<(std::string& message);
 	};
+	
+	/**
+	 * Convert other values to string
+	 */
+	template<class T>
+		std::string toStr(T value){
+			std::stringstream temp(std::stringstream::out);
+			temp << value;
+			temp.flush();
+			return temp.str();
+		}
+
 }
 #endif

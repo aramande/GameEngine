@@ -118,6 +118,8 @@ int main(int argc, char **argv){
 	EventHandler::addAction(SDLK_SPACE, shootListener);
 	player->onCollision(&playerEnemyCollision);
 		
+	srand(time(NULL));
+
 	game->addSprite(player);
 	game->setAction(&spawnEnemy);
 	game->run();
@@ -174,6 +176,7 @@ void spawnEnemy(int timeSinceLastFrame){
 		submitting = false;
 	}
 	else{ // Game is running
+		cout << rand() % 50 << endl;
 		if(rand() % 50 <= level){
 			int speed = 1;
 			int xpos = (rand() % (screen->getWidth() - 40)) + 20;

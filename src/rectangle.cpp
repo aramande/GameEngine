@@ -1,6 +1,7 @@
 //F13, Cwing
 
 #include "rectangle.h"
+#include "logger.h"
 
 namespace engine{
 
@@ -38,7 +39,7 @@ namespace engine{
 
 		return true;
 	}
-	SDL_Rect Rectangle::getSDL_Rect() {
+	SDL_Rect Rectangle::getSDL_Rect() const {
 		SDL_Rect result = {x, y, w, h};
 		return result;
 	}

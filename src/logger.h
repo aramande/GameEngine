@@ -25,8 +25,8 @@ namespace engine{
 		 * Print a message to the stream
 		 */
 		void print(const char* message);
-		void print(std::string& message);
-		void operator<<(std::string& message);
+		void print(std::string message);
+		void operator<<(std::string message);
 	};
 	
 	/**

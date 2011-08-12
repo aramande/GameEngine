@@ -1,20 +1,22 @@
 #include "button.h"
+#include "eventhandler.h"
+
 namespace engine{
 	Button::Button(int x, int y, Image* img, std::string text, EventListener* action) : Component(x, y, img->getWidth(), img->getHeight()){
 		if(img == NULL) throw bad_arg("Image cannot be null");
-		this->action = action;
+		//this->action = action;
 		this->image = img;
 		this->rect = new Rectangle(x, y, image->getWidth(), image->getHeight());	
+		EventHandler::addAction(SDL_BUTTON_LEFT, rect, action);
 		setText(text, Resource::loadFont("FreeUniversal-Bold.ttf", 14));
 	}
 
 	Button::~Button(){
+		EventHandler::removeAction(SDL_BUTTON_LEFT, rect);
 		delete textRect;
 		textRect = NULL;
 		delete rect;
 		rect = NULL;
-		delete action;
-		action = NULL;
 		delete image;
 		image = NULL;
 		SDL_FreeSurface(textImg);
@@ -31,8 +33,9 @@ namespace engine{
 		if (rect->contains(mev->getX(), mev->getY()))
 			(*action)(mev);
 	}
-	void Button::setAction(EventListener* f){
-		action = f;
+	void Button::setAction(EventListener* action){
+		EventHandler::removeAction(SDL_BUTTON_LEFT, rect);
+		EventHandler::addAction(SDL_BUTTON_LEFT, rect, action);
 	}
 	void Button::setText(std::string t, TTF_Font* font){
 		if(font == NULL){

@@ -9,11 +9,11 @@
 namespace engine{
 	class EventHandler {
 		static std::map<SDLKey, EventListener*> keyActions;
-		static std::map<int, EventListener*> mouseActions;
+		static std::map<int, std::map<const Rectangle*, EventListener*> > mouseActions;
 		static std::vector<EventListener*> globalActions;
 		
 		static void dummy(const Event* event){}
-		public:
+	 public:
 		/**
 		 * Register a keyboard event callback function.
 		 */
@@ -22,7 +22,7 @@ namespace engine{
 		/**
 		 * Register a mouse event callback function.
 		 */
-		static void addAction(const int key, EventListener* action);
+		static void addAction(const int key, const Rectangle* area, EventListener* action);
 
 		/**
 		 * Register a global event callback function.
@@ -38,7 +38,7 @@ namespace engine{
 		/**
 		 * Remove a mouse event callback function.
 		 */
-		static void removeAction(int key);
+		static void removeAction(int key, const Rectangle* area);
 		
 		/**
 		 * Remove a global event callback function.
@@ -46,7 +46,8 @@ namespace engine{
 		static void removeAction(EventListener* action);
 		
 		static EventListener* getAction(const SDLKey key);
-		static EventListener* getAction(const int key);
+		static EventListener* getAction(const int key, const Rectangle* area);
+		static EventListener* getAction(const int key, int x, int y);
 		
 		/**
 		 * Runs a single keyboard event callback functions.

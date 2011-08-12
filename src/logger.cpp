@@ -55,7 +55,7 @@ namespace engine{
 		file->flush();
 	}
 
-	void Logger::print(std::string& message){
+	void Logger::print(std::string message){
 		//file << message.c_str() << '\n';
 		file->write(message.c_str(), message.length());
 		//file->flush();
@@ -63,7 +63,7 @@ namespace engine{
 		file->flush();
 	}
 
-	void Logger::operator<<(std::string& message){
+	void Logger::operator<<(std::string message){
 		std::cout<<message.length()<<std::endl;
 		print(message);
 	}

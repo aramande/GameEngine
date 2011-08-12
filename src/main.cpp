@@ -173,7 +173,7 @@ void spawnEnemy(int timeSinceLastFrame){
 		waiting = true;
 		submitting = false;
 	}
-	else{
+	else{ // Game is running
 		if(rand() % 50 <= level){
 			int speed = 1;
 			int xpos = (rand() % (screen->getWidth() - 40)) + 20;
@@ -196,12 +196,12 @@ void collisionDeath(engine::Sprite* self, const engine::Sprite* other){
 	if (dynamic_cast<const Enemy*>(other) == NULL) {
 		
 		// Retract half points for missed enemies
-		if(!self->isDead() && other == NULL && !(gameover || submitting || waiting)){
-			score -= 5 * level + 5;
-			updateScore();
-		}
 		if(other == NULL){
 			if(!self->isDead()){
+				if(!(gameover || submitting || waiting)){
+					score -= 5 * level + 5;
+					updateScore();
+				}
 				Logger::init()->print("An enemy collided with a wall.");
 				self->kill();
 			}
@@ -217,7 +217,9 @@ void collisionDeath(engine::Sprite* self, const engine::Sprite* other){
 
 void playerEnemyCollision(engine::Sprite* self, const engine::Sprite* other) {
 	if (dynamic_cast<const Enemy*>(other) != NULL) {
-		self->kill();
+		//self->kill();
+		//Can't kill player here, causes segmentation fault for some reason, is
+		//removed by spawnMonster(const Event*);
 		gameover = true;
 		Logger::init()->print("Our hero has died.");
 	}

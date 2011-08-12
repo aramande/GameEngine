@@ -8,6 +8,7 @@
 .deps
 .libs
 cconfig.h
+tests.cpp
 cwing
 enginetest
 game

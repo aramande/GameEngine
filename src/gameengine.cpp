@@ -25,8 +25,10 @@ namespace engine{
 
 	GameEngine::~GameEngine(){
 		storage->clear();
+		container->clear();
 		delete storage;
 		delete fpsClock;
+		delete container;
 	}
 
 	GameEngine* GameEngine::init(Window* main){
@@ -51,18 +53,15 @@ namespace engine{
 	void GameEngine::delSprite(Sprite* s) {
 		for (unsigned int i = 0; i < storage->size(); i++) {
 			if (storage->at(i) == s) {
-				delete storage->at(i);
 				Logger::init()->print("Removing sprite");
+				delete storage->at(i);
 				storage->erase(storage->begin() + i);
 			}
 		}
 	}
 
 	void GameEngine::removeAllSprites() {
-		for (unsigned int i = 0; i < storage->size(); i++) {
-			delete storage->at(i);
-			storage->erase(storage->begin() + i);
-		}
+		storage->clear();
 	}
 
 	void GameEngine::addComponent(Component* c) {
@@ -126,6 +125,7 @@ namespace engine{
 							keySymbol.mod, keySymbol.unicode, false, timeSinceLastFrame->get_ticks());
 						EventHandler::perform(keyEvent);
 						EventHandler::perform(keySymbol.sym, keyEvent);
+						delete keyEvent;
 						break;
 					case SDL_MOUSEBUTTONDOWN:
 						click = curEvent.button;
@@ -133,9 +133,10 @@ namespace engine{
 							click.button, true, false, timeSinceLastFrame->get_ticks());
 						EventHandler::perform(click.button, mouseEvent);
 						EventHandler::perform(mouseEvent);
-						for (std::vector<Component*>::iterator it = container->begin(); it != container->end(); it++){
-							(*it)->perform(mouseEvent);
-						}
+						//for (std::vector<Component*>::iterator it = container->begin(); it != container->end(); it++){
+						//	(*it)->perform(mouseEvent);
+						//}
+						delete mouseEvent;
 						break;
 				}
 			}

@@ -20,6 +20,7 @@ Label* currentScore;
 ClassListener<Player>* moveListener;
 ClassListener<Player>* shootListener;
 int level = 0;
+int spawnEnemyCounter = 0;
 long score = 0;
 bool gameover = false;
 bool waiting = false;
@@ -104,7 +105,7 @@ int main(int argc, char **argv){
 
 	FunctionListener* shutdownListener = new FunctionListener(&shutdown);
 	//game->addComponent(new Button(50, 100, Resource::loadImage("button.png"), "Quit", shutdownListener));
-	currentScore = new Label(10, 460, "Score: " + toStr(score));
+	currentScore = new Label(10, 460, "Score: " + toStr(score) + " Level: " + toStr(level));
 	game->addComponent(currentScore);
 	//registerName();
 	Player* player = new Player();
@@ -163,6 +164,11 @@ void spawnEnemy(int timeSinceLastFrame){
 	if(waiting){
 
 	}
+        else if(spawnEnemyCounter == (level*10+15)) 
+        {
+            spawnEnemyCounter = 0;
+            ++level;
+        }
 	else if(gameover){
 		game->removeAllSprites();
 		registerName();
@@ -181,6 +187,7 @@ void spawnEnemy(int timeSinceLastFrame){
 	else{ // Game is running
 		if(rand() % 50 <= level){
 			int speed = level/10 + 1;
+                        ++spawnEnemyCounter;
 			int xpos = (rand() % (screen->getWidth() - 40)) + 20;
 			Enemy* enemy;
 			if(rand()%2 == 0)
@@ -195,7 +202,7 @@ void spawnEnemy(int timeSinceLastFrame){
 }
 
 void updateScore(){
-	currentScore->setText("Score: " + toStr(score));
+	currentScore->setText("Score: " + toStr(score) + " Level: " + toStr(level));
 }
 
 void shutdown(const engine::Event* event){

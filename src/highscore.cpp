@@ -43,6 +43,8 @@ Highscore::~Highscore(){
 
 void Highscore::addScore(string name, long score){
 	stripSpaces(name);
+	if(name == "")
+		return;
 	ifstream in("scores.txt");
 	int i = 0;
 	std::string oldname[10];

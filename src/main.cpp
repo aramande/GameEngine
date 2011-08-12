@@ -176,7 +176,6 @@ void spawnEnemy(int timeSinceLastFrame){
 		submitting = false;
 	}
 	else{ // Game is running
-		cout << rand() % 50 << endl;
 		if(rand() % 50 <= level){
 			int speed = 1;
 			int xpos = (rand() % (screen->getWidth() - 40)) + 20;

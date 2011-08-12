@@ -90,7 +90,8 @@ namespace engine{
 	}
 
 	void Sprite::draw() const{
-		SDL_BlitSurface(image->getSurface(), NULL, mainScreen, rect);
+		SDL_Rect temp = *rect;
+		SDL_BlitSurface(image->getSurface(), NULL, mainScreen, &temp);
 	}
 
 	void Sprite::translate(int x, int y){

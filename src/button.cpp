@@ -23,6 +23,9 @@ namespace engine{
 		textImg = NULL;
 	}
 
+	/**
+	 * @deprecated since commit 39026b30e7
+	 */
 	void Button::perform(Event* event){
 		MouseEvent* mev = dynamic_cast<MouseEvent*>(event);
 		if (mev == NULL)
@@ -33,6 +36,7 @@ namespace engine{
 		if (rect->contains(mev->getX(), mev->getY()))
 			(*action)(mev);
 	}
+
 	void Button::setAction(EventListener* action){
 		EventHandler::removeAction(SDL_BUTTON_LEFT, rect);
 		EventHandler::addAction(SDL_BUTTON_LEFT, rect, action);
@@ -61,13 +65,11 @@ namespace engine{
 	}
 
 	void Button::draw() const{
-		SDL_Rect target = rect->getSDL_Rect();
-		SDL_Rect source = {0,0,target.w,target.h};
+		SDL_Rect source = {0,0,rect->w,rect->h};
 		if (true)
-			SDL_BlitSurface(image->getSurface(), &source, mainScreen, &target);
+			SDL_BlitSurface(image->getSurface(), &source, mainScreen, rect);
 		else
-			SDL_BlitSurface(NULL, &source, mainScreen, &target);
-		target = textRect->getSDL_Rect();
-		SDL_BlitSurface(textImg, NULL, mainScreen, &target);
+			SDL_BlitSurface(NULL, &source, mainScreen, rect);
+		SDL_BlitSurface(textImg, NULL, mainScreen, textRect);
 	}
 }

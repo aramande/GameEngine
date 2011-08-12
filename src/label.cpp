@@ -48,7 +48,6 @@ namespace engine{
 	}
 
 	void Label::draw() const{
-		SDL_Rect target = rect->getSDL_Rect();
-		SDL_BlitSurface(text, NULL, mainScreen, &target);
+		SDL_BlitSurface(text, NULL, mainScreen, rect);
 	}
 }

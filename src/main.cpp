@@ -76,10 +76,12 @@ public:
 	}
 
 	void shoot(const Event* event){
-		if(!isDead()){
-			Projectile* lazer = new Projectile(Resource::loadImage("projectile.png", false), this, true, 0, -3);
-			lazer->onCollision(&projectileEnemyCollision);
-			game->addSprite(lazer);
+		if(const KeyEvent* keyEvent = dynamic_cast<const KeyEvent*>(event)){
+			if(!isDead() && !keyEvent->isPressed()){
+				Projectile* lazer = new Projectile(Resource::loadImage("projectile.png", false), this, true, 0, -3);
+				lazer->onCollision(&projectileEnemyCollision);
+				game->addSprite(lazer);
+			}
 		}
 	}
 
@@ -89,16 +91,17 @@ public:
 };
 
 class Enemy : public Sprite{
-public:
-	Enemy(std::string filename, int xPos, int ySpeed) : Sprite(Resource::loadImage(filename, true, true), xPos, -20, 0, ySpeed){
+ public:
+  Enemy(std::string filename, int xPos, int yPos, int ySpeed) : 
+	  Sprite(Resource::loadImage(filename, true), xPos, yPos, 0, ySpeed){
 
-	}
+  }
 };
 
 int main(int argc, char **argv){
 	screen = Window::init(640, 480, 32);
 	game = GameEngine::init(screen);
-	
+
 	FunctionListener* shutdownListener = new FunctionListener(&shutdown);
 	//game->addComponent(new Button(50, 100, Resource::loadImage("button.png"), "Quit", shutdownListener));
 	currentScore = new Label(10, 460, "Score: " + toStr(score));
@@ -107,17 +110,17 @@ int main(int argc, char **argv){
 	Player* player = new Player();
 
 	EventHandler::addAction(SDLK_ESCAPE, shutdownListener);
-	
+
 	moveListener = new ClassListener<Player>(player, &Player::movement);
 	EventHandler::addAction(SDLK_w, moveListener);
 	EventHandler::addAction(SDLK_a, moveListener);
 	EventHandler::addAction(SDLK_s, moveListener);
 	EventHandler::addAction(SDLK_d, moveListener);
-	
+
 	shootListener = new ClassListener<Player>(player, &Player::shoot);
 	EventHandler::addAction(SDLK_SPACE, shootListener);
 	player->onCollision(&playerEnemyCollision);
-		
+
 	srand(time(NULL));
 
 	game->addSprite(player);
@@ -177,9 +180,14 @@ void spawnEnemy(int timeSinceLastFrame){
 	}
 	else{ // Game is running
 		if(rand() % 50 <= level){
-			int speed = 1;
+			int speed = level/10 + 1;
 			int xpos = (rand() % (screen->getWidth() - 40)) + 20;
-			Enemy* enemy = new Enemy("experiment.bmp", xpos, speed);
+			Enemy* enemy;
+			if(rand()%2 == 0)
+				enemy = new Enemy("squid.png", xpos, -15, speed);
+			else
+				enemy = new Enemy("enemy.png", xpos, screen->getHeight(), -1);
+
 			enemy->onCollision(&collisionDeath);
 			game->addSprite(enemy);
 		}

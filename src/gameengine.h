@@ -38,11 +38,8 @@ namespace engine {
 		static bool quit;
 		static GameEngine* instance;
 		
-		/** 
-		 * Runs through sprites, checking every vector that contains more than one value if they collide.
-		 * Incase of collision, onCollision is called on both sprites.
-		 */
-		void collide();
+		std::vector<Sprite*>::iterator delSprite(std::vector<Sprite*>::iterator id);
+		std::vector<Component*>::iterator delComponent(std::vector<Component*>::iterator id);
 		static void dummy(int timeSinceLastFrame){}
 		GameEngine(Window* mainScreen);
 	public:
@@ -66,5 +63,5 @@ namespace engine {
 		static void doQuit();
 	};
 }
-
 #endif
+

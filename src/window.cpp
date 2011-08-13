@@ -64,12 +64,12 @@ namespace engine{
 
 	void Window::fullscreen(bool wantFullscreen){
 		if(wantFullscreen){
-			mainScreen = SDL_SetVideoMode(width, height, depth, flags | SDL_FULLSCREEN);
 			flags = flags | SDL_FULLSCREEN;
+			mainScreen = SDL_SetVideoMode(width, height, depth, flags);
 		}
 		else{
-			mainScreen = SDL_SetVideoMode(width, height, depth, flags & ~SDL_FULLSCREEN);
 			flags = flags & ~SDL_FULLSCREEN;
+			mainScreen = SDL_SetVideoMode(width, height, depth, flags);
 		}
 	}
 }

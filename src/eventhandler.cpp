@@ -67,12 +67,11 @@ namespace engine{
 		if(mouseActions.find(key) == mouseActions.end())
 			return NULL;
 		
-		std::map<const Rectangle*, EventListener*>::iterator it;
+		std::map<const Rectangle*, EventListener*>::reverse_iterator it;
 		std::map<const Rectangle*, EventListener*> current = mouseActions[key];
 
-		for(it=current.begin(); it != current.end(); it++){
+		for(it=current.rbegin(); it != current.rend(); it++){
 			const Rectangle* component = it->first;
-			Logger::init()->print("Rect pointer: " + toStr(component));
 			if(component->contains(x, y)){
 				Logger::init()->print("Found action at " + toStr(x) + ", " + toStr(y));
 				return it->second;

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <algorithm>
 #include "eventhandler.h"
 #include "gameengine.h"
 #include "mouseevent.h"
@@ -60,6 +61,13 @@ namespace engine{
 		}
 	}
 
+	std::vector<Sprite*>::iterator GameEngine::delSprite(std::vector<Sprite*>::iterator id){
+		Logger::init()->print("Removing sprite");
+		delete *id;
+		*id = NULL;
+		return storage->erase(id);
+	}
+
 	void GameEngine::removeAllSprites() {
 		storage->clear();
 	}
@@ -81,6 +89,12 @@ namespace engine{
 		}
 	}
 
+	std::vector<Component*>::iterator GameEngine::delComponent(std::vector<Component*>::iterator id){
+		Logger::init()->print("Removing component");
+		delete (*id);
+		return container->erase(id);
+	}
+
 	void GameEngine::setAction(Func action){
 		if(action == NULL)
 			return;
@@ -91,14 +105,17 @@ namespace engine{
 		(*action)(timeSinceLastFrame);
 	}
 
+	bool deadSprite(const Sprite* sprite){
+		return sprite->isDead();
+	}
+
 	void GameEngine::run(){
 		Timer* timeSinceLastFrame = new Timer();
 		SDL_Event curEvent;
 		quit = false;
 		int frame = 0;
 		int globalFrame = 0; //temp
-		std::stack<Sprite*> deathrow = std::stack<Sprite*>();
-		
+
 		timeSinceLastFrame->start();
 		KeyEvent* keyEvent;
 		MouseEvent* mouseEvent;
@@ -114,7 +131,7 @@ namespace engine{
 					case SDL_KEYDOWN:
 						keySymbol = curEvent.key.keysym;
 						keyEvent = new KeyEvent(keySymbol.sym, 
-							keySymbol.mod, keySymbol.unicode, true, timeSinceLastFrame->get_ticks());
+												keySymbol.mod, keySymbol.unicode, true, timeSinceLastFrame->get_ticks());
 						EventHandler::perform(keyEvent);
 						EventHandler::perform(keySymbol.sym, keyEvent);
 						delete keyEvent;
@@ -122,7 +139,7 @@ namespace engine{
 					case SDL_KEYUP:
 						keySymbol = curEvent.key.keysym;
 						keyEvent = new KeyEvent(keySymbol.sym, 
-							keySymbol.mod, keySymbol.unicode, false, timeSinceLastFrame->get_ticks());
+												keySymbol.mod, keySymbol.unicode, false, timeSinceLastFrame->get_ticks());
 						EventHandler::perform(keyEvent);
 						EventHandler::perform(keySymbol.sym, keyEvent);
 						delete keyEvent;
@@ -130,60 +147,63 @@ namespace engine{
 					case SDL_MOUSEBUTTONDOWN:
 						click = curEvent.button;
 						mouseEvent = new MouseEvent(click.x, click.y, 
-							click.button, true, false, timeSinceLastFrame->get_ticks());
+													click.button, true, false, timeSinceLastFrame->get_ticks());
 						EventHandler::perform(click.button, mouseEvent);
 						EventHandler::perform(mouseEvent);
-						//for (std::vector<Component*>::iterator it = container->begin(); it != container->end(); it++){
-						//	(*it)->perform(mouseEvent);
-						//}
 						delete mouseEvent;
 						break;
 				}
 			}
 			if(quit) break;
-			
+
 			SDL_FillRect(mainScreen, &mainScreen->clip_rect, 
-				SDL_MapRGB(mainScreen->format, 0,0,0));
-			
+						 SDL_MapRGB(mainScreen->format, 0,0,0));
+
 			for (std::vector<Sprite*>::iterator sprite = storage->begin(); 
-				sprite != storage->end();sprite++){
-				if ((*sprite)->isDead())
-					continue;
-				(*sprite)->tick();
-				for (std::vector<Sprite*>::iterator otherSprite = storage->begin(); 
-					otherSprite != storage->end();otherSprite++) {
+				 sprite != storage->end(); ++sprite){
+				if(!(*sprite)->isDead()){
+					(*sprite)->tick();
+
+					// Check wall collision
 					if ((*sprite)->collidesWith(NULL)){
 						(*sprite)->collide(NULL);
 					}
-					if ((*sprite)->collidesWith(*otherSprite) && !(*sprite)->isDead() && !(*otherSprite)->isDead()) {
-						(*sprite)->collide((*otherSprite));
-   						(*otherSprite)->collide((*sprite));
-						
-						std::string msg = "Collision detected at ";
-						msg += toStr((*sprite)->getX()) + " " + toStr((*sprite)->getY());
-						msg += " (at frame " + toStr(globalFrame) + ")";
-						Logger::init()->print(msg);
-						
-						if ((*sprite)->isDead()) {
-							deathrow.push(*(sprite));
+
+					for (std::vector<Sprite*>::iterator otherSprite = storage->begin(); 
+						 otherSprite != storage->end(); ++otherSprite) {
+						if((*sprite) == (*otherSprite)){
+							continue;
 						}
-						if ((*otherSprite)->isDead()) {
-							deathrow.push(*(otherSprite));
+						if(!(*sprite)->isDead() && !(*otherSprite)->isDead()){
+							if ((*sprite)->collidesWith(*otherSprite)) {
+								(*sprite)->collide((*otherSprite));
+								(*otherSprite)->collide((*sprite));
+
+								std::string msg = "Collision detected at ";
+								msg += toStr((*sprite)->getX()) + " " + toStr((*sprite)->getY());
+								msg += " (at frame " + toStr(globalFrame) + ")";
+								Logger::init()->print(msg);
+							}
 						}
 					}
 				}
 				(*sprite)->draw();
 			}
-			
+			//Remove all dead sprites
+			storage->erase(std::remove_if(storage->begin(), storage->end(), deadSprite), storage->end());
+
+			/*
+			// Figured out how to delete from an iterator with a function
 			Sprite* deadSprite;
 			while(!deathrow.empty()){
-				deadSprite = deathrow.top();
-				delSprite(deadSprite);
-				deathrow.pop();
+			deadSprite = deathrow.top();
+			delSprite(deadSprite);
+			deathrow.pop();
 			}
-			
+			*/
+
 			for (std::vector<Component*>::iterator component = container->begin(); 
-				component != container->end(); component++){
+				 component != container->end(); component++){
 				(*component)->draw();
 			}
 

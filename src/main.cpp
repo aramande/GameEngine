@@ -33,6 +33,10 @@ public:
 
 	}
 
+	Player(int x, int y) : Sprite(Resource::loadImage("player.png"), x, y){
+
+	}
+
 	~Player(){
 		EventHandler::removeAction(SDLK_w);
 		EventHandler::removeAction(SDLK_a);
@@ -79,7 +83,7 @@ public:
 
 	void shoot(const Event* event){
 		if(const KeyEvent* keyEvent = dynamic_cast<const KeyEvent*>(event)){
-			if(!isDead() && !keyEvent->isPressed()){
+			if(!isDead() && keyEvent->isPressed()){
 				Projectile* lazer = new Projectile(Resource::loadImage("projectile.png", false), this, true, 0, -3);
 				lazer->onCollision(&projectileEnemyCollision);
 				game->addSprite(lazer);
@@ -109,7 +113,7 @@ int main(int argc, char **argv){
 	currentScore = new Label(10, 460, "Score: " + toStr(score) + " Level: " + toStr(level));
 	game->addComponent(currentScore);
 	//registerName();
-	Player* player = new Player();
+	Player* player = new Player(screen->getWidth()/2, screen->getHeight()/2);
 
 	EventHandler::addAction(SDLK_ESCAPE, shutdownListener);
 

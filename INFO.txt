@@ -1,0 +1,24 @@
+--==:<{Relentless Assault}>:==--
+
+Made by:
+Andreas Johansson	880216-0310
+Arian Jafari		911011-5616
+Andreas Lundin		900322-2370
+
+src/ for source files,
+data/img/ for image files,
+data/fonts/ for font files
+
+Background:
+*Krrssccht*-*Bzzt*
+"...h-hello? ...anyo-"
+*Bzzrrrtssscchh*
+"...desperate n...-istance...-eing overru-"
+*Kssshhttt*
+"...coming, cannot-" *Krrzzzsss* "...-eem to be unstoppab-... squids a-...circles everywh-...*Brrzzsst*...ate everyo-...OH GO-" *Sszzhhhshshhhhhhzzzssttttst*
+End of transmission.
+
+How to play:
+Use WASD to move. Press SPACE to fire the ship's cannons. 
+Enemy objects are hazardous. Avoid collision at all costs.
+Press ESC to quit game at any point.

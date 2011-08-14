@@ -31,6 +31,8 @@ Highscore::Highscore(GameEngine* game){
 			name = "";
 			score = "0";
 		}
+		Label* end = new Label(200, 420, "Press ESC to quit.");
+		game->addComponent(end);
 	}
 
 	file->close();

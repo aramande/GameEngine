@@ -38,6 +38,22 @@ namespace engine{
 		return instance;
 	}
 
+	bool deadSprite(Sprite* sprite){
+		if(sprite->isDead()){
+			delete sprite;
+			return true;
+		}
+		return false;
+	} 
+
+	bool deleteAll(Sprite* sprite){ 
+		/*
+		// No idea why this generates a segfault
+		delete sprite; 
+		*/
+		return true;
+   	}
+
 	void GameEngine::setFPS(int fps){
 		if(fps < 1)
 			throw bad_arg("Negative FPS");
@@ -61,15 +77,12 @@ namespace engine{
 		}
 	}
 
-	std::vector<Sprite*>::iterator GameEngine::delSprite(std::vector<Sprite*>::iterator id){
-		Logger::init()->print("Removing sprite");
-		delete *id;
-		*id = NULL;
-		return storage->erase(id);
-	}
-
 	void GameEngine::removeAllSprites() {
-		storage->clear();
+		/*while (!storage->empty()) {
+			delete storage->back();
+		  	storage->pop_back();
+		}*/
+		storage->erase(remove_if(storage->begin(), storage->end(), deleteAll), storage->end());
 	}
 
 	void GameEngine::addComponent(Component* c) {
@@ -89,12 +102,6 @@ namespace engine{
 		}
 	}
 
-	std::vector<Component*>::iterator GameEngine::delComponent(std::vector<Component*>::iterator id){
-		Logger::init()->print("Removing component");
-		delete (*id);
-		return container->erase(id);
-	}
-
 	void GameEngine::setAction(Func action){
 		if(action == NULL)
 			return;
@@ -103,10 +110,6 @@ namespace engine{
 
 	void GameEngine::perform(int timeSinceLastFrame){
 		(*action)(timeSinceLastFrame);
-	}
-
-	bool deadSprite(const Sprite* sprite){
-		return sprite->isDead();
 	}
 
 	void GameEngine::run(){
@@ -191,16 +194,6 @@ namespace engine{
 			}
 			//Remove all dead sprites
 			storage->erase(std::remove_if(storage->begin(), storage->end(), deadSprite), storage->end());
-
-			/*
-			// Figured out how to delete from an iterator with a function
-			Sprite* deadSprite;
-			while(!deathrow.empty()){
-			deadSprite = deathrow.top();
-			delSprite(deadSprite);
-			deathrow.pop();
-			}
-			*/
 
 			for (std::vector<Component*>::iterator component = container->begin(); 
 				 component != container->end(); component++){

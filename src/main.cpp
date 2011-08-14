@@ -1,4 +1,5 @@
 #include <cxxtest/ErrorPrinter.h>
+#include <ctime>
 #include <iostream>
 #include <gameengine.h>
 #include "projectile.h"
@@ -164,11 +165,11 @@ void spawnEnemy(int timeSinceLastFrame){
 	if(waiting){
 
 	}
-        else if(spawnEnemyCounter == (level*10+15)) 
-        {
-            spawnEnemyCounter = 0;
-            ++level;
-        }
+	else if(spawnEnemyCounter == (level*10+15)) 
+	{
+		spawnEnemyCounter = 0;
+		++level;
+	}
 	else if(gameover){
 		game->removeAllSprites();
 		registerName();
@@ -187,7 +188,7 @@ void spawnEnemy(int timeSinceLastFrame){
 	else{ // Game is running
 		if(rand() % 50 <= level){
 			int speed = level/10 + 1;
-                        ++spawnEnemyCounter;
+			++spawnEnemyCounter;
 			int xpos = (rand() % (screen->getWidth() - 40)) + 20;
 			Enemy* enemy;
 			if(rand()%2 == 0)

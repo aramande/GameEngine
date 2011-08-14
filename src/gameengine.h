@@ -38,8 +38,6 @@ namespace engine {
 		static bool quit;
 		static GameEngine* instance;
 		
-		std::vector<Sprite*>::iterator delSprite(std::vector<Sprite*>::iterator id);
-		std::vector<Component*>::iterator delComponent(std::vector<Component*>::iterator id);
 		static void dummy(int timeSinceLastFrame){}
 		GameEngine(Window* mainScreen);
 	public:

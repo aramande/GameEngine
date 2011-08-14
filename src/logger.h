@@ -18,9 +18,6 @@ namespace engine{
 		static Logger* init(std::string filename);
 		static Logger* init();
 
-		//static std::string toStr(long value);
-		//static std::string toStr(double value);
-
 		/**
 		 * Print a message to the stream
 		 */

@@ -46,11 +46,9 @@ namespace engine{
 		return false;
 	} 
 
-	bool deleteAll(Sprite* sprite){ 
-		/*
+	bool removeAll(Sprite* sprite){ 
 		// No idea why this generates a segfault
 		delete sprite; 
-		*/
 		return true;
    	}
 
@@ -67,12 +65,13 @@ namespace engine{
 		storage->push_back(sprite);
 	}
 
-	void GameEngine::delSprite(Sprite* s) {
+	void GameEngine::removeSprite(Sprite* s) {
 		for (unsigned int i = 0; i < storage->size(); i++) {
 			if (storage->at(i) == s) {
 				Logger::init()->print("Removing sprite");
 				delete storage->at(i);
 				storage->erase(storage->begin() + i);
+				return;
 			}
 		}
 	}
@@ -82,7 +81,7 @@ namespace engine{
 			delete storage->back();
 		  	storage->pop_back();
 		}*/
-		storage->erase(remove_if(storage->begin(), storage->end(), deleteAll), storage->end());
+		storage->erase(remove_if(storage->begin(), storage->end(), removeAll), storage->end());
 	}
 
 	void GameEngine::addComponent(Component* c) {
@@ -92,7 +91,7 @@ namespace engine{
 		container->push_back(c);
 	}
 
-	void GameEngine::delComponent(Component* c) {
+	void GameEngine::removeComponent(Component* c) {
 		for (unsigned int i = 0; i < container->size(); i++) {
 			if(container->at(i) == c) {
 				Logger::init()->print("Removing component");

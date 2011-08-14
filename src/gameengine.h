@@ -45,10 +45,10 @@ namespace engine {
 		~GameEngine();
 		
 		void addSprite(Sprite* s);
-		void delSprite(Sprite* s);
+		void removeSprite(Sprite* s);
 		void removeAllSprites();
 		void addComponent(Component* c);
-		void delComponent(Component* c);
+		void removeComponent(Component* c);
 		void setAction(Func action);
 		void perform(int timeSinceLastFrame);
 

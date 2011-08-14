@@ -30,13 +30,13 @@ namespace engine{
 		else if(comps.find(name) != comps.end())
 			throw bad_arg("Gui: Error, key already exists");
 		if(component->getName() != "") // Erase the old entry if it exists.
-			delComp(component->getName());
+			removeComp(component->getName());
 
 		component->setName(name);
 		comps.insert(pair<string, Component*>(name, component));
 	}
 
-	void Gui::delComp(string name){
+	void Gui::removeComp(string name){
 		if(comps.find(name) == comps.end())
 			throw bad_arg("Gui: Error, no such key");
 

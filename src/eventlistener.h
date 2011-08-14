@@ -21,9 +21,6 @@ namespace engine{
 			setFunction(object, code);
 		}
 		~ClassListener(){
-			// Both object and action are dangerous pointers so we're not deleting them
-			object = NULL;
-			action = NULL;
 		}
 
 		void operator()(const Event* event){

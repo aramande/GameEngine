@@ -43,7 +43,7 @@ namespace engine{
 		 *
 		 * @param name The name of the component to be removed
 		 */
-		void delComp(std::string name);
+		void removeComp(std::string name);
 
 		/**
 		 * Retrieve a component by name from the gui.

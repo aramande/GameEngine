@@ -177,10 +177,11 @@ void spawnEnemy(int timeSinceLastFrame){
 		gameover = false;
 	}
 	else if(submitting){
-		game->delComponent(highscoreLabel);
-		game->delComponent(nameInput);
-		game->delComponent(submitButton);
-
+		game->removeComponent(highscoreLabel);
+		game->removeComponent(nameInput);
+		game->removeComponent(submitButton);
+		delete submitListener;
+		
 		Highscore scoreboard(game);
 		waiting = true;
 		submitting = false;

@@ -23,19 +23,25 @@ namespace engine{
 		globalActions.push_back(action);
 	}
 
+	/**
+	 * Warning, Does not delete pointers to the eventlisteners.
+	 */
 	void EventHandler::removeAction(SDLKey key){
 		if(keyActions.find(key) == keyActions.end())
 			 throw bad_arg("Could not find keyboard action");
-		delete keyActions[key];
+		//delete keyActions[key];
 		keyActions.erase(key);
 	}
 	
+	/**
+	 * Warning, Does not delete pointers to the eventlisteners.
+	 */
 	void EventHandler::removeAction(int key, const Rectangle* area){
 		if(mouseActions.find(key) == mouseActions.end())
 			 throw bad_arg("Could not find mouse action");
 		if(mouseActions[key].find(area) == mouseActions[key].end())
 			 throw bad_arg("Could not find mouse action for the area");
-		delete mouseActions[key][area];
+		//delete mouseActions[key][area];
 		mouseActions[key].erase(area);
 	}
 	

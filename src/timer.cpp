@@ -1,3 +1,6 @@
+/*This piece of code was originally from Lazy Foo' Productions
+ * (http://lazyfoo.net/)*/
+
 #include "timer.h"
 #include "sdl.h"
 namespace engine{

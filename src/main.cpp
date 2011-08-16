@@ -225,13 +225,13 @@ void collisionDeath(engine::Sprite* self, const engine::Sprite* other){
 					score -= 5 * level + 5;
 					updateScore();
 				}
-				Logger::init()->print("An enemy collided with a wall.");
+				logger->print("An enemy collided with a wall.");
 				self->kill();
 			}
 		}
 		else{
 			if(!self->isDead()){
-				Logger::init()->print("An enemy collided with something.");
+				logger->print("An enemy collided with something.");
 				self->kill();
 			}
 		}
@@ -244,7 +244,7 @@ void playerEnemyCollision(engine::Sprite* self, const engine::Sprite* other) {
 		//Can't kill player here, causes segmentation fault for some reason, is
 		//removed by spawnMonster(const Event*);
 		gameover = true;
-		Logger::init()->print("Our hero has died.");
+		logger->print("Our hero has died.");
 	}
 }
 
@@ -257,13 +257,13 @@ void projectileEnemyCollision(engine::Sprite* self, const engine::Sprite* other)
 		if(!self->isDead()){
 			self->kill();
 			// Add 10 points per level per killed enemy
-			Logger::init()->print("A projectile has collided with an enemy.");
+			logger->print("A projectile has collided with an enemy.");
 		}
 	}
 	else if (other == NULL){
 		if(!self->isDead()){
 			self->kill();
-			Logger::init()->print("A projectile has collided with a wall.");
+			logger->print("A projectile has collided with a wall.");
 		}
 	}
 }

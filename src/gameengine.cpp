@@ -16,6 +16,9 @@ namespace engine{
 	GameEngine::GameEngine(Window* main){
 		if(main == NULL)
 			throw bad_arg("Main window cannot be null");
+		logger->setToCommand(false);
+		logger->setLogFile("debug.log");
+		logger->print("Initializing gameengine");
 		window = main;
 		action = &dummy;
 		storage = new std::vector<Sprite*>();
@@ -61,14 +64,14 @@ namespace engine{
 	void GameEngine::addSprite(Sprite* sprite){
 		if(sprite == NULL)
 			throw bad_arg("Don't add null to the sprite list");
-		Logger::init()->print("Adding sprite");
+		logger->print("Adding sprite");
 		storage->push_back(sprite);
 	}
 
 	void GameEngine::removeSprite(Sprite* s) {
 		for (unsigned int i = 0; i < storage->size(); i++) {
 			if (storage->at(i) == s) {
-				Logger::init()->print("Removing sprite");
+				logger->print("Removing sprite");
 				delete storage->at(i);
 				storage->erase(storage->begin() + i);
 				return;
@@ -87,14 +90,14 @@ namespace engine{
 	void GameEngine::addComponent(Component* c) {
 		if(c == NULL)
 			throw bad_arg("Don't add null to the component list");
-		Logger::init()->print("Adding component");
+		logger->print("Adding component");
 		container->push_back(c);
 	}
 
 	void GameEngine::removeComponent(Component* c) {
 		for (unsigned int i = 0; i < container->size(); i++) {
 			if(container->at(i) == c) {
-				Logger::init()->print("Removing component");
+				logger->print("Removing component");
 				delete container->at(i);
 				container->erase(container->begin() + i);
 			}
@@ -184,7 +187,7 @@ namespace engine{
 								std::string msg = "Collision detected at ";
 								msg += toStr((*sprite)->getX()) + " " + toStr((*sprite)->getY());
 								msg += " (at frame " + toStr(globalFrame) + ")";
-								Logger::init()->print(msg);
+								//logger->print(msg);
 							}
 						}
 					}
@@ -213,7 +216,7 @@ namespace engine{
 	}
 
 	void GameEngine::doQuit(){
-		Logger::init()->print("Good bye");
+		logger->print("Good bye");
 		quit = true;
 		Window::kill();
 	}

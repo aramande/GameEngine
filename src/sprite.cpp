@@ -73,7 +73,7 @@ namespace engine{
 
 	void Sprite::kill() {
 		dead = true;
-		Logger::init()->print("A sprite has died.");
+		logger->print("A sprite has died.");
 	}
 
 	Rectangle* Sprite::getRectangle() const{

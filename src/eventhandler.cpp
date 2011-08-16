@@ -16,7 +16,7 @@ namespace engine{
 		if(!mouseActions[key].count(area))
 			mouseActions[key] = std::map<const Rectangle*, EventListener*>();
 		mouseActions[key][area] = action;
-		Logger::init()->print("Adding a mouse event listener: " + toStr(mouseActions[key][area]) + " to " + toStr(area));
+		logger->print("Adding a mouse event listener: " + toStr(mouseActions[key][area]) + " to " + toStr(area));
 	}
 	
 	void EventHandler::addAction(EventListener* action){
@@ -79,7 +79,7 @@ namespace engine{
 		for(it=current.rbegin(); it != current.rend(); it++){
 			const Rectangle* component = it->first;
 			if(component->contains(x, y)){
-				Logger::init()->print("Found action at " + toStr(x) + ", " + toStr(y));
+				logger->print("Found action at " + toStr(x) + ", " + toStr(y));
 				return it->second;
 			}
 		}

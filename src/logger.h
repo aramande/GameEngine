@@ -7,24 +7,34 @@
 
 namespace engine{
 	class Logger{
-		std::ofstream* file;
-		static Logger* log;
-		Logger(std::string filename);
+		std::ofstream file;
+		bool toCommand;
+		//static Logger* logger;
 	public:
+		Logger();
 		virtual ~Logger();
 		/**
-		 * Sets the output stream to print logger messages to
+		 * Sets the output stream to print loggermessages to
 		 */
-		static Logger* init(std::string filename);
-		static Logger* init();
+		//static Logger* init(std::string filename);
+		//static Logger* init();
 
 		/**
 		 * Print a message to the stream
 		 */
 		void print(const char* message);
-		void print(std::string message);
+		void print(const std::string& message);
+		/**
+		 * Print a formatted message to the stream
+		 */
+		void printf(const char* message, ...);
+
+		void setLogFile(const std::string& filename);
+		void setToCommand(bool value);
 		void operator<<(std::string message);
 	};
+
+	extern Logger* logger;
 	
 	/**
 	 * Convert other values to string

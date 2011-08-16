@@ -1,43 +1,62 @@
 #include <iostream>
 #include <string.h>
 #include <sstream>
+#include <stdarg.h>
 #include "logger.h"
 namespace engine{
-	Logger* Logger::log = NULL;
+	Logger* logger= new Logger();
 
-	Logger::Logger(std::string s){
-		file = new std::ofstream(s.c_str());
-	}
+	Logger::Logger() : toCommand(true){}
 
 	Logger::~Logger(){
-		file->close();
+		if(file.is_open())
+			file.close();
 	}
 
-	Logger* Logger::init(std::string s){
-		if(log == NULL)
-			log = new Logger(s);
-		return log;
-	}
+//	Logger* Logger::init(std::string s){
+//		if(logger == NULL)
+//			logger = new Logger(s);
+//		return logger;
+//	}
 
-	Logger* Logger::init(){
-		if(log == NULL)
-			log = new Logger("debug.log");
-		return log;
-	}
+//	Logger* Logger::init(){
+//		if(logger == NULL)
+//			logger = new Logger("debug.logger");
+//		return logger;
+//	}
 	void Logger::print(const char* message){
-		//file << message << '\n';
-		//file->flush();
-		file->write(message, strlen(message));
-		file->write("\n", 1);
-		file->flush();
+		if(file.is_open())
+			file << message << std::endl;
+
+		if(toCommand)
+			std::cout << message << std::endl;
+		file.flush();
 	}
 
-	void Logger::print(std::string message){
-		//file << message.c_str() << '\n';
-		file->write(message.c_str(), message.length());
-		//file->flush();
-		file->write("\n", 1);
-		file->flush();
+	void Logger::print(const std::string& message){
+		print(message.c_str());
+	}
+
+	void Logger::printf(const char* message, ...){
+		const size_t length = 1024;
+		char* buffer = new char[length];
+		va_list args;
+
+		va_start(args, message);
+		vsprintf(buffer, message, args);
+		va_end(args);
+
+		print(buffer);
+	}
+	
+	void Logger::setLogFile(const std::string& filename){
+		if(file.is_open())
+			file.close();
+		file.open(filename.c_str(), std::ios_base::trunc);
+	}
+
+	void Logger::setToCommand(bool value){
+		toCommand = value;
 	}
 
 	void Logger::operator<<(std::string message){

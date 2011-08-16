@@ -28,7 +28,7 @@ namespace engine {
 		std::string getName();
 
 		/**
-		 * Update the component, component logic goes here.
+		 * Update the component, component loggeric goes here.
 		 */
 		virtual void update();
 		

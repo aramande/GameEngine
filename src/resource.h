@@ -9,9 +9,8 @@
 namespace engine{
 	class Resource{
 		static std::map<std::string, Image*> loadedImages;
-		static std::map<std::string, int> imageCount;
 		static std::map<std::string, TTF_Font*> loadedFonts;
-		static std::map<std::string, int> fontCount;
+		static std::map<std::string, int> count;
 		
 	public:
 		/**
@@ -30,7 +29,7 @@ namespace engine{
 		 * as it saves a small bit of memory.
 		 */
 		static void unloadImage(std::string filename);
-		static void unloadImage(const Image* img);
+		static void unloadImage(Image* img);
 
 		/**
 		 * Loads a font from the harddrive into memory. 

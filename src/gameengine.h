@@ -4,6 +4,7 @@
 #include <map>
 #include <stack>
 #include <vector>
+#include "animation.h"
 #include "badarg.h"
 #include "button.h"
 #include "component.h"

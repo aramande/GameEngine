@@ -6,8 +6,8 @@
 
 using namespace std;
 namespace engine{
-	Image::Image(string filename, bool alpha, bool pixel){
-		SDL_Surface* loadedImage = IMG_Load(filename.c_str()); 
+	Image::Image(string path, string filename, bool alpha, bool pixel){
+		SDL_Surface* loadedImage = IMG_Load((path+filename).c_str()); 
 		if(loadedImage != NULL){ 
 			if(alpha)
 				if(pixel){

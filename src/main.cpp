@@ -115,6 +115,11 @@ int main(int argc, char **argv){
 	//registerName();
 	Player* player = new Player(screen->getWidth()/2, screen->getHeight()/2);
 
+	{
+		Animation test = Animation();
+		test.setFrame(0, Resource::loadImage("player.png", true));
+	}
+
 	EventHandler::addAction(SDLK_ESCAPE, shutdownListener);
 
 	moveListener = new ClassListener<Player>(player, &Player::movement);

@@ -16,6 +16,7 @@ namespace engine{
 		yVelocity = yvel;
 	}
 	Sprite::~Sprite() {
+		logger->print("Destructing a sprite");
 		Resource::unloadImage(image);
 		image = NULL;
 		action = &dummy;

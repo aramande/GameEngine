@@ -184,10 +184,8 @@ namespace engine{
 								(*sprite)->collide((*otherSprite));
 								(*otherSprite)->collide((*sprite));
 
-								std::string msg = "Collision detected at ";
-								msg += toStr((*sprite)->getX()) + " " + toStr((*sprite)->getY());
-								msg += " (at frame " + toStr(globalFrame) + ")";
-								//logger->print(msg);
+								logger->printf("Collision detected at %d,%d (at frame %d)", 
+									(*sprite)->getX(), (*sprite)->getY(), globalFrame);
 							}
 						}
 					}

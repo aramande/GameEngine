@@ -1,6 +1,7 @@
 cmake_minimum_required (VERSION 2.6)
 
 add_library(gameengine 
+	animation.cpp animation.h
 	badarg.h
 	button.cpp button.h
 	cconfig.h cconfig.h.in

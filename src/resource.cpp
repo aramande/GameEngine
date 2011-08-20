@@ -1,14 +1,14 @@
 #include <string>
-#include "resource.h"
+#include "badarg.h"
 #include "logger.h"
 #include "cconfig.h"
+#include "resource.h"
 #include "fileexception.h"
 
 namespace engine{
 	std::map<std::string, Image*> Resource::loadedImages = std::map<std::string, Image*>();
-	std::map<std::string, int> Resource::imageCount = std::map<std::string, int>();
 	std::map<std::string, TTF_Font*> Resource::loadedFonts = std::map<std::string, TTF_Font*>();
-	std::map<std::string, int> Resource::fontCount = std::map<std::string, int>();
+	std::map<std::string, int> Resource::count = std::map<std::string, int>();
 	
 	Image* Resource::loadImage(std::string filename, bool alpha, bool pixel){
 		Image* result = NULL;
@@ -16,27 +16,31 @@ namespace engine{
 		// If image already exists
 		if(loadedImages.find(filename) != loadedImages.end()){
 			result = loadedImages[filename];
-			imageCount[filename]++;
+			count[filename]++;
 		}
 		else{
-			result = new Image((std::string)DATA_DIR + "/img/" + filename, alpha, pixel);
+			result = new Image((std::string)DATA_DIR + "/img/", filename, alpha, pixel);
 			loadedImages[filename] = result;
-			imageCount[filename] = 0;
+			count[filename] = 1;
 		}
 		return result;
 	}
 
 	void Resource::unloadImage(std::string filename){
 		if(loadedImages.find(filename) != loadedImages.end()){
-			if(--imageCount[filename]==0){
+			if(--(count[filename])==0){
+				logger->printf("Unloading %s from resources", filename.c_str());
 				delete loadedImages[filename];
 				loadedImages.erase(filename);
 			}
 		}
 	}
 	
-	void Resource::unloadImage(const Image* img) {
-		unloadImage(img->getFilename());		
+	void Resource::unloadImage(Image* img) {
+		if(img == NULL)
+			throw bad_arg("Trying to unload a null image pointer");
+		logger->printf("Unloading image: %p", img);
+		unloadImage(img->getFilename());
 	}
 
 	
@@ -46,7 +50,7 @@ namespace engine{
 		// If font already loaded
 		if(loadedFonts.find(id) != loadedFonts.end()){
 			result = loadedFonts[id];
-			fontCount[id]++;
+			count[id]++;
 		}
 		else{
 			result = TTF_OpenFont(((std::string)DATA_DIR + "/fonts/" + filename).c_str(), size);
@@ -54,7 +58,7 @@ namespace engine{
 				throw file_exception("Could not load font: " + (std::string)DATA_DIR + "/fonts/" + filename);
 			}
 			loadedFonts[id] = result;
-			fontCount[id] = 0;
+			count[id] = 1;
 		}
 		return result;
 		
@@ -62,7 +66,7 @@ namespace engine{
 
 	void Resource::unloadFont(std::string filename, int size){
 		if(loadedFonts.find(filename) != loadedFonts.end()){
-			if(--fontCount[filename]==0){
+			if(--(count[filename])==0){
 				free(loadedFonts[filename]);
 				loadedFonts.erase(filename);
 			}

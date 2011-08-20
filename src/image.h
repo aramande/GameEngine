@@ -18,7 +18,7 @@ namespace engine{
 		Image(const Image& other){}
 		Image operator=(const Image& other){}
 	protected:
-		Image(std::string filename, bool alpha, bool pixel);
+		Image(std::string path, std::string filename, bool alpha, bool pixel);
 	public:
 		virtual ~Image();
 		int getWidth() const;

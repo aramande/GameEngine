@@ -14,7 +14,7 @@ Highscore::Highscore(GameEngine* game){
 	int i = 0;
 
 	header = new Label(200, 90, "Highscores!");
-	header->setFont(Resource::loadFont("FreeUniversal-Bold.ttf", 18));
+	header->setFont(ResourceHandler::init()->getFont("defaultfontbold"));
 	game->addComponent(header);
 
 	if (file->is_open()) {
@@ -40,6 +40,11 @@ Highscore::Highscore(GameEngine* game){
 
 Highscore::~Highscore(){
 	//Close file here and remove scores from the screen
+	ResourceHandler::init()->release("defaultfontbold");
+	for(vector<Label*>::iterator it = scoreList.begin(); it != scoreList.end();){
+		delete *it;
+		it = scoreList.erase(it);
+	}
 	delete file;
 }
 

@@ -18,6 +18,7 @@ class Player;
 GameEngine* game;
 Window* screen;
 Label* currentScore;
+ResourceHandler* reshan = ResourceHandler::init();
 ClassListener<Player>* moveListener;
 ClassListener<Player>* shootListener;
 int level = 0;
@@ -29,11 +30,11 @@ bool submitting = false;
 
 class Player : public Sprite{
 public:
-	Player() : Sprite(Resource::loadImage("player.png")){
+	Player() : Sprite(reshan->getImage("player")){
 
 	}
 
-	Player(int x, int y) : Sprite(Resource::loadImage("player.png"), x, y){
+	Player(int x, int y) : Sprite(reshan->getImage("player"), x, y){
 
 	}
 
@@ -84,7 +85,7 @@ public:
 	void shoot(const Event* event){
 		if(const KeyEvent* keyEvent = dynamic_cast<const KeyEvent*>(event)){
 			if(!isDead() && keyEvent->isPressed()){
-				Projectile* lazer = new Projectile(Resource::loadImage("projectile.png", false), this, true, 0, -3);
+				Projectile* lazer = new Projectile(reshan->getImage("projectile"), this, true, 0, -3);
 				lazer->onCollision(&projectileEnemyCollision);
 				game->addSprite(lazer);
 			}
@@ -99,7 +100,7 @@ public:
 class Enemy : public Sprite{
  public:
   Enemy(std::string filename, int xPos, int yPos, int ySpeed) : 
-	  Sprite(Resource::loadImage(filename, true), xPos, yPos, 0, ySpeed){
+	  Sprite(reshan->getImage(filename), xPos, yPos, 0, ySpeed){
 
   }
 };
@@ -107,6 +108,7 @@ class Enemy : public Sprite{
 int main(int argc, char **argv){
 	screen = Window::init(640, 480, 32);
 	game = GameEngine::init(screen);
+	ResourceHandler::init()->loadResourceFile("game.res");
 
 	FunctionListener* shutdownListener = new FunctionListener(&shutdown);
 	//game->addComponent(new Button(50, 100, Resource::loadImage("button.png"), "Quit", shutdownListener));
@@ -117,7 +119,7 @@ int main(int argc, char **argv){
 
 	{
 		Animation test = Animation();
-		test.setFrame(0, Resource::loadImage("player.png", true));
+		test.setFrame(0, reshan->getImage("player"));
 	}
 
 	EventHandler::addAction(SDLK_ESCAPE, shutdownListener);
@@ -145,6 +147,7 @@ Label* highscoreLabel;
 Input* nameInput;
 FunctionListener* submitListener;
 Button* submitButton;
+Highscore* scoreboard;
 
 void submit(const Event* event){
 	const MouseEvent* mev = dynamic_cast<const MouseEvent*>(event);
@@ -160,13 +163,13 @@ void registerName(){
 	game->addComponent(highscoreLabel);
 	SDL_Color red = {255, 0, 0};
 	highscoreLabel->setColor(red);
-	highscoreLabel->setFont(Resource::loadFont("FreeUniversal-Bold.ttf"));
+	highscoreLabel->setFont(reshan->getFont("defaultfont16"));
 	
 	nameInput = new Input(300, 200, 10);
 	game->addComponent(nameInput);
 
 	submitListener = new FunctionListener(&submit);
-	submitButton = new Button(300, 220, Resource::loadImage("button.png", false), "Submit", submitListener);
+	submitButton = new Button(300, 220, reshan->getImage("button"), "Submit", submitListener);
 	game->addComponent(submitButton);
 }
 
@@ -189,9 +192,10 @@ void spawnEnemy(int timeSinceLastFrame){
 		game->removeComponent(highscoreLabel);
 		game->removeComponent(nameInput);
 		game->removeComponent(submitButton);
+		reshan->release("defaultfont16");
 		delete submitListener;
 		
-		Highscore scoreboard(game);
+		scoreboard = new Highscore(game);
 		waiting = true;
 		submitting = false;
 	}
@@ -202,9 +206,9 @@ void spawnEnemy(int timeSinceLastFrame){
 			int xpos = (rand() % (screen->getWidth() - 40)) + 20;
 			Enemy* enemy;
 			if(rand()%2 == 0)
-				enemy = new Enemy("squid.png", xpos, -15, speed);
+				enemy = new Enemy("squid", xpos, -15, speed);
 			else
-				enemy = new Enemy("enemy.png", xpos, screen->getHeight(), -1);
+				enemy = new Enemy("enemy", xpos, screen->getHeight(), -1);
 
 			enemy->onCollision(&collisionDeath);
 			game->addSprite(enemy);
@@ -217,6 +221,8 @@ void updateScore(){
 }
 
 void shutdown(const engine::Event* event){
+	if(scoreboard != NULL)
+		delete scoreboard;
 	engine::GameEngine::doQuit();
 }
 

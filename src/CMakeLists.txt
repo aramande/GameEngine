@@ -10,6 +10,7 @@ add_library(gameengine
 	eventhandler.cpp eventhandler.h
 	eventlistener.cpp eventlistener.h
 	fileexception.h
+	font.cpp font.h
 	gameengine.cpp gameengine.h
 	gui.cpp gui.h
 	image.cpp image.h
@@ -17,9 +18,11 @@ add_library(gameengine
 	keyevent.cpp keyevent.h
 	label.cpp label.h
 	logger.cpp logger.h
+	parser.h
 	mouseevent.cpp mouseevent.h
 	rectangle.cpp rectangle.h
 	resource.cpp resource.h
+	resourcehandler.cpp resourcehandler.h
 	sdl.h 
 	sdlerror.h
 	sprite.cpp sprite.h
@@ -27,11 +30,10 @@ add_library(gameengine
 	window.cpp window.h)
 
 set(test_headers
-	${CMAKE_CURRENT_SOURCE_DIR}/eventhandlertest.h
 	${CMAKE_CURRENT_SOURCE_DIR}/guitest.h
 	${CMAKE_CURRENT_SOURCE_DIR}/keyeventtest.h
 	${CMAKE_CURRENT_SOURCE_DIR}/mouseevent.h
-	${CMAKE_CURRENT_SOURCE_DIR}/resourcetest.h
+	${CMAKE_CURRENT_SOURCE_DIR}/resourcehandlertest.h
 	${CMAKE_CURRENT_SOURCE_DIR}/spritetest.h)
 
 add_executable(game

@@ -19,6 +19,7 @@ namespace engine{
 		logger->setToCommand(false);
 		logger->setLogFile("debug.log");
 		logger->print("Initializing gameengine");
+		ResourceHandler::init()->loadResourceFile("enginedefault.res");
 		window = main;
 		action = &dummy;
 		storage = new std::vector<Sprite*>();
@@ -214,6 +215,7 @@ namespace engine{
 	}
 
 	void GameEngine::doQuit(){
+		ResourceHandler::init()->destroy();
 		logger->print("Good bye");
 		quit = true;
 		Window::kill();

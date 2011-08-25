@@ -8,7 +8,7 @@ namespace engine{
 		this->image = img;
 		this->rect = new Rectangle(x, y, image->getWidth(), image->getHeight());	
 		EventHandler::addAction(SDL_BUTTON_LEFT, rect, action);
-		setText(text, Resource::loadFont("FreeUniversal-Bold.ttf", 14));
+		setText(text, ResourceHandler::init()->getFont("defaultfontbold")->getTTF());
 	}
 
 	Button::~Button(){
@@ -17,7 +17,8 @@ namespace engine{
 		textRect = NULL;
 		delete rect;
 		rect = NULL;
-		delete image;
+		ResourceHandler::init()->release("defaultfontbold");
+		image->release();
 		image = NULL;
 		SDL_FreeSurface(textImg);
 		textImg = NULL;

@@ -9,7 +9,7 @@ namespace engine{
 		SDL_EnableUNICODE(SDL_ENABLE); 
 		parser = new ClassListener<Input>(this, &Input::parseInput);
 		EventHandler::addAction(parser);
-		font = Resource::loadFont("FreeUniversal-Regular.ttf", 14);
+		font = ResourceHandler::init()->getFont("defaultfont")->getTTF();
 		SDL_Color temp = {255, 255, 255};
 		color = temp;
 		if(str.length() > 0)
@@ -22,8 +22,8 @@ namespace engine{
 		SDL_FreeSurface(text);
 		SDL_EnableUNICODE(SDL_DISABLE);
 		EventHandler::removeAction(parser);
+		ResourceHandler::init()->release("defaultfont");
 		delete parser;
-		Resource::unloadFont("FreeUniversal-Regular.ttf", 14);
 	}
 
 	void Input::render(){

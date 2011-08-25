@@ -6,8 +6,27 @@
 
 using namespace std;
 namespace engine{
-	Image::Image(string path, string filename, bool alpha, bool pixel){
+	//Image::Image(string path, string filename, bool alpha, bool pixel){
+	Image::Image(string name){
+		setName(name);
+		alpha = false;
+		pixel = false;
+		path = "";
+		filename = "";
+		final = false;
+	}
+
+	Image::~Image(){
+		if(final)
+			SDL_FreeSurface(image);
+	}
+
+	void Image::finalize(){
+		if(final) return;
+		if(filename == "")
+			throw file_exception("Missing filename for image '" + getName() + "'");
 		SDL_Surface* loadedImage = IMG_Load((path+filename).c_str()); 
+		final = true;
 		if(loadedImage != NULL){ 
 			if(alpha)
 				if(pixel){
@@ -24,11 +43,25 @@ namespace engine{
 			SDL_FreeSurface(loadedImage); 
 		}
 		else{
-			throw file_exception("Could not load image: "+filename);
+			throw file_exception("Could not load image: "+path+filename);
 		}
-		this->filename = filename;
+		//this->filename = filename;
 		w = image->clip_rect.w;
 		h = image->clip_rect.h;
+	}
+
+	void Image::setPixel(bool pixel){
+		if(final) return;
+		this->pixel = pixel;
+	}
+	void Image::setAlpha(bool alpha){
+		if(final) return;
+		this->alpha = alpha;
+	}
+	void Image::setFile(std::string path, std::string filename){
+		if(final) return;
+		this->path = path;
+		this->filename = filename;
 	}
 
 	Uint32 Image::getPixel(SDL_Surface* surf, int x, int y) const{
@@ -48,10 +81,6 @@ namespace engine{
 		return pixel;
 	}
 
-	Image::~Image(){
-		SDL_FreeSurface(image);
-	}
-	
 	int Image::getWidth() const{
 		return w;
 	}
@@ -60,9 +89,9 @@ namespace engine{
 		return h;
 	}
 
-	Image* Image::copy() const{
-		return Resource::loadImage(filename, alpha);
-	}
+	//Image* Image::copy() const{
+	//	return Resource::loadImage(filename, alpha);
+	//}
 
 	std::string Image::getFilename() const{
 		return filename;

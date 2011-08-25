@@ -12,7 +12,7 @@ namespace engine{
 		~Frame(){
 			if(image != NULL){
 				logger->printf("Unloading image(%p) from frame", image);
-				Resource::unloadImage(image);
+				image->release();
 				image = NULL;
 				delay = 0.0f;
 			}

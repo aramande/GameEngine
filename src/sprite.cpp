@@ -8,6 +8,7 @@ using namespace std;
 
 namespace engine{
 	Sprite::Sprite(Image* image, int x, int y, int xvel, int yvel){
+		logger->printf("Testing sprite constructor, image is %p", image);
 		this->image = image;
 		rect = new Rectangle(x, y, image->getWidth(), image->getHeight());
 		action = &dummy;
@@ -17,7 +18,7 @@ namespace engine{
 	}
 	Sprite::~Sprite() {
 		logger->print("Destructing a sprite");
-		Resource::unloadImage(image);
+		image->release();
 		image = NULL;
 		action = &dummy;
 		delete rect;

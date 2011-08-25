@@ -6,7 +6,40 @@
 #include "fileexception.h"
 
 namespace engine{
-	std::map<std::string, Image*> Resource::loadedImages = std::map<std::string, Image*>();
+	Resource::Resource() : refCount(0){
+		logger->print("New resource generated");
+	}
+
+	void Resource::operator++(){
+		++refCount;
+	}
+	void Resource::operator--(){
+		if(refCount == 0)
+			throw bad_arg("Resource reference counter out of range, keep your releasing in check.");
+		--refCount;
+		if(refCount == 0)
+			// Unload resource for realz
+			return;
+	}
+
+	bool Resource::release(){
+		logger->printf("Releasing %s, a(n) %s, it now has %d references.", name.c_str(), typeid(*this).name(), refCount-1);
+		--*this;
+		return refCount == 0;
+	}
+	void Resource::setName(std::string name){
+		this->name = name;
+	}
+
+	const std::string& Resource::getName() const{
+		return name;
+	}
+
+	unsigned int Resource::getRefCount(){
+		return refCount;
+	}
+}
+/*	std::map<std::string, Image*> Resource::loadedImages = std::map<std::string, Image*>();
 	std::map<std::string, TTF_Font*> Resource::loadedFonts = std::map<std::string, TTF_Font*>();
 	std::map<std::string, int> Resource::count = std::map<std::string, int>();
 	
@@ -72,4 +105,4 @@ namespace engine{
 			}
 		}
 	}
-}
+}*/

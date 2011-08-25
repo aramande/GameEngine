@@ -20,6 +20,7 @@
 #include "projectile.h"
 #include "rectangle.h"
 #include "resource.h"
+#include "resourcehandler.h"
 #include "sdl.h"
 #include "sdlerror.h"
 #include "sprite.h"

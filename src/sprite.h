@@ -6,6 +6,7 @@
 #include "image.h"
 #include "rectangle.h"
 #include "resource.h"
+#include "resourcehandler.h"
 #include "logger.h"
 
 namespace engine{
